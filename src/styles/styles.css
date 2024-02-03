@@ -168,6 +168,8 @@ tr:nth-child(2n+1):hover{
 
 th{
   background-color: var(--clr-red-500);
+  color: white;
+  font-weight: 200;
   padding-left: .25rem;
   padding-right: .25rem;
 }

@@ -32,7 +32,7 @@ const Navbar = () => {
         <MdOutlineDarkMode className="icon mx-3" />
         {userName === "" ? (
           <Link to="/signin">
-            {"Hello " + userName + ","}
+            {userName === "" ? "" : userName}
             <FiUser className="icon" />
           </Link>
         ) : (

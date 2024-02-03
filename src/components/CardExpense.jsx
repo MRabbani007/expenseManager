@@ -119,11 +119,11 @@ const CardExpense = ({ transaction, index }) => {
             <FiEdit className="icon-sm" onClick={() => setEdit(!edit)} />
           </td>
           <td>{index + 1}</td>
-          <td>{parseDate(transaction.date)}</td>
-          <td>{transaction.category}</td>
+          <td className="hidden lg:block">{parseDate(transaction.date)}</td>
+          <td className="hidden lg:block">{transaction.category}</td>
           <td>{transaction.description}</td>
           <td>{curr + transaction.amount}</td>
-          <td>{transaction.paymethod}</td>
+          <td className="hidden lg:block">{transaction.paymethod}</td>
           <td>
             <RiDeleteBin6Line
               className="icon-sm"

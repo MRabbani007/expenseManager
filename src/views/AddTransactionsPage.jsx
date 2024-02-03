@@ -19,7 +19,9 @@ const AddTransactionsPage = () => {
         <div className="my-3">
           <SectionAddTransaction />
         </div>
-        <SectionViewTransactions />
+        <div className="px-2">
+          <SectionViewTransactions />
+        </div>
       </div>
     </GlobalProvider>
   );

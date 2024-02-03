@@ -16,7 +16,8 @@ export const SERVER = {
   USER_SIGNUP: "/user/signup",
 };
 
-export const SERVER_URL = "http://localhost:3000";
+// export const SERVER_URL = "http://localhost:3000";
+export const SERVER_URL = "https://expensemanagerserver.onrender.com";
 
 export const LOCAL_USER = "expenseManagerUser";
 

@@ -5,11 +5,11 @@ const CardTableHeader = () => {
     <tr>
       <th className="w-[50px]">Edit</th>
       <th className="w-[50px]">SN</th>
-      <th className="w-[100px] shrink-0">Date</th>
-      <th className="w-[200px] shrink-0">Category</th>
+      <th className="w-[100px] shrink-0 hidden lg:block">Date</th>
+      <th className="w-[200px] shrink-0 hidden lg:block">Category</th>
       <th className="w-[200px] shrink-0">Description</th>
       <th className="w-[100px] shrink-0">Amount</th>
-      <th className="w-[150px] shrink-0">Account</th>
+      <th className="w-[150px] shrink-0 hidden lg:block">Account</th>
       <th className="w-[50px]">Delete</th>
     </tr>
   );

@@ -6,7 +6,7 @@ const SectionExpenseDesc = () => {
   const { description, handleDesc } = useContext(GlobalContext);
 
   return (
-    <div className="flex flex-wrap gap-3 w-[500px]">
+    <div className="flex flex-wrap items-center justify-center gap-3 lg:w-[500px] p-3">
       {expenseDesc.map((item, index) => {
         return (
           <div

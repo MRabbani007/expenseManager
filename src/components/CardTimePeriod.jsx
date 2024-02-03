@@ -25,17 +25,24 @@ const CardTimePeriod = () => {
         <option value="quarter">3 Months</option>
         <option value="period">Select Dates</option>
       </select>
-      <div className="flex items-center w-fit mx-auto my-2">
-        <label htmlFor="startDate" className="mx-2">
-          Select Date
-        </label>
-        <input
-          type="date"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => handleStartDate(e.target.value)}
-        />
-        <div className={timePeriod === "period" ? "" : "hidden"}>
+      <div className="flex flex-wrap items-center w-fit mx-auto my-2">
+        <div className="flex items-center">
+          <label htmlFor="startDate" className="mx-2">
+            Select Date
+          </label>
+          <input
+            type="date"
+            name="startDate"
+            value={startDate}
+            onChange={(e) => handleStartDate(e.target.value)}
+          />
+        </div>
+        <div
+          className={
+            (timePeriod === "period" ? "" : "hidden") +
+            " flex items-center my-2"
+          }
+        >
           <span className="mx-2">Select End Date</span>
           <input
             type="date"

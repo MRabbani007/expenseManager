@@ -32,39 +32,41 @@ const SectionAddTransaction = () => {
   };
 
   return (
-    <form action="" onSubmit={handleAdd} className="flex flex-col">
-      <div className="flex items-center">
-        <input
-          type="date"
-          value={transactionDate}
-          onChange={(e) => handleDate(e.target.value)}
-          className=" h-[40px]"
-        />
-        {/* <label htmlFor="amount">Amount</label> */}
-        <CardCurrency />
-        <input
-          type="number"
-          name="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className=" h-[40px]"
-        />
-        <select
-          name="paymethod"
-          id=""
-          value={paymethod}
-          onChange={(e) => setPayMethod(e.target.value)}
-          className="btn btn-red mx-3 h-[40px]"
-        >
-          <option value="Halyk">Halyk</option>
-          <option value="Kaspi">Kaspi</option>
-          <option value="Cash">Cash</option>
-        </select>
-        <button type="submit" className="btn btn-red h-[40px]">
-          Add
-        </button>
+    <form action="" onSubmit={handleAdd} className="">
+      <div className="flex lg:flex-row flex-col items-center">
+        <div className="flex items-center">
+          <input
+            type="date"
+            value={transactionDate}
+            onChange={(e) => handleDate(e.target.value)}
+            className=" h-[40px]"
+          />
+          <select
+            name="paymethod"
+            id=""
+            value={paymethod}
+            onChange={(e) => setPayMethod(e.target.value)}
+            className="btn btn-red mx-3 h-[40px]"
+          >
+            <option value="Halyk">Halyk</option>
+            <option value="Kaspi">Kaspi</option>
+            <option value="Cash">Cash</option>
+          </select>
+        </div>
+        <div className="flex justify-center items-center gap-3 my-3">
+          <CardCurrency />
+          <input
+            type="number"
+            name="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className=" h-[40px]"
+          />
+          <button type="submit" className="btn btn-red h-[40px]">
+            Add
+          </button>
+        </div>
       </div>
-      <div className="flex items-center"></div>
     </form>
   );
 };

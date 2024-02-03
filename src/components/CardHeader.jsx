@@ -10,15 +10,13 @@ const CardHeader = () => {
 
   return (
     <div className="">
-      <h1 className="">
-        {userName === "" ? (
-          <Link to="/signin" className="btn btn-red">
-            Signin
-          </Link>
-        ) : (
-          <span className="">{"Hello, " + userName}</span>
-        )}
-      </h1>
+      {!userName ? (
+        <Link to="/signin" className="btn btn-red">
+          Signin
+        </Link>
+      ) : (
+        <h1 className="">{"Hello, " + userName}</h1>
+      )}
       <p className="btn btn-red my-2">
         {todayDate.day + ", " + todayDate.date + " " + todayDate.month}
       </p>
