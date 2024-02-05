@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <GlobalProvider>
       <Navbar />
-      <div className="pt-[60px] px-2">
+      <div className="pt-[60px] px-2 flex flex-col gap-3">
         <CardHeader />
         <CardIncomeExpense />
       </div>

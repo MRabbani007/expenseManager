@@ -9,6 +9,7 @@ import {
   saveLocal,
 } from "../data/utils";
 import { fetchTransaction } from "../data/serverFunctions";
+import { themes } from "../data/themes";
 
 // Initial state
 const initialState = {
@@ -22,12 +23,14 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   // Store userName
   const [userName, setUserName] = useState("");
+  const [selectedTheme, setSelectedTheme] = useState(themes.red);
   // Store transactions
   const [state, dispatch] = useReducer(appReducer, initialState);
   // Store transaction description
   // Note: Amount handled in Add section
   const [description, setDescription] = useState("taxi");
   const [category, setCategory] = useState("transport");
+  const [paymethod, setPayMethod] = useState("Halyk");
   // Store transaction type
   const [transactionType, setTransactionType] = useState(() => "expense");
   const [currency, setCurrency] = useState(() => "KZT");
@@ -45,6 +48,9 @@ export const GlobalProvider = ({ children }) => {
   const handleCurrency = (value) => {
     setCurrency(value);
   };
+  const handlePayMethod = (value) => {
+    setPayMethod(value);
+  };
   const handleDate = (value) => {
     setTransactionDate(value);
   };
@@ -53,6 +59,23 @@ export const GlobalProvider = ({ children }) => {
   };
   const handleEndDate = (value) => {
     setEndDate(value);
+  };
+  const handleTheme = (value) => {
+    switch (value) {
+      case "red": {
+        setSelectedTheme(themes.red);
+        break;
+      }
+      case "blue": {
+        setSelectedTheme(themes.blue);
+        break;
+      }
+      case "black": {
+        setSelectedTheme(themes.black);
+        break;
+      }
+    }
+    saveLocal("theme", value);
   };
 
   // Actions
@@ -89,10 +112,10 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  async function getTransaction() {
+  async function getTransaction(date1 = startDate, date2 = endDate) {
     let response = await fetchTransaction({
       type: ACTIONS.GET_TRANSACTION,
-      payload: { userName: userName, startDate: startDate, endDate: endDate },
+      payload: { userName: userName, startDate: date1, endDate: date2 },
     });
     if (!response.includes("Error") && Array.isArray(response)) {
       dispatch({ type: ACTIONS.GET_TRANSACTION, payload: response });
@@ -132,20 +155,31 @@ export const GlobalProvider = ({ children }) => {
     if (!!data) {
       setUserName(data);
     }
+    let temp = loadLocal("theme");
+    if (!!temp) {
+      handleTheme(temp);
+    }
   }, []);
+
+  useEffect(() => {
+    getTransaction(transactionDate, transactionDate);
+  }, [transactionDate]);
 
   return (
     <GlobalContext.Provider
       value={{
         userName: userName,
+        selectedTheme: selectedTheme,
         description: description,
         category: category,
+        paymethod: paymethod,
         transactions: state.transactions,
         transactionType: transactionType,
         transactionDate: transactionDate,
         currency: currency,
         startDate: startDate,
         endDate: endDate,
+        handleTheme,
         handleStartDate,
         handleEndDate,
         handleCurrency,
@@ -157,6 +191,7 @@ export const GlobalProvider = ({ children }) => {
         handleDesc,
         handleType,
         handleDate,
+        handlePayMethod,
       }}
     >
       {children}

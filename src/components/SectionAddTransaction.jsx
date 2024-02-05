@@ -1,19 +1,18 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import { getDate } from "../data/utils";
 import CardCurrency from "./CardCurrency";
+import SectionTransactionType from "./SectionTransactionType";
 
 const SectionAddTransaction = () => {
   const [amount, setAmount] = useState(0);
-  const [paymethod, setPayMethod] = useState("Halyk");
 
   const {
     description,
     category,
     transactionType,
     currency,
+    paymethod,
     transactionDate,
-    handleDate,
     addTransaction,
   } = useContext(GlobalContext);
 
@@ -34,27 +33,9 @@ const SectionAddTransaction = () => {
   return (
     <form action="" onSubmit={handleAdd} className="">
       <div className="flex lg:flex-row flex-col items-center">
-        <div className="flex items-center">
-          <input
-            type="date"
-            value={transactionDate}
-            onChange={(e) => handleDate(e.target.value)}
-            className=" h-[40px]"
-          />
-          <select
-            name="paymethod"
-            id=""
-            value={paymethod}
-            onChange={(e) => setPayMethod(e.target.value)}
-            className="btn btn-red mx-3 h-[40px]"
-          >
-            <option value="Halyk">Halyk</option>
-            <option value="Kaspi">Kaspi</option>
-            <option value="Cash">Cash</option>
-          </select>
-        </div>
         <div className="flex justify-center items-center gap-3 my-3">
           <CardCurrency />
+          <SectionTransactionType />
           <input
             type="number"
             name="amount"

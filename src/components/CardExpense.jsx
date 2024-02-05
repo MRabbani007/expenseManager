@@ -38,6 +38,16 @@ const CardExpense = ({ transaction, index }) => {
         transaction.currency === "tenge"
       ) {
         return "T";
+      } else if (
+        transaction.currency === "RUB" ||
+        transaction.currency === "ruble"
+      ) {
+        return "R";
+      } else if (
+        transaction.currency === "EUR" ||
+        transaction.currency === "euro"
+      ) {
+        return "E";
       } else {
         return transaction.currency;
       }
@@ -61,9 +71,6 @@ const CardExpense = ({ transaction, index }) => {
     <tr className={type === "+" ? "text-green-500" : "text-red-500"}>
       {edit ? (
         <>
-          <td>
-            <FiSave className="icon-sm" onClick={() => handleEdit()} />
-          </td>
           <td>{index + 1}</td>
           <td>
             <input
@@ -107,6 +114,7 @@ const CardExpense = ({ transaction, index }) => {
             </select>
           </td>
           <td>
+            <FiSave className="icon-sm" onClick={() => handleEdit()} />
             <IoCloseOutline
               className="icon-sm"
               onClick={() => setEdit(false)}
@@ -115,16 +123,16 @@ const CardExpense = ({ transaction, index }) => {
         </>
       ) : (
         <>
-          <td>
-            <FiEdit className="icon-sm" onClick={() => setEdit(!edit)} />
-          </td>
           <td>{index + 1}</td>
-          <td className="hidden lg:block">{parseDate(transaction.date)}</td>
-          <td className="hidden lg:block">{transaction.category}</td>
+          <td className="hidden lg:table-cell">
+            {parseDate(transaction.date)}
+          </td>
+          <td className="hidden lg:table-cell">{transaction.category}</td>
           <td>{transaction.description}</td>
           <td>{curr + transaction.amount}</td>
-          <td className="hidden lg:block">{transaction.paymethod}</td>
+          <td className="hidden lg:table-cell">{transaction.paymethod}</td>
           <td>
+            <FiEdit className="icon-sm mr-2" onClick={() => setEdit(!edit)} />
             <RiDeleteBin6Line
               className="icon-sm"
               onClick={() => deleteTransaction(transaction.id)}

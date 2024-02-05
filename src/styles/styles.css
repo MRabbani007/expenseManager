@@ -78,7 +78,7 @@ body {
 }
 
 .icon-xl {
-  width: 48px;
+  width: 4rem;
   font-size: 3rem;
   display: inline;
 }
@@ -160,15 +160,13 @@ tr:nth-child(2n+1){
 }
 
 tr:nth-child(2n):hover{
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(180, 180, 180);
 }
 tr:nth-child(2n+1):hover{
   background-color: rgb(180, 180, 180);
 }
 
 th{
-  background-color: var(--clr-red-500);
-  color: white;
   font-weight: 200;
   padding-left: .25rem;
   padding-right: .25rem;
@@ -177,18 +175,4 @@ th{
 td{
   text-align: center;
   align-items: center;
-}
-
-.time-period-list li{
-  width: 200px;
-  background-color: var(--clr-red-400);
-  color: white;
-  padding: .5rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 300ms ease;
-}
-
-.time-period-list li:hover{
-  background-color: var(--clr-red-500);
 }

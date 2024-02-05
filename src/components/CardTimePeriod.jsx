@@ -1,23 +1,43 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { getDate } from "../data/utils";
 
 const CardTimePeriod = () => {
   const [timePeriod, setTimePeriod] = useState("");
-  const { startDate, endDate, handleStartDate, handleEndDate, getTransaction } =
-    useContext(GlobalContext);
+  const {
+    startDate,
+    endDate,
+    selectedTheme,
+    handleStartDate,
+    handleEndDate,
+    getTransaction,
+  } = useContext(GlobalContext);
   const handleTimePeriod = (value) => {
-    if (value === timePeriod) {
-      setTimePeriod("");
-    } else {
-      setTimePeriod(value);
+    setTimePeriod(value);
+  };
+  const handleFirstDate = (value) => {
+    handleStartDate(value);
+    if (timePeriod === "day") {
+      handleEndDate(getDate(0, value));
+    } else if (timePeriod === "week") {
+      handleEndDate(getDate(6, value));
+    } else if (timePeriod === "month") {
+      handleEndDate(getDate(30, value));
+    } else if (timePeriod === "quarter") {
+      handleEndDate(getDate(90, value));
     }
   };
+
   return (
     <div className="">
       <select
         value={timePeriod}
         onChange={(e) => handleTimePeriod(e.target.value)}
-        className="time-period-list flex h-fit w-fit mx-auto btn btn-red"
+        className="flex items-center justify-center min-w-[100px] mx-auto btn btn-red py-2 px-4 cursor-pointer"
+        style={{
+          backgroundColor: selectedTheme.navbar_bg,
+          color: selectedTheme.navbar_text,
+        }}
       >
         <option value="day">Show Day</option>
         <option value="week">1 Week</option>
@@ -34,7 +54,8 @@ const CardTimePeriod = () => {
             type="date"
             name="startDate"
             value={startDate}
-            onChange={(e) => handleStartDate(e.target.value)}
+            onChange={(e) => handleFirstDate(e.target.value)}
+            style={{ border: "1px solid " + selectedTheme.navbar_bg }}
           />
         </div>
         <div
@@ -51,7 +72,14 @@ const CardTimePeriod = () => {
             onChange={(e) => handleEndDate(e.target.value)}
           />
         </div>
-        <button onClick={() => getTransaction()} className="btn btn-red mx-2">
+        <button
+          onClick={() => getTransaction()}
+          className="btn mx-2"
+          style={{
+            backgroundColor: selectedTheme.navbar_bg,
+            color: selectedTheme.navbar_text,
+          }}
+        >
           Submit
         </button>
       </div>

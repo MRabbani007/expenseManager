@@ -12,22 +12,16 @@ const SectionTransactionType = () => {
       <img
         src={IMG_income}
         alt=""
-        className={
-          (transactionType === "income" ? " border-yellow-400" : "") +
-          " border-2 icon-lg"
-        }
-        onClick={() => handleType("income")}
+        className={(transactionType === "income" ? "" : "hidden") + " w-12"}
+        onClick={() => handleType("expense")}
       />
       <img
         src={IMG_expense}
         alt=""
-        className={
-          (transactionType === "expense" ? " border-yellow-400" : "") +
-          " border-2 icon-lg"
-        }
-        onClick={() => handleType("expense")}
+        className={(transactionType === "expense" ? "" : "hidden") + " w-12"}
+        onClick={() => handleType("income")}
       />
-      <img src={IMG_budget} alt="" className="icon-lg" onClick={() => null} />
+      {/* <img src={IMG_budget} alt="" className="icon-lg" onClick={() => null} /> */}
     </div>
   );
 };

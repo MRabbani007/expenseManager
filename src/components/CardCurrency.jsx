@@ -1,61 +1,60 @@
 import React, { useContext, useEffect, useState } from "react";
 // Imported Media
 import IMG_tenge from "../assets/icons/tenge.png";
+import IMG_ruble from "../assets/icons/ruble.png";
 import IMG_dollar from "../assets/icons/dollar.png";
+import IMG_euro from "../assets/icons/euro.png";
+
+import { FaTengeSign } from "react-icons/fa6";
+
 import { GlobalContext } from "../context/GlobalState";
 
 const CardCurrency = () => {
-  const [edit, setEdit] = useState(false);
   const { currency, handleCurrency } = useContext(GlobalContext);
   const [currencyImage, setCurrencyImage] = useState("");
 
   useEffect(() => {
-    switch (currency) {
-      case "dollar": {
-        setCurrencyImage(IMG_dollar);
+    handleSelectCurrency("euro");
+  }, []);
+
+  const handleSelectCurrency = (value) => {
+    switch (value) {
+      case "tenge": {
+        setCurrencyImage(IMG_ruble);
+        handleCurrency("ruble");
         break;
       }
-      case "tenge": {
+      case "ruble": {
+        setCurrencyImage(IMG_dollar);
+        handleCurrency("dollar");
+        break;
+      }
+      case "dollar": {
+        setCurrencyImage(IMG_euro);
+        handleCurrency("euro");
+        break;
+      }
+      case "euro": {
         setCurrencyImage(IMG_tenge);
+        handleCurrency("tenge");
         break;
       }
       default: {
         setCurrencyImage(IMG_tenge);
+        setCurrencyImage(IMG_tenge);
+        handleCurrency("tenge");
       }
     }
-  }, [currency]);
+  };
 
   return (
     <div>
-      {edit ? (
-        <>
-          <img
-            src={IMG_dollar}
-            alt=""
-            className="icon-lg mx-1"
-            onClick={() => {
-              handleCurrency("dollar");
-              setEdit(false);
-            }}
-          />
-          <img
-            src={IMG_tenge}
-            alt=""
-            className="icon-lg mx-1"
-            onClick={() => {
-              handleCurrency("tenge");
-              setEdit(false);
-            }}
-          />
-        </>
-      ) : (
-        <img
-          src={currencyImage}
-          alt=""
-          className="icon-lg mx-1"
-          onClick={() => setEdit(!edit)}
-        />
-      )}
+      <img
+        src={currencyImage}
+        alt=""
+        className="icon-lg mx-1"
+        onClick={() => handleSelectCurrency(currency)}
+      />
     </div>
   );
 };

@@ -8,13 +8,14 @@ import SectionViewTransactions from "../components/SectionViewTransactions";
 import { getDate, loadLocal, saveLocal } from "../data/utils";
 import SectionAddTransaction from "../components/SectionAddTransaction";
 import SectionTransactionType from "../components/SectionTransactionType";
+import CardDatePayMethod from "../components/CardDatePayMethod";
 
 const AddTransactionsPage = () => {
   return (
     <GlobalProvider>
       <Navbar />
       <div className="min-h-screen pt-[60px] flex flex-col items-center">
-        <SectionTransactionType />
+        <CardDatePayMethod />
         <SectionExpenseDesc />
         <div className="my-3">
           <SectionAddTransaction />
