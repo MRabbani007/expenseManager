@@ -4,8 +4,6 @@ import CardCurrency from "./CardCurrency";
 import SectionTransactionType from "./SectionTransactionType";
 
 const SectionAddTransaction = () => {
-  const [amount, setAmount] = useState(0);
-
   const {
     description,
     category,
@@ -16,7 +14,9 @@ const SectionAddTransaction = () => {
     addTransaction,
   } = useContext(GlobalContext);
 
-  const handleAdd = (event) => {
+  const [amount, setAmount] = useState(0);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     addTransaction({
       id: crypto.randomUUID(),
@@ -31,7 +31,7 @@ const SectionAddTransaction = () => {
   };
 
   return (
-    <form action="" onSubmit={handleAdd} className="">
+    <form onSubmit={handleSubmit} className="">
       <div className="flex lg:flex-row flex-col items-center">
         <div className="flex justify-center items-center gap-3 my-3">
           <CardCurrency />

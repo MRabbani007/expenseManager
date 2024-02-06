@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { fetchTransaction } from "../data/serverFunctions";
 import { GlobalContext } from "../context/GlobalState";
 import { ACTIONS, currencyExchange, getMonth } from "../data/utils";
+import { UserContext } from "../context/UserState";
 
 const CardIncomeExpense = () => {
-  const { userName, selectedTheme } = useContext(GlobalContext);
+  const { userName, theme } = useContext(UserContext);
+
   const [transactions, setTransactions] = useState([]);
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
@@ -57,14 +59,14 @@ const CardIncomeExpense = () => {
     <div
       className={`border-red-500 rounded-lg w-[300px] font-mono`}
       style={{
-        boxShadow: "4px 4px 10px 1px" + selectedTheme.shadow,
+        boxShadow: "4px 4px 10px 1px" + theme.shadow,
       }}
     >
       <div
         className="text-red-50 font-normal text-center p-1 rounded-t-lg"
         style={{
-          backgroundColor: selectedTheme.navbar_bg,
-          color: selectedTheme.navbar_text,
+          backgroundColor: theme.navbar_bg,
+          color: theme.navbar_text,
         }}
       >
         February, 2024

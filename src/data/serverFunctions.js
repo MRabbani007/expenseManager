@@ -66,6 +66,24 @@ export const fetchUser = async (action) => {
     axios.defaults.timeout = 5000;
     let response = await axios({ method: "post", url: URL, data: DATA });
     return response.data;
+
+    // await axios.post(
+    //   REGISTER_URL,
+    //   JSON.stringify({ user, pwd }),
+    //   {
+    //     headers: { "Content-Type": "application/json" },
+    //     withCredentials: true,
+    //   }
+    // );
+
+    // const response = await axios.post(
+    //   LOGIN_URL,
+    //   JSON.stringify({ user, pwd }),
+    //   {
+    //     headers: { "Content-Type": "application/json" },
+    //     withCredentials: true,
+    //   }
+    // );
   } catch (error) {
     return "Error: Signin"; //null;
   }

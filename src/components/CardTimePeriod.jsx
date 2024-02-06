@@ -1,17 +1,14 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { getDate } from "../data/utils";
+import { UserContext } from "../context/UserState";
 
 const CardTimePeriod = () => {
+  const { startDate, endDate, handleStartDate, handleEndDate, getTransaction } =
+    useContext(GlobalContext);
+  const { theme } = useContext(UserContext);
+
   const [timePeriod, setTimePeriod] = useState("");
-  const {
-    startDate,
-    endDate,
-    selectedTheme,
-    handleStartDate,
-    handleEndDate,
-    getTransaction,
-  } = useContext(GlobalContext);
   const handleTimePeriod = (value) => {
     setTimePeriod(value);
   };
@@ -35,8 +32,8 @@ const CardTimePeriod = () => {
         onChange={(e) => handleTimePeriod(e.target.value)}
         className="flex items-center justify-center min-w-[100px] mx-auto btn btn-red py-2 px-4 cursor-pointer"
         style={{
-          backgroundColor: selectedTheme.navbar_bg,
-          color: selectedTheme.navbar_text,
+          backgroundColor: theme.navbar_bg,
+          color: theme.navbar_text,
         }}
       >
         <option value="day">Show Day</option>
@@ -55,7 +52,7 @@ const CardTimePeriod = () => {
             name="startDate"
             value={startDate}
             onChange={(e) => handleFirstDate(e.target.value)}
-            style={{ border: "1px solid " + selectedTheme.navbar_bg }}
+            style={{ border: "1px solid " + theme.navbar_bg }}
           />
         </div>
         <div
@@ -76,8 +73,8 @@ const CardTimePeriod = () => {
           onClick={() => getTransaction()}
           className="btn mx-2"
           style={{
-            backgroundColor: selectedTheme.navbar_bg,
-            color: selectedTheme.navbar_text,
+            backgroundColor: theme.navbar_bg,
+            color: theme.navbar_text,
           }}
         >
           Submit

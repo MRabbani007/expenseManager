@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
 import { Link } from "react-router-dom";
 import { genDate } from "../data/utils";
 import CardDay from "./CardDay";
+import { UserContext } from "../context/UserState";
 
 const CardHeader = () => {
-  const { userName } = useContext(GlobalContext);
+  const { userName } = useContext(UserContext);
+
   // Display today date value
   const [todayDate, setTodayDate] = useState(genDate(0));
 

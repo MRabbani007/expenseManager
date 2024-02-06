@@ -5,16 +5,19 @@ import CardHeader from "../components/CardHeader";
 import CardIncomeExpense from "../components/CardIncomeExpense";
 import CardTimePeriod from "../components/CardTimePeriod";
 import SectionViewTransactions from "../components/SectionViewTransactions";
+import { UserProvider } from "../context/UserState";
 
 const ReportPage = () => {
   return (
-    <GlobalProvider>
-      <Navbar />
-      <div className="pt-[60px] px-2">
-        <CardTimePeriod />
-        <SectionViewTransactions />
-      </div>
-    </GlobalProvider>
+    <UserProvider>
+      <GlobalProvider>
+        <Navbar />
+        <div className="pt-[60px] px-2">
+          <CardTimePeriod />
+          <SectionViewTransactions />
+        </div>
+      </GlobalProvider>
+    </UserProvider>
   );
 };
 

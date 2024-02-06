@@ -1,19 +1,20 @@
 import React, { useContext, useState } from "react";
 import { genDate } from "../data/utils";
-import { GlobalContext } from "../context/GlobalState";
+import { UserContext } from "../context/UserState";
 
 const CardDay = () => {
-  const [day, setDay] = useState(() => genDate());
-  const { selectedTheme } = useContext(GlobalContext);
+  const { theme } = useContext(UserContext);
+
+  const [day, setDay] = useState(genDate());
 
   return (
     <div
       className="w-[5rem] rounded-lg inline-block"
-      style={{ border: "1px solid " + selectedTheme.navbar_bg }}
+      style={{ border: "1px solid " + theme.navbar_bg }}
     >
       <div
         className="bg-red-600 text-slate-50 rounded-t-lg text-center"
-        style={{ backgroundColor: selectedTheme.navbar_bg }}
+        style={{ backgroundColor: theme.navbar_bg }}
       >
         {day.day}
       </div>

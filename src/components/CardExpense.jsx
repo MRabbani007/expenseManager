@@ -7,6 +7,7 @@ import { parseDate } from "../data/utils";
 
 const CardExpense = ({ transaction, index }) => {
   const { deleteTransaction, editTransaction } = useContext(GlobalContext);
+
   const [edit, setEdit] = useState(false);
   const [editDate, setEditDate] = useState(parseDate(transaction.date));
   const [editCategory, setEditCategory] = useState(transaction.category);

@@ -8,18 +8,17 @@ import {
   IoSettingsOutline,
 } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
-import { themes } from "../data/themes";
 import CardThemes from "./CardThemes";
+import { UserContext } from "../context/UserState";
 
 const Navbar = () => {
-  const { userName, selectedTheme } = useContext(GlobalContext);
+  const { userName, theme } = useContext(UserContext);
   return (
     <div
       className="fixed flex items-center justify-between top-0 h-[50px] w-full px-5 duration-500"
       style={{
-        backgroundColor: selectedTheme.navbar_bg,
-        color: selectedTheme.navbar_text,
+        backgroundColor: theme.navbar_bg,
+        color: theme.navbar_text,
       }}
     >
       <span>

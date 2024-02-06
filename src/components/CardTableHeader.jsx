@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { UserContext } from "../context/UserState";
 
 const CardTableHeader = () => {
-  const { selectedTheme } = useContext(GlobalContext);
+  const { theme } = useContext(UserContext);
   return (
     <tr
       style={{
-        backgroundColor: selectedTheme.navbar_bg,
-        color: selectedTheme.navbar_text,
+        backgroundColor: theme.navbar_bg,
+        color: theme.navbar_text,
       }}
     >
       <th className="w-[50px]">SN</th>

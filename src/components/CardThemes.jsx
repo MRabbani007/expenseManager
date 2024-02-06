@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
-import { GlobalContext } from "../context/GlobalState";
+import { UserContext } from "../context/UserState";
 
 const CardThemes = () => {
   const [edit, setEdit] = useState(false);
-  const { handleTheme } = useContext(GlobalContext);
+  const { handleTheme } = useContext(UserContext);
 
   return (
     <div className="inline-block">

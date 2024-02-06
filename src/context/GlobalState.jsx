@@ -1,15 +1,15 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { appReducer } from "./AppReducer";
 // Imported Data
-import {
-  ACTIONS,
-  LOCAL_USER,
-  getDate,
-  loadLocal,
-  saveLocal,
-} from "../data/utils";
+import { ACTIONS, getDate, loadLocal, saveLocal } from "../data/utils";
 import { fetchTransaction } from "../data/serverFunctions";
-import { themes } from "../data/themes";
+import { UserContext } from "./UserState";
 
 // Initial state
 const initialState = {
@@ -21,9 +21,7 @@ export const GlobalContext = createContext(initialState);
 
 // Provider component
 export const GlobalProvider = ({ children }) => {
-  // Store userName
-  const [userName, setUserName] = useState("");
-  const [selectedTheme, setSelectedTheme] = useState(themes.red);
+  const { userName } = useContext(UserContext);
   // Store transactions
   const [state, dispatch] = useReducer(appReducer, initialState);
   // Store transaction description
@@ -59,23 +57,6 @@ export const GlobalProvider = ({ children }) => {
   };
   const handleEndDate = (value) => {
     setEndDate(value);
-  };
-  const handleTheme = (value) => {
-    switch (value) {
-      case "red": {
-        setSelectedTheme(themes.red);
-        break;
-      }
-      case "blue": {
-        setSelectedTheme(themes.blue);
-        break;
-      }
-      case "black": {
-        setSelectedTheme(themes.black);
-        break;
-      }
-    }
-    saveLocal("theme", value);
   };
 
   // Actions
@@ -123,6 +104,7 @@ export const GlobalProvider = ({ children }) => {
   }
 
   function loadInitialState() {
+    // TODO: fix load local transactions
     if (true || userName !== "") {
       getTransaction();
     } else {
@@ -151,25 +133,12 @@ export const GlobalProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
-    let data = loadLocal(LOCAL_USER);
-    if (!!data) {
-      setUserName(data);
-    }
-    let temp = loadLocal("theme");
-    if (!!temp) {
-      handleTheme(temp);
-    }
-  }, []);
-
-  useEffect(() => {
     getTransaction(transactionDate, transactionDate);
   }, [transactionDate]);
 
   return (
     <GlobalContext.Provider
       value={{
-        userName: userName,
-        selectedTheme: selectedTheme,
         description: description,
         category: category,
         paymethod: paymethod,
@@ -179,7 +148,6 @@ export const GlobalProvider = ({ children }) => {
         currency: currency,
         startDate: startDate,
         endDate: endDate,
-        handleTheme,
         handleStartDate,
         handleEndDate,
         handleCurrency,

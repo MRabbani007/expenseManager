@@ -6,6 +6,7 @@ import SignupPage from "./views/SignupPage";
 import ReportPage from "./views/ReportPage";
 import AddTransactionsPage from "./views/AddTransactionsPage";
 import "./styles/styles.css";
+import "./styles/appStyles.css";
 import SettingsPage from "./views/SettingsPage";
 
 function App() {
