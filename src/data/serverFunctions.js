@@ -30,10 +30,11 @@ export const fetchTransaction = async (action) => {
       method: "post",
       url: URL,
       data: DATA,
+    }).catch((error) => {
+      console.log("Error: fetch server");
     });
     return response.data;
   } catch (error) {
-    console.log("Fetch Server Error");
     return null; //"Error: Fetch Server"
   }
 };
@@ -66,7 +67,6 @@ export const fetchUser = async (action) => {
     let response = await axios({ method: "post", url: URL, data: DATA });
     return response.data;
   } catch (error) {
-    console.log(error);
     return "Error: Signin"; //null;
   }
 };
