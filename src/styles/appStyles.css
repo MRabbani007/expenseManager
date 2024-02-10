@@ -20,7 +20,7 @@
   padding: 1rem 0.5rem;
 }
 
-section {
+/* section {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
@@ -29,7 +29,7 @@ section {
     justify-content: flex-start;
     padding: 1rem;
     background-color: rgba(0,0,0,0.4);
-}
+} */
 
 form {
     display: flex;
@@ -106,3 +106,11 @@ button {
 .line {
     display: inline-block;
 }
+
+.otpInput {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    text-align: center;
+    font-size: 1.2em;
+  }

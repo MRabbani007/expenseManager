@@ -120,10 +120,12 @@ const SignIn = () => {
           Signin
         </button>
       </form>
-      <p className="">Create account</p>
-      <Link to="/signup" className="btn btn-blue">
-        Signup
-      </Link>
+      <p className="my-2">
+        Create account
+        <Link to="/signup" className="btn btn-blue ml-2">
+          Signup
+        </Link>
+      </p>
     </div>
   );
 };

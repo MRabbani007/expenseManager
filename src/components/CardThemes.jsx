@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
-import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
+// Imported Context
 import { UserContext } from "../context/UserState";
+// Imported Icons
+import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
+import { FaTimes } from "react-icons/fa";
 
 const CardThemes = () => {
   const [edit, setEdit] = useState(false);
@@ -38,6 +41,14 @@ const CardThemes = () => {
             }}
           >
             B
+          </span>
+          <span>
+            <FaTimes
+              className="icon-sm mr-3 text-center"
+              onClick={() => {
+                setEdit(false);
+              }}
+            />
           </span>
         </>
       )}

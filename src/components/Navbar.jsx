@@ -15,7 +15,7 @@ const Navbar = () => {
   const { userName, theme } = useContext(UserContext);
   return (
     <div
-      className="fixed flex items-center justify-between top-0 h-[50px] w-full px-5 duration-500"
+      className="navbar px-5 duration-500 z-50"
       style={{
         backgroundColor: theme.navbar_bg,
         color: theme.navbar_text,

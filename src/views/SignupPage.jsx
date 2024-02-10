@@ -125,7 +125,7 @@ const Signup = () => {
   return (
     <UserProvider>
       <Navbar />
-      <div className="text-slate-950 py-[60px] flex flex-col items-center justify-center min-h-screen">
+      <div className="page-container flex flex-col items-center justify-center text-slate-950">
         {success ? (
           <section>
             <h1>Success!</h1>

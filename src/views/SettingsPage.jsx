@@ -1,21 +1,24 @@
 import React from "react";
+// Imported Context
 import { GlobalProvider } from "../context/GlobalState";
+// Imported Components
 import Navbar from "../components/Navbar";
-// Imported Media
-import IMG_tenge from "../assets/icons/tenge.png";
-import IMG_dollar from "../assets/icons/dollar.png";
-import IMG_euro from "../assets/icons/euro.png";
-import IMG_ruble from "../assets/icons/ruble.png";
+// Imported Icons
 import { FiPlusCircle } from "react-icons/fi";
 import { IoAddCircle } from "react-icons/io5";
 import { UserProvider } from "../context/UserState";
+// Imported Media
+import IMG_tenge from "../assets/currency/tenge.png";
+import IMG_dollar from "../assets/currency/dollar.png";
+import IMG_euro from "../assets/currency/euro.png";
+import IMG_ruble from "../assets/currency/ruble.png";
 
 const SettingsPage = () => {
   return (
     <UserProvider>
       <GlobalProvider>
         <Navbar />
-        <div className="pt-[60px] px-5">
+        <div className="page-container px-5">
           <h1>Settings</h1>
           <section className="border-2 border-slate-400 rounded-lg p-3">
             <h2 className="text-lg mb-1">Currency</h2>

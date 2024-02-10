@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import IMG_expense from "../assets/icons/expense.png";
-import IMG_income from "../assets/icons/income.png";
-import IMG_budget from "../assets/icons/budget.png";
+import IMG_expense from "../assets/expense.png";
+import IMG_income from "../assets/income.png";
+import IMG_budget from "../assets/budget.png";
 import { GlobalContext } from "../context/GlobalState";
 
 const SectionTransactionType = () => {

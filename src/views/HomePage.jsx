@@ -1,32 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-import { GlobalContext, GlobalProvider } from "../context/GlobalState";
+import { GlobalProvider } from "../context/GlobalState";
 import CardHeader from "../components/CardHeader";
 import CardIncomeExpense from "../components/CardIncomeExpense";
-import SectionViewTransactions from "../components/SectionViewTransactions";
-import Slider from "../components/Slider";
 
-import IMG_sleek from "../assets/images/sleek.png";
-import IMG_movies from "../assets/images/moviesWebsite.png";
-import IMG_todoapp from "../assets/images/todoapp.png";
-import IMG_travelApp from "../assets/images/travelApp.png";
 import { UserProvider } from "../context/UserState";
-
-const projects = [IMG_movies, IMG_sleek, IMG_todoapp, IMG_travelApp];
+import CardPayment from "../components/CardPayment";
 
 const HomePage = () => {
   return (
     <UserProvider>
       <GlobalProvider>
         <Navbar />
-        <div className="py-[60px] px-2 flex flex-col gap-3">
+        <div className="page-container px-2 flex flex-col gap-3">
           <CardHeader />
           <CardIncomeExpense />
-          {/* <Slider>
-          {projects.map((item, index) => {
-            return <img src={item} key={index} className="object-fill" />;
-          })}
-        </Slider> */}
+          <CardPayment />
         </div>
       </GlobalProvider>
     </UserProvider>

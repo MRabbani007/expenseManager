@@ -18,6 +18,11 @@ export const UserContext = createContext(initialState);
 export const UserProvider = ({ children }) => {
   // Store userName
   const [user, setUser] = useState(initialState);
+  const [userSelectedDescriptions, setUserSelectedDescriptions] = useState(
+    () => {
+      return loadLocal("descriptions");
+    }
+  );
 
   const handleSignIn = (userName) => {
     setUser((current) => {
@@ -34,21 +39,47 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleTheme = (value) => {
-    switch (value) {
-      case "red": {
-        setSelectedTheme(themes.red);
-        break;
+    setUser((current) => {
+      let temp = current.theme;
+      switch (value) {
+        case "red": {
+          temp = themes.red;
+          break;
+        }
+        case "blue": {
+          temp = themes.blue;
+          break;
+        }
+        case "black": {
+          temp = themes.black;
+          break;
+        }
+        default: {
+        }
       }
-      case "blue": {
-        setSelectedTheme(themes.blue);
-        break;
-      }
-      case "black": {
-        setSelectedTheme(themes.black);
-        break;
-      }
-    }
+      return { ...current, theme: temp };
+    });
+
     saveLocal("theme", value);
+  };
+
+  const handleAddDescription = (description) => {
+    setUserSelectedDescriptions((current) => {
+      let newList = current.filter((item) => item.name !== description.name);
+      return [...newList, description];
+    });
+  };
+
+  const handleRemoveDescription = (description) => {
+    setUserSelectedDescriptions((current) => {
+      let descriptionIndex = current.indexOf(
+        (item) => item.name === description.name
+      );
+      if (descriptionIndex >= 0) {
+        current.slice(descriptionIndex, 1);
+      }
+      return [...current];
+    });
   };
 
   useEffect(() => {
@@ -56,16 +87,27 @@ export const UserProvider = ({ children }) => {
     if (!!data) {
       setUser(data);
     }
+    setUserSelectedDescriptions(() => {
+      let desc = loadLocal("descriptions");
+      return desc;
+    });
   }, []);
-  console.log(user);
+
+  useEffect(() => {
+    saveLocal("descriptions", userSelectedDescriptions);
+  }, [userSelectedDescriptions]);
+
   return (
     <UserContext.Provider
       value={{
         userName: user.userName,
         theme: user.theme,
+        userSelectedDescriptions,
         handleSignIn,
         handleSignOut,
         handleTheme,
+        handleAddDescription,
+        handleRemoveDescription,
       }}
     >
       {children}

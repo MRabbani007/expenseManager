@@ -12,7 +12,7 @@ const ReportPage = () => {
     <UserProvider>
       <GlobalProvider>
         <Navbar />
-        <div className="pt-[60px] px-2">
+        <div className="page-container px-2">
           <CardTimePeriod />
           <SectionViewTransactions />
         </div>

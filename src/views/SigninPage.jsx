@@ -19,7 +19,7 @@ const SigninPage = () => {
     <UserProvider>
       <AuthProvider>
         <Navbar />
-        <div className="text-slate-950 pt-[50px] flex flex-col items-center justify-center min-h-screen">
+        <div className="page-container flex flex-col items-center justify-center text-slate-950">
           {false ? (
             <>
               {/* Header */}

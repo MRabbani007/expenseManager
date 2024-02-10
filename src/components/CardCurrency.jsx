@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 // Imported Media
-import IMG_tenge from "../assets/icons/tenge.png";
-import IMG_ruble from "../assets/icons/ruble.png";
-import IMG_dollar from "../assets/icons/dollar.png";
-import IMG_euro from "../assets/icons/euro.png";
+import IMG_tenge from "../assets/currency/tenge.png";
+import IMG_ruble from "../assets/currency/ruble.png";
+import IMG_dollar from "../assets/currency/dollar.png";
+import IMG_euro from "../assets/currency/euro.png";
 
 import { FaTengeSign } from "react-icons/fa6";
 

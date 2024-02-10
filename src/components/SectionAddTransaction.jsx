@@ -32,21 +32,17 @@ const SectionAddTransaction = () => {
 
   return (
     <form onSubmit={handleSubmit} className="">
-      <div className="flex lg:flex-row flex-col items-center">
-        <div className="flex justify-center items-center gap-3 my-3">
-          <CardCurrency />
-          <SectionTransactionType />
-          <input
-            type="number"
-            name="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className=" h-[40px]"
-          />
-          <button type="submit" className="btn btn-red h-[40px]">
-            Add
-          </button>
-        </div>
+      <div className="flex lg:flex-row flex-col items-center justify-center gap-2 ">
+        <CardCurrency />
+        <SectionTransactionType />
+        <input
+          type="number"
+          name="amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className=""
+        />
+        <button className="btn btn-red m-0">Add</button>
       </div>
     </form>
   );

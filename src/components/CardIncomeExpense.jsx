@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { fetchTransaction } from "../data/serverFunctions";
-import { GlobalContext } from "../context/GlobalState";
-import { ACTIONS, currencyExchange, getMonth } from "../data/utils";
+// Imported Contect
 import { UserContext } from "../context/UserState";
+// Imported Data
+import { fetchTransaction } from "../data/serverFunctions";
+import { ACTIONS, currencyExchange, getMonth } from "../data/utils";
 
 const CardIncomeExpense = () => {
   const { userName, theme } = useContext(UserContext);
@@ -19,16 +20,16 @@ const CardIncomeExpense = () => {
     getTransaction();
   }, [budget, expenses]);
 
-  async function getTransaction() {
+  const getTransaction = async () => {
     let { firstDay, lastDay } = getMonth();
     let response = await fetchTransaction({
       type: ACTIONS.GET_TRANSACTION,
       payload: { userName: userName, startDate: firstDay, endDate: lastDay },
     });
-    if (!response.includes("Error") && Array.isArray(response)) {
+    if (!!response && !response.includes("Error") && Array.isArray(response)) {
       setTransactions(response);
     }
-  }
+  };
 
   const calculateIncome = () => {
     let expenses = 0;
@@ -76,10 +77,12 @@ const CardIncomeExpense = () => {
         {currency + income.toLocaleString()}
       </div>
       <div className="my-5 mx-5 pb-3">
+        {/* Budget */}
         <div className="text-end text-blue-500">
           <span className="font-semibold">Budget:</span>
           {currency + budget.toLocaleString()}
         </div>
+        {/* Progress Bar */}
         <div className="h-fit bg-slate-200 outline-none rounded-xl overflow-hidden">
           <div
             className={
@@ -90,6 +93,7 @@ const CardIncomeExpense = () => {
             {ratio + "%"}
           </div>
         </div>
+        {/* Spending */}
         <div className="text-red-500">
           <span className="font-semibold">Spending:</span>
           {currency + expenses.toLocaleString()}

@@ -5,11 +5,12 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { appReducer } from "./AppReducer";
+// Imported Context
+import { UserContext } from "./UserState";
 // Imported Data
+import { appReducer } from "./AppReducer";
 import { ACTIONS, getDate, loadLocal, saveLocal } from "../data/utils";
 import { fetchTransaction } from "../data/serverFunctions";
-import { UserContext } from "./UserState";
 
 // Initial state
 const initialState = {
@@ -98,7 +99,7 @@ export const GlobalProvider = ({ children }) => {
       type: ACTIONS.GET_TRANSACTION,
       payload: { userName: userName, startDate: date1, endDate: date2 },
     });
-    if (!response.includes("Error") && Array.isArray(response)) {
+    if (!!response && !response.includes("Error") && Array.isArray(response)) {
       dispatch({ type: ACTIONS.GET_TRANSACTION, payload: response });
     }
   }

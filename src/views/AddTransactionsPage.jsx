@@ -13,7 +13,7 @@ const AddTransactionsPage = () => {
     <UserProvider>
       <GlobalProvider>
         <Navbar />
-        <div className="min-h-screen pt-[60px] flex flex-col items-center">
+        <div className="page-container flex flex-col items-center">
           <CardDatePayMethod />
           <SectionExpenseDesc />
           <div className="my-3">
