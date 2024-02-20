@@ -1,80 +1,80 @@
 // Payments
-import IMG_Payment_cash from "../assets/icons/payment_cash.png";
-import IMG_Payment_card from "../assets/icons/payment_card.png";
-import IMG_Payment_coins from "../assets/icons/payment_coins.png";
-import IMG_Payment_expense from "../assets/icons/payment_expense.png";
+import IMG_Payment_cash from "/icons/payment_cash.png";
+import IMG_Payment_card from "/icons/payment_card.png";
+import IMG_Payment_coins from "/icons/payment_coins.png";
+import IMG_Payment_expense from "/icons/payment_expense.png";
 // Home
-import IMG_house_house from "../assets/icons/house_house.png";
-import IMG_house_cleaning from "../assets/icons/house_cleaning.png";
-import IMG_house_construction from "../assets/icons/house_construction.png";
-import IMG_house_decoration from "../assets/icons/house_decoration.png";
-import IMG_house_fridge from "../assets/icons/house_fridge.png";
-import IMG_house_garden from "../assets/icons/house_garden.png";
-import IMG_house_remont from "../assets/icons/house_remont.png";
-import IMG_house_tv from "../assets/icons/house_tv.png";
+import IMG_house_house from "/icons/house_house.png";
+import IMG_house_cleaning from "/icons/house_cleaning.png";
+import IMG_house_construction from "/icons/house_construction.png";
+import IMG_house_decoration from "/icons/house_decoration.png";
+import IMG_house_fridge from "/icons/house_fridge.png";
+import IMG_house_garden from "/icons/house_garden.png";
+import IMG_house_remont from "/icons/house_remont.png";
+import IMG_house_tv from "/icons/house_tv.png";
 // Car
-import IMG_Car_car from "../assets/icons/car_car.png";
-import IMG_Car_fuel from "../assets/icons/car_fuel.png";
+import IMG_Car_car from "/icons/car_car.png";
+import IMG_Car_fuel from "/icons/car_fuel.png";
 // Bills
-import IMG_Bills_mobile from "../assets/icons/bills_mobile.png";
-import IMG_Bills_phone from "../assets/icons/bills_phone.png";
-import IMG_Bills_electricity from "../assets/icons/bills_electricity.png";
-import IMG_Bills_water from "../assets/icons/bills_water.png";
-import IMG_Bills_tv from "../assets/icons/bills_tv.png";
-import IMG_Bills_trash from "../assets/icons/bills_trash.png";
+import IMG_Bills_mobile from "/icons/bills_mobile.png";
+import IMG_Bills_phone from "/icons/bills_phone.png";
+import IMG_Bills_electricity from "/icons/bills_electricity.png";
+import IMG_Bills_water from "/icons/bills_water.png";
+import IMG_Bills_tv from "/icons/bills_tv.png";
+import IMG_Bills_trash from "/icons/bills_trash.png";
 // Family
-import IMG_Family_child from "../assets/icons/family_child.png";
+import IMG_Family_child from "/icons/family_child.png";
 // Education
-import IMG_Education_books from "../assets/icons/education_books.png";
-import IMG_Education_stationary from "../assets/icons/education_stationary.png";
+import IMG_Education_books from "/icons/education_books.png";
+import IMG_Education_stationary from "/icons/education_stationary.png";
 // Office
-import IMG_Office from "../assets/icons/office.png";
-import IMG_Office_printing from "../assets/icons/office_printing.png";
-import IMG_Office_laptop from "../assets/icons/office_laptop.png";
+import IMG_Office from "/icons/office.png";
+import IMG_Office_printing from "/icons/office_printing.png";
+import IMG_Office_laptop from "/icons/office_laptop.png";
 // Shopping
-import IMG_Shopping_general from "../assets/icons/shopping_1.png";
-import IMG_Shopping_clothes from "../assets/icons/shopping_clothes.png";
-import IMG_Shopping_cosmetics from "../assets/icons/shopping_cosmetics.png";
-import IMG_Shopping_electronics from "../assets/icons/shopping_electronics.png";
-import IMG_Shopping_jewelery from "../assets/icons/shopping_jewelery.png";
+import IMG_Shopping_general from "/icons/shopping_1.png";
+import IMG_Shopping_clothes from "/icons/shopping_clothes.png";
+import IMG_Shopping_cosmetics from "/icons/shopping_cosmetics.png";
+import IMG_Shopping_electronics from "/icons/shopping_electronics.png";
+import IMG_Shopping_jewelery from "/icons/shopping_jewelery.png";
 // Medical
-import IMG_Medical_medicine from "../assets/icons/medical_medicine.png";
-import IMG_Medical_doctor from "../assets/icons/medical_doctor.png";
-import IMG_Medical_nursing from "../assets/icons/medical_nursing.png";
-import IMG_Medical_dentist from "../assets/icons/medical_dentist.png";
-import IMG_Medical_hospital from "../assets/icons/medical_hospital.png";
-import IMG_Medical_vet from "../assets/icons/medical_vet.png";
-import IMG_Medical_ambulance from "../assets/icons/medical_ambulance.png";
+import IMG_Medical_medicine from "/icons/medical_medicine.png";
+import IMG_Medical_doctor from "/icons/medical_doctor.png";
+import IMG_Medical_nursing from "/icons/medical_nursing.png";
+import IMG_Medical_dentist from "/icons/medical_dentist.png";
+import IMG_Medical_hospital from "/icons/medical_hospital.png";
+import IMG_Medical_vet from "/icons/medical_vet.png";
+import IMG_Medical_ambulance from "/icons/medical_ambulance.png";
 // Market
-import IMG_Market_market from "../assets/icons/market_market.png";
-import IMG_Market_supermarket from "../assets/icons/market_grocerries.png";
+import IMG_Market_market from "/icons/market_market.png";
+import IMG_Market_supermarket from "/icons/market_grocerries.png";
 // Entertainment
-import IMG_Entertainment_cinema from "../assets/icons/entertainment_cinema.png";
-import IMG_Entertainment_movies from "../assets/icons/entertainment_movies.png";
+import IMG_Entertainment_cinema from "/icons/entertainment_cinema.png";
+import IMG_Entertainment_movies from "/icons/entertainment_movies.png";
 // Subscriptions
-import IMG_Subs_appletv from "../assets/icons/subs_appletv.png";
-import IMG_Subs_music from "../assets/icons/subs_music.png";
-import IMG_Subs_youtube from "../assets/icons/subs_youtube.png";
-import IMG_Subs_netflix from "../assets/icons/subs_netflix.png";
+import IMG_Subs_appletv from "/icons/subs_appletv.png";
+import IMG_Subs_music from "/icons/subs_music.png";
+import IMG_Subs_youtube from "/icons/subs_youtube.png";
+import IMG_Subs_netflix from "/icons/subs_netflix.png";
 // Transport
-import IMG_Transport_bus from "../assets/icons/ticket_bus.png";
-import IMG_Transport_taxi from "../assets/icons/transport_taxi.png";
-import IMG_Transport_bike from "../assets/icons/transport_bike.png";
-import IMG_Transport_scooter from "../assets/icons/transport_scooter.png";
-import IMG_Transport_delivery from "../assets/icons/transport_delivery.png";
+import IMG_Transport_bus from "/icons/ticket_bus.png";
+import IMG_Transport_taxi from "/icons/transport_taxi.png";
+import IMG_Transport_bike from "/icons/transport_bike.png";
+import IMG_Transport_scooter from "/icons/transport_scooter.png";
+import IMG_Transport_delivery from "/icons/transport_delivery.png";
 // Food
-import IMG_Food_restaurant from "../assets/icons/food_restaurant.png";
-import IMG_Food_fruits from "../assets/icons/food_fruits.png";
-import IMG_Food_sweats from "../assets/icons/food_sweats.png";
-import IMG_Food_coffee from "../assets/icons/food_coffee.png";
-import IMG_Food_tea from "../assets/icons/food_tea.png";
-import IMG_Food_food from "../assets/icons/food.png";
+import IMG_Food_restaurant from "/icons/food_restaurant.png";
+import IMG_Food_fruits from "/icons/food_fruits.png";
+import IMG_Food_sweats from "/icons/food_sweats.png";
+import IMG_Food_coffee from "/icons/food_coffee.png";
+import IMG_Food_tea from "/icons/food_tea.png";
+import IMG_Food_food from "/icons/food.png";
 // Cigarrettes
-import IMG_Cigarettes_cigar from "../assets/icons/cigarettes_cigar.png";
-import IMG_Cigarettes_electronics from "../assets/icons/cigarettes_electronic.png";
-import IMG_Cigarettes_iqos from "../assets/icons/cigarettes_iqos.png";
-import IMG_Cigarettes_lighter from "../assets/icons/cigarettes_lighter.png";
-import IMG_Cigarettes_tobaco from "../assets/icons/cigarettes_tobaco.png";
+import IMG_Cigarettes_cigar from "/icons/cigarettes_cigar.png";
+import IMG_Cigarettes_electronics from "/icons/cigarettes_electronic.png";
+import IMG_Cigarettes_iqos from "/icons/cigarettes_iqos.png";
+import IMG_Cigarettes_lighter from "/icons/cigarettes_lighter.png";
+import IMG_Cigarettes_tobaco from "/icons/cigarettes_tobaco.png";
 
 // import IMG_coffee from "../assets/icons/coffee.png";
 // import IMG_supermarket from "../assets/icons/supermarket.png";
@@ -89,9 +89,6 @@ import IMG_Cigarettes_tobaco from "../assets/icons/cigarettes_tobaco.png";
 // import IMG_ticket_bus from "../assets/icons/ticket-bus.png";
 // import IMG_documents from "../assets/icons/documents.png";
 // import IMG_flower from "../assets/icons/flower.png";
-
-import { BsShop } from "react-icons/bs";
-import { SiShopee } from "react-icons/si";
 
 export const expenseDesc_living = [
   {

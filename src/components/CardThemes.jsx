@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 // Imported Context
 import { UserContext } from "../context/UserState";
 // Imported Icons
-import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 import { FaTimes } from "react-icons/fa";
+import { IoColorWandOutline } from "react-icons/io5";
 
 const CardThemes = () => {
   const [edit, setEdit] = useState(false);
@@ -12,7 +12,7 @@ const CardThemes = () => {
   return (
     <div className="inline-block">
       {!edit ? (
-        <MdOutlineDarkMode className="icon" onClick={() => setEdit(true)} />
+        <IoColorWandOutline className="icon" onClick={() => setEdit(true)} />
       ) : (
         <>
           <span

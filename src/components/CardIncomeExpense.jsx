@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 // Imported Contect
 import { UserContext } from "../context/UserState";
 // Imported Data
-import { fetchTransaction } from "../data/serverFunctions";
 import { ACTIONS, SERVER, currencyExchange, getMonth } from "../data/utils";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 const CardIncomeExpense = () => {
+  const { auth } = useAuth();
   const { userName, theme } = useContext(UserContext);
   const axiosPrivate = useAxiosPrivate();
 
@@ -19,17 +20,29 @@ const CardIncomeExpense = () => {
 
   useEffect(() => {
     setRatio((expenses / budget).toFixed(2) * 100);
-    // getTransaction();
   }, [budget, expenses]);
+
+  useEffect(() => {
+    if (auth?.user && auth?.roles) {
+      getTransaction();
+    }
+  }, [auth?.user]);
 
   const getTransaction = async () => {
     let { firstDay, lastDay } = getMonth();
     let response = await axiosPrivate.post(SERVER.GET_TRANSACTION, {
-      type: ACTIONS.GET_TRANSACTION,
-      payload: { userName: userName, startDate: firstDay, endDate: lastDay },
+      roles: auth?.roles,
+      action: {
+        type: ACTIONS.GET_TRANSACTION,
+        payload: {
+          userName: auth?.user,
+          startDate: firstDay,
+          endDate: lastDay,
+        },
+      },
     });
-    if (!!response && !response.includes("Error") && Array.isArray(response)) {
-      setTransactions(response);
+    if (!!response?.data && Array.isArray(response?.data)) {
+      setTransactions(response.data);
     }
   };
 

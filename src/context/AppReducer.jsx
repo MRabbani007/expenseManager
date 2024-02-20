@@ -27,6 +27,7 @@ export const appReducer = (state, action) => {
       };
     }
     case ACTIONS.GET_TRANSACTION: {
+      console.log({ ...state, transactions: action.payload });
       return { ...state, transactions: action.payload };
     }
     case "clear": {

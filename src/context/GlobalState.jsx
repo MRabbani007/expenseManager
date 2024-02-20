@@ -12,6 +12,7 @@ import { appReducer } from "./AppReducer";
 import { ACTIONS, SERVER, getDate, loadLocal, saveLocal } from "../data/utils";
 import AuthContext from "./AuthProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 // Initial state
 const initialState = {
@@ -23,7 +24,7 @@ export const GlobalContext = createContext(initialState);
 
 // Provider component
 export const GlobalProvider = ({ children }) => {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
 
   // Store transactions
@@ -71,10 +72,13 @@ export const GlobalProvider = ({ children }) => {
       payload: transaction,
     });
     let data = await axiosPrivate.post(SERVER.ADD_TRANSACTION, {
-      type: ACTIONS.ADD_TRANSACTION,
-      payload: {
-        transaction: transaction,
-        userName: auth?.user,
+      roles: auth?.roles,
+      action: {
+        type: ACTIONS.ADD_TRANSACTION,
+        payload: {
+          transaction: transaction,
+          userName: auth?.user,
+        },
       },
     });
   }
@@ -85,35 +89,48 @@ export const GlobalProvider = ({ children }) => {
       payload: id,
     });
     let data = await axiosPrivate.post(SERVER.EDIT_TRANSACTION, {
-      type: ACTIONS.REMOVE_TRANSACTION,
-      payload: { userName: auth?.user, transactionId: id },
+      roles: auth?.roles,
+      action: {
+        type: ACTIONS.REMOVE_TRANSACTION,
+        payload: { userName: auth?.user, transactionId: id },
+      },
     });
   }
 
   async function editTransaction(transaction) {
     dispatch({ type: ACTIONS.EDIT_TRANSACTION, payload: transaction });
     let data = await axiosPrivate.post(SERVER.EDIT_TRANSACTION, {
-      type: ACTIONS.EDIT_TRANSACTION,
-      payload: { userName: auth?.user, transaction: transaction },
+      roles: auth?.roles,
+      action: {
+        type: ACTIONS.EDIT_TRANSACTION,
+        payload: { userName: auth?.user, transaction: transaction },
+      },
     });
   }
 
   async function getTransaction(date1 = startDate, date2 = endDate) {
     let response = await axiosPrivate.post(SERVER.GET_TRANSACTION, {
-      type: ACTIONS.GET_TRANSACTION,
-      payload: { userName: auth?.user, startDate: date1, endDate: date2 },
+      roles: auth?.roles,
+      action: {
+        type: ACTIONS.GET_TRANSACTION,
+        payload: { userName: auth?.user, startDate: date1, endDate: date2 },
+      },
     });
-    if (!!response && !response.includes("Error") && Array.isArray(response)) {
-      dispatch({ type: ACTIONS.GET_TRANSACTION, payload: response });
+    if (!!response.data && Array.isArray(response.data)) {
+      dispatch({ type: ACTIONS.GET_TRANSACTION, payload: response.data });
     }
   }
 
   useEffect(() => {
-    // getTransaction();
+    if (auth?.user) {
+      getTransaction();
+    }
   }, [auth?.user]);
 
   useEffect(() => {
-    // getTransaction(transactionDate, transactionDate);
+    if (auth?.user) {
+      getTransaction(transactionDate, transactionDate);
+    }
   }, [transactionDate]);
 
   return (

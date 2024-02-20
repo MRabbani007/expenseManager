@@ -12,10 +12,8 @@ import {
   IoHomeOutline,
   IoSettingsOutline,
 } from "react-icons/io5";
-import { GrUserAdmin } from "react-icons/gr";
 import { RiAdminLine } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
-import { themes } from "../../data/themes";
 
 const Navbar = () => {
   const { auth } = useAuth();
@@ -47,8 +45,6 @@ const Navbar = () => {
         </Link>
       </span>
       <span>
-        {/* <MdOutlineDarkMode className="icon mx-3" /> */}
-        <CardThemes />
         {auth?.user === "" ? (
           <Link to="/login">
             <FiUser className="icon" />
@@ -59,6 +55,7 @@ const Navbar = () => {
             <FiUser className="icon" />
           </Link>
         )}
+        <CardThemes />
       </span>
     </div>
   );
