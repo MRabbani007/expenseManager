@@ -5,9 +5,11 @@ import "./styles/appStyles.css";
 // Imported Context
 import { AuthProvider } from "./context/AuthProvider";
 import { GlobalProvider } from "./context/GlobalState";
+import { UserProvider } from "./context/UserState";
 // Authorization & Nav
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
+import Layout from "./features/layout/Layout";
 // Imported Components
 import HomePage from "./views/HomePage";
 import SigninPage from "./views/SigninPage";
@@ -18,9 +20,6 @@ import SettingsPage from "./views/SettingsPage";
 import ChangePassword from "./views/ChangePassword";
 import AdminPage from "./views/AdminPage";
 import MissingPage from "./views/MissingPage";
-
-import Layout from "./features/layout/Layout";
-import { UserProvider } from "./context/UserState";
 import Unauthorized from "./views/Unauthorized";
 
 const ROLES = {
