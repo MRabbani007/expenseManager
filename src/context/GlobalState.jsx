@@ -9,8 +9,9 @@ import React, {
 import { UserContext } from "./UserState";
 // Imported Data
 import { appReducer } from "./AppReducer";
-import { ACTIONS, getDate, loadLocal, saveLocal } from "../data/utils";
-import { fetchTransaction } from "../data/serverFunctions";
+import { ACTIONS, SERVER, getDate, loadLocal, saveLocal } from "../data/utils";
+import AuthContext from "./AuthProvider";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 // Initial state
 const initialState = {
@@ -22,9 +23,12 @@ export const GlobalContext = createContext(initialState);
 
 // Provider component
 export const GlobalProvider = ({ children }) => {
-  const { userName } = useContext(UserContext);
+  const { auth } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+
   // Store transactions
   const [state, dispatch] = useReducer(appReducer, initialState);
+
   // Store transaction description
   // Note: Amount handled in Add section
   const [description, setDescription] = useState("taxi");
@@ -61,80 +65,55 @@ export const GlobalProvider = ({ children }) => {
   };
 
   // Actions
-  function addTransaction(transaction) {
+  async function addTransaction(transaction) {
     dispatch({
       type: ACTIONS.ADD_TRANSACTION,
       payload: transaction,
     });
-    fetchTransaction({
+    let data = await axiosPrivate.post(SERVER.ADD_TRANSACTION, {
       type: ACTIONS.ADD_TRANSACTION,
       payload: {
         transaction: transaction,
-        userName: userName,
+        userName: auth?.user,
       },
     });
   }
 
-  function deleteTransaction(id) {
+  async function deleteTransaction(id) {
     dispatch({
       type: ACTIONS.REMOVE_TRANSACTION,
       payload: id,
     });
-    fetchTransaction({
+    let data = await axiosPrivate.post(SERVER.EDIT_TRANSACTION, {
       type: ACTIONS.REMOVE_TRANSACTION,
-      payload: { userName: userName, transactionId: id },
+      payload: { userName: auth?.user, transactionId: id },
     });
   }
 
-  function editTransaction(transaction) {
+  async function editTransaction(transaction) {
     dispatch({ type: ACTIONS.EDIT_TRANSACTION, payload: transaction });
-    fetchTransaction({
+    let data = await axiosPrivate.post(SERVER.EDIT_TRANSACTION, {
       type: ACTIONS.EDIT_TRANSACTION,
-      payload: { userName: userName, transaction: transaction },
+      payload: { userName: auth?.user, transaction: transaction },
     });
   }
 
   async function getTransaction(date1 = startDate, date2 = endDate) {
-    let response = await fetchTransaction({
+    let response = await axiosPrivate.post(SERVER.GET_TRANSACTION, {
       type: ACTIONS.GET_TRANSACTION,
-      payload: { userName: userName, startDate: date1, endDate: date2 },
+      payload: { userName: auth?.user, startDate: date1, endDate: date2 },
     });
     if (!!response && !response.includes("Error") && Array.isArray(response)) {
       dispatch({ type: ACTIONS.GET_TRANSACTION, payload: response });
     }
   }
 
-  function loadInitialState() {
-    // TODO: fix load local transactions
-    if (true || userName !== "") {
-      getTransaction();
-    } else {
-      let data = loadLocal("transactions");
-      if (!!data) {
-        if (Array.isArray(data)) {
-          return { transactions: data };
-        } else {
-          return data;
-        }
-      } else {
-        return initialState;
-      }
-    }
-  }
-
-  function deleteAll() {
-    dispatch({ type: "clear" });
-  }
   useEffect(() => {
-    loadInitialState();
-  }, [userName]);
+    // getTransaction();
+  }, [auth?.user]);
 
   useEffect(() => {
-    saveLocal("transactions", state);
-  }, [state]);
-
-  useEffect(() => {
-    getTransaction(transactionDate, transactionDate);
+    // getTransaction(transactionDate, transactionDate);
   }, [transactionDate]);
 
   return (
@@ -156,7 +135,6 @@ export const GlobalProvider = ({ children }) => {
         editTransaction,
         deleteTransaction,
         getTransaction,
-        deleteAll,
         handleDesc,
         handleType,
         handleDate,

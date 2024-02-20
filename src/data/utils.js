@@ -5,6 +5,12 @@ export const ACTIONS = {
   GET_TRANSACTION: "GET_TRANSACTION",
   USER_SIGNIN: "USER_SIGNIN",
   USER_SIGNUP: "USER_SIGNUP",
+  USER_EDIT_NAME: "EDIT_NAME",
+  USER_EDIT_EMAIL: "EDIT_EMAIL",
+  USER_EDIT_THEME: "EDIT_THEME",
+  USER_DESC_GET: "DESC_GET",
+  USER_DESC_ADD: "DESC_ADD",
+  USER_DESC_REMOVE: "DESC_REMOVE",
 };
 
 export const SERVER = {
@@ -12,12 +18,16 @@ export const SERVER = {
   ADD_TRANSACTION: "/transaction/get",
   EDIT_TRANSACTION: "/transaction/get",
   REMOVE_TRANSACTION: "/transaction/get",
-  USER_SIGNIN: "/user/signin",
-  USER_SIGNUP: "/user/signup",
+  USER_SIGNIN: "/user/auth",
+  USER_SIGNUP: "/user/register",
+  GET_USER: "/user/admin",
+  GET_USER_SETTINGS: "/user/settings",
+  USER_EDIT_SETTINGS: "/user/settings",
+  USER_DESCRIPTIONS: "/user/descriptions",
+  USER_PWD: "/user/pwd",
 };
 
-// export const SERVER_URL = "http://localhost:3000";
-export const SERVER_URL = "https://expensemanagerserver.onrender.com";
+export const URL_ICONS = "/icons/";
 
 export const LOCAL_USER = "expenseManagerUser";
 

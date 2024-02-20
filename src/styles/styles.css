@@ -28,7 +28,7 @@
   --clr-brown-dark:#c59c76; 
 
   --clr-red-400: #f87171;
-  --clr-red-500: #ef4444;
+  --clr-red-500: #af0000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -49,6 +49,8 @@ body {
 .page-container {
   padding-top: calc(var(--navbar-height) + 20px);
   padding-bottom: 40px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   min-height: screen;
 }
 
@@ -188,14 +190,14 @@ tr:nth-child(2n+1):hover{
 }
 
 th{
-  font-weight: 200;
-  padding-left: .25rem;
-  padding-right: .25rem;
+  font-weight: 300;
+  padding: .25rem .5rem;
 }
 
 td{
   text-align: center;
   align-items: center;
+  padding: .25rem 1rem;
 }
 
 .payment td{

@@ -376,6 +376,69 @@ export const expenseDesc_transport = [
   },
 ];
 
+export const default_list = [
+  {
+    category: "housing",
+    selected: true,
+    name: "house",
+    image: IMG_house_house,
+  },
+  {
+    category: "market",
+    selected: true,
+    name: "market",
+    image: IMG_Market_market,
+  },
+  {
+    category: "market",
+    selected: true,
+    name: "supermarket",
+    image: IMG_Market_supermarket,
+  },
+  {
+    category: "food",
+    selected: true,
+    name: "food",
+    image: IMG_Food_food,
+  },
+  {
+    category: "food",
+    selected: true,
+    name: "coffee",
+    image: IMG_Food_coffee,
+  },
+  {
+    category: "cigarettes",
+    selected: true,
+    name: "electronic cigarette",
+    image: IMG_Cigarettes_electronics,
+  },
+  {
+    category: "shopping",
+    selected: true,
+    name: "clothes",
+    image: IMG_Shopping_clothes,
+  },
+  {
+    category: "medical",
+    selected: true,
+    name: "medicine",
+    image: IMG_Medical_medicine,
+  },
+  {
+    category: "medical",
+    selected: true,
+    name: "dentist",
+    image: IMG_Medical_dentist,
+  },
+  {
+    category: "transport",
+    selected: true,
+    name: "taxi",
+    image: IMG_Transport_taxi,
+  },
+];
+
 // export const expense = [
 //   { category: "housing", name: "house", image: IMG_house },
 //   { category: "supermarket", name: "market", image: IMG_market },

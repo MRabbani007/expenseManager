@@ -42,7 +42,7 @@ const CardTimePeriod = () => {
         <option value="quarter">3 Months</option>
         <option value="period">Select Dates</option>
       </select>
-      <div className="flex flex-wrap items-center w-fit mx-auto my-2">
+      <div className="flex flex-wrap items-center justify-center my-2">
         <div className="flex items-center">
           <label htmlFor="startDate" className="mx-2">
             Select Date

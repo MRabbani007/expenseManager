@@ -40,12 +40,14 @@ const CardExpenseDesc = ({ item }) => {
           className="icon-sm text-red-600 absolute right-2 bottom-2 bg-slate-200"
           onClick={() => {
             handleRemoveDescription(item);
+            setSelected(false);
           }}
         />
         <FaCheck
           className="icon-sm text-green-600 absolute left-2 bottom-2 bg-slate-200"
           onClick={() => {
             handleAddDescription(item);
+            setSelected(true);
           }}
         />
       </p>

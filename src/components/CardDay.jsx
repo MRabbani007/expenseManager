@@ -9,7 +9,7 @@ const CardDay = () => {
 
   return (
     <div
-      className="w-[5rem] rounded-lg inline-block"
+      className="min-w-[5rem] rounded-lg inline-block"
       style={{ border: "1px solid " + theme.navbar_bg }}
     >
       <div

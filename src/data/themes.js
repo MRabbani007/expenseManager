@@ -1,8 +1,8 @@
 export const themes = {
   red: {
-    navbar_bg: "#ef4444",
+    navbar_bg: "#b30000",
     navbar_text: "white",
-    shadow: "#ef4444",
+    shadow: "#b30000",
   },
   blue: {
     navbar_bg: "#0c4a6e",

@@ -1,18 +1,26 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+// Imported Context
+import { UserContext } from "../../context/UserState";
+// Imported Components
+import CardThemes from "../../components/CardThemes";
+// Imported Icons
 import { FiUser } from "react-icons/fi";
-import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
 import {
   IoAddCircleOutline,
   IoHomeOutline,
   IoSettingsOutline,
 } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import CardThemes from "./CardThemes";
-import { UserContext } from "../context/UserState";
+import { GrUserAdmin } from "react-icons/gr";
+import { RiAdminLine } from "react-icons/ri";
+import useAuth from "../../hooks/useAuth";
+import { themes } from "../../data/themes";
 
 const Navbar = () => {
-  const { userName, theme } = useContext(UserContext);
+  const { auth } = useAuth();
+  const { theme } = useContext(UserContext);
+
   return (
     <div
       className="navbar px-5 duration-500 z-50"
@@ -34,17 +42,20 @@ const Navbar = () => {
         <Link to="/settings">
           <IoSettingsOutline className="icon" />
         </Link>
+        <Link to="/admin">
+          <RiAdminLine className="icon mx-3" />
+        </Link>
       </span>
       <span>
         {/* <MdOutlineDarkMode className="icon mx-3" /> */}
         <CardThemes />
-        {userName === "" ? (
-          <Link to="/signin">
+        {auth?.user === "" ? (
+          <Link to="/login">
             <FiUser className="icon" />
           </Link>
         ) : (
-          <Link to="/signin">
-            {userName === "" ? "" : userName}
+          <Link to="/login">
+            {auth?.user === "" ? "" : auth?.user}
             <FiUser className="icon" />
           </Link>
         )}

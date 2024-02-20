@@ -3,10 +3,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserState";
 // Imported Data
 import { fetchTransaction } from "../data/serverFunctions";
-import { ACTIONS, currencyExchange, getMonth } from "../data/utils";
+import { ACTIONS, SERVER, currencyExchange, getMonth } from "../data/utils";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const CardIncomeExpense = () => {
   const { userName, theme } = useContext(UserContext);
+  const axiosPrivate = useAxiosPrivate();
 
   const [transactions, setTransactions] = useState([]);
   const [income, setIncome] = useState(0);
@@ -17,12 +19,12 @@ const CardIncomeExpense = () => {
 
   useEffect(() => {
     setRatio((expenses / budget).toFixed(2) * 100);
-    getTransaction();
+    // getTransaction();
   }, [budget, expenses]);
 
   const getTransaction = async () => {
     let { firstDay, lastDay } = getMonth();
-    let response = await fetchTransaction({
+    let response = await axiosPrivate.post(SERVER.GET_TRANSACTION, {
       type: ACTIONS.GET_TRANSACTION,
       payload: { userName: userName, startDate: firstDay, endDate: lastDay },
     });
