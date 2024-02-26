@@ -65,6 +65,18 @@ body {
   justify-content: space-between;
 }
 
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .flex-center {
   display: flex;
   flex-direction: row;
@@ -202,4 +214,13 @@ td{
 
 .payment td{
   padding: 0 1rem;
+}
+
+@media screen and (max-width: 574px) {
+  td, th{ padding: 0.25rem .5rem;}
+
+  .page-container {
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
 }

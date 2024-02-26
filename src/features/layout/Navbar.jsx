@@ -27,35 +27,41 @@ const Navbar = () => {
         color: theme.navbar_text,
       }}
     >
+      {/* Left Block */}
       <span>
-        <Link to="/">
-          <IoHomeOutline className="icon mr-3" />
-        </Link>
-        <Link to="/transactions">
-          <TbReportAnalytics className="icon" />
-        </Link>
-        <Link to="/addItems">
-          <IoAddCircleOutline className="icon mx-3" />
-        </Link>
-        <Link to="/settings">
-          <IoSettingsOutline className="icon" />
-        </Link>
-        <Link to="/admin">
-          <RiAdminLine className="icon mx-3" />
-        </Link>
-      </span>
-      <span>
-        {auth?.user === "" ? (
-          <Link to="/login">
-            <FiUser className="icon" />
+        {/* Large Screen */}
+        <span className="hidden sm:inline-block">
+          <Link to="/">
+            <IoHomeOutline className="icon " />
           </Link>
-        ) : (
+          <Link to="/transactions">
+            <TbReportAnalytics className="icon mx-3" />
+          </Link>
+          <Link to="/addItems">
+            <IoAddCircleOutline className="icon" />
+          </Link>
+          <Link to="/admin">
+            <RiAdminLine className="icon mx-3" />
+          </Link>
+        </span>
+        {/* Small Screen */}
+        <span className="sm:hidden inline-block">
           <Link to="/login">
+            <FiUser className="icon mr-3" />
             {auth?.user === "" ? "" : auth?.user}
-            <FiUser className="icon" />
           </Link>
-        )}
+        </span>
+      </span>
+      {/* Right Block */}
+      <span>
+        <Link to="/login" className="hidden sm:inline">
+          {auth?.user === "" ? "" : auth?.user}
+          <FiUser className="icon mr-3" />
+        </Link>
         <CardThemes />
+        <Link to="/settings">
+          <IoSettingsOutline className="icon ml-3" />
+        </Link>
       </span>
     </div>
   );

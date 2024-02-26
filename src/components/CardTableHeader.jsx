@@ -10,13 +10,13 @@ const CardTableHeader = () => {
         color: theme.navbar_text,
       }}
     >
-      <th className="w-[50px]">SN</th>
-      <th className="w-[100px] shrink-0 hidden lg:table-cell">Date</th>
-      <th className="w-[200px] shrink-0 hidden lg:table-cell">Category</th>
-      <th className="w-[200px] shrink-0">Description</th>
-      <th className="w-[100px] shrink-0">Amount</th>
-      <th className="w-[150px] shrink-0 hidden lg:table-cell">Account</th>
-      <th className="w-[50px]">Edit</th>
+      <th className="hidden lg:table-cell">SN</th>
+      <th className=" hidden lg:table-cell">Date</th>
+      <th className=" hidden lg:table-cell">Category</th>
+      <th className="">Description</th>
+      <th className="">Amount</th>
+      <th className=" hidden lg:table-cell">Account</th>
+      <th className="">Edit</th>
     </tr>
   );
 };

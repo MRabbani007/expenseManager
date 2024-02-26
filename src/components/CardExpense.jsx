@@ -72,7 +72,7 @@ const CardExpense = ({ transaction, index }) => {
     <tr className={type === "+" ? "text-green-500" : "text-red-500"}>
       {edit ? (
         <>
-          <td>{index + 1}</td>
+          <td className="hidden lg:table-cell">{index + 1}</td>
           <td>
             <input
               type="date"
@@ -124,7 +124,7 @@ const CardExpense = ({ transaction, index }) => {
         </>
       ) : (
         <>
-          <td>{index + 1}</td>
+          <td className="hidden lg:table-cell">{index + 1}</td>
           <td className="hidden lg:table-cell">
             {parseDate(transaction.date)}
           </td>

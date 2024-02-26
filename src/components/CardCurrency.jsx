@@ -52,7 +52,7 @@ const CardCurrency = () => {
       <img
         src={currencyImage}
         alt=""
-        className="icon-lg mx-1"
+        className="w-12 min-w-12 cursor-pointer"
         onClick={() => handleSelectCurrency(currency)}
       />
     </div>

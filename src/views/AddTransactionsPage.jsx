@@ -6,15 +6,11 @@ import CardDatePayMethod from "../components/CardDatePayMethod";
 
 const AddTransactionsPage = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-3">
       <CardDatePayMethod />
       <SectionExpenseDesc />
-      <div className="my-3">
-        <SectionAddTransaction />
-      </div>
-      <div className="px-2">
-        <SectionViewTransactions />
-      </div>
+      <SectionAddTransaction />
+      <SectionViewTransactions />
     </div>
   );
 };

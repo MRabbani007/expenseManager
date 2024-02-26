@@ -8,20 +8,23 @@ const SectionTransactionType = () => {
   const { transactionType, handleType } = useContext(GlobalContext);
 
   return (
-    <div className="flex items-center justify-center my-3 gap-3">
+    <div className="cursor-pointer">
       <img
         src={IMG_income}
         alt=""
-        className={(transactionType === "income" ? "" : "hidden") + " w-12"}
+        className={
+          (transactionType === "income" ? "" : "hidden") + " w-12 min-w-12"
+        }
         onClick={() => handleType("expense")}
       />
       <img
         src={IMG_expense}
         alt=""
-        className={(transactionType === "expense" ? "" : "hidden") + " w-12"}
+        className={
+          (transactionType === "expense" ? "" : "hidden") + " w-12 min-w-12"
+        }
         onClick={() => handleType("income")}
       />
-      {/* <img src={IMG_budget} alt="" className="icon-lg" onClick={() => null} /> */}
     </div>
   );
 };

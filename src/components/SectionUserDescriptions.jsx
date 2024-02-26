@@ -14,7 +14,7 @@ import Slider from "./Slider";
 
 const SectionUserDescriptions = () => {
   return (
-    <div className="flex justify-center">
+    <div className="">
       <Slider>
         <BlockExpenseDesc
           listTitle={"Living"}

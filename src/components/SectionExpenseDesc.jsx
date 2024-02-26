@@ -12,15 +12,16 @@ const SectionExpenseDesc = () => {
   const [addDesc, setAddDesc] = useState(false);
 
   return (
-    <>
-      <div className="flex flex-wrap items-center justify-center gap-3 lg:w-[80%] p-3">
-        {!addDesc ? (
-          userSelectedDescriptions.map((item, index) => {
+    <div className=" lg:max-w-[80%] w-fit mb-3">
+      <div className="flex items-center">
+        {addDesc ? "Select Descriptions" : "Expense Description"}
+        <CiCircleMore className="icon" onClick={() => setAddDesc(!addDesc)} />
+      </div>
+      {!addDesc ? (
+        <div className="flex flex-wrap items-center justify-center gap-1 p-0 lg:p-3">
+          {userSelectedDescriptions.map((item, index) => {
             return (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-center"
-              >
+              <div key={index} className="">
                 <img
                   key={index}
                   src={item.image}
@@ -32,21 +33,15 @@ const SectionExpenseDesc = () => {
                   }
                   onClick={() => handleDesc(item.name, item.category)}
                 />
-                {/* <span className="font-mono">{item.name}</span> */}
+                {/* <p className="font-mono">{item.name}</p> */}
               </div>
             );
-          })
-        ) : (
-          <SectionUserDescriptions />
-        )}
-      </div>
-      <div className="flex items-center justify-center">
-        <CiCircleMore
-          className="icon-lg mx-auto"
-          onClick={() => setAddDesc(!addDesc)}
-        />
-      </div>
-    </>
+          })}
+        </div>
+      ) : (
+        <SectionUserDescriptions />
+      )}
+    </div>
   );
 };
 
