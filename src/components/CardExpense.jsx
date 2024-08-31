@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { GlobalContext } from "../context/GlobalState";
 import { IoCloseOutline } from "react-icons/io5";
 import { parseDate } from "../data/utils";
 
 const CardExpense = ({ transaction, index }) => {
-  const { deleteTransaction, editTransaction } = useContext(GlobalContext);
+  const deleteTransaction = () => {};
+  const editTransaction = () => {};
 
   const [edit, setEdit] = useState(false);
   const [editDate, setEditDate] = useState(parseDate(transaction.date));

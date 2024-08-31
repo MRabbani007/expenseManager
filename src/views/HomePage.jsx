@@ -4,11 +4,9 @@ import CardPayment from "../components/CardPayment";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col gap-3">
-      <CardHeader />
-      <CardIncomeExpense />
-      <CardPayment />
-    </div>
+    <main>
+      <h1>Home Page</h1>
+    </main>
   );
 };
 

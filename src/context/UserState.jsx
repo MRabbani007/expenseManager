@@ -7,7 +7,6 @@ import {
   saveLocal,
 } from "../data/utils";
 import { themes } from "../data/themes";
-import { default_list } from "../data/templates";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -18,7 +17,7 @@ const initialState = {
   email: "",
   theme: themes.red,
   currency: "",
-  descriptions: default_list,
+  descriptions: [],
 };
 
 // Create context
@@ -73,7 +72,7 @@ export const UserProvider = ({ children }) => {
       });
       const data = response?.data;
       setUser((prev) => {
-        let descriptions = default_list;
+        let descriptions = [];
         let theme = themes.red;
         let currency = "tenge";
         let name = "user";
@@ -81,7 +80,7 @@ export const UserProvider = ({ children }) => {
         if (response?.data?.descriptions?.length !== 0) {
           descriptions = data.descriptions;
         } else {
-          handleAddDescription(default_list);
+          handleAddDescription([]);
         }
         if (response?.data?.theme !== "") {
           theme = parseTheme(data.theme);

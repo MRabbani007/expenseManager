@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalState";
 import { FaBars } from "react-icons/fa6";
 import {
   IoAddCircleOutline,
@@ -15,7 +14,6 @@ import { RiAdminLine } from "react-icons/ri";
 import { UserContext } from "../../context/UserState";
 
 const BottomMenu = () => {
-  const {} = useContext(GlobalContext);
   const { theme } = useContext(UserContext);
 
   return (

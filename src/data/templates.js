@@ -4,33 +4,14 @@ import IMG_Payment_card from "/icons/payment_card.png";
 import IMG_Payment_coins from "/icons/payment_coins.png";
 import IMG_Payment_expense from "/icons/payment_expense.png";
 // Home
-import IMG_house_house from "/icons/house_house.png";
-import IMG_house_cleaning from "/icons/house_cleaning.png";
-import IMG_house_construction from "/icons/house_construction.png";
-import IMG_house_decoration from "/icons/house_decoration.png";
-import IMG_house_fridge from "/icons/house_fridge.png";
-import IMG_house_garden from "/icons/house_garden.png";
-import IMG_house_remont from "/icons/house_remont.png";
-import IMG_house_tv from "/icons/house_tv.png";
 // Car
-import IMG_Car_car from "/icons/car_car.png";
-import IMG_Car_fuel from "/icons/car_fuel.png";
 // Bills
-import IMG_Bills_mobile from "/icons/bills_mobile.png";
-import IMG_Bills_phone from "/icons/bills_phone.png";
-import IMG_Bills_electricity from "/icons/bills_electricity.png";
-import IMG_Bills_water from "/icons/bills_water.png";
-import IMG_Bills_tv from "/icons/bills_tv.png";
-import IMG_Bills_trash from "/icons/bills_trash.png";
 // Family
 import IMG_Family_child from "/icons/family_child.png";
 // Education
 import IMG_Education_books from "/icons/education_books.png";
 import IMG_Education_stationary from "/icons/education_stationary.png";
 // Office
-import IMG_Office from "/icons/office.png";
-import IMG_Office_printing from "/icons/office_printing.png";
-import IMG_Office_laptop from "/icons/office_laptop.png";
 // Shopping
 import IMG_Shopping_general from "/icons/shopping_1.png";
 import IMG_Shopping_clothes from "/icons/shopping_clothes.png";
@@ -90,82 +71,82 @@ import IMG_Cigarettes_tobaco from "/icons/cigarettes_tobaco.png";
 // import IMG_documents from "../assets/icons/documents.png";
 // import IMG_flower from "../assets/icons/flower.png";
 
-export const expenseDesc_living = [
-  {
-    category: "housing",
-    selected: true,
-    name: "house",
-    image: IMG_house_house,
-  },
-  {
-    category: "housing",
-    selected: true,
-    name: "build",
-    image: IMG_house_construction,
-  },
-  {
-    category: "housing",
-    selected: true,
-    name: "remont",
-    image: IMG_house_remont,
-  },
-  {
-    category: "housing",
-    selected: true,
-    name: "cleaning",
-    image: IMG_house_cleaning,
-  },
-  {
-    category: "housing",
-    selected: true,
-    name: "decoration",
-    image: IMG_house_decoration,
-  },
-  {
-    category: "housing",
-    selected: true,
-    name: "garden",
-    image: IMG_house_garden,
-  },
-  { category: "housing", selected: true, name: "tv", image: IMG_house_tv },
-  {
-    category: "housing",
-    selected: true,
-    name: "fridge",
-    image: IMG_house_fridge,
-  },
-  { category: "car", selected: true, name: "car", image: IMG_Car_car },
-  { category: "car", selected: true, name: "fuel", image: IMG_Car_fuel },
-  {
-    category: "bills",
-    selected: true,
-    name: "electricity",
-    image: IMG_Bills_electricity,
-  },
-  { category: "bills", selected: true, name: "water", image: IMG_Bills_water },
-  { category: "bills", selected: true, name: "phone", image: IMG_Bills_phone },
-  {
-    category: "bills",
-    selected: true,
-    name: "mobile",
-    image: IMG_Bills_mobile,
-  },
-  { category: "bills", selected: true, name: "satelite", image: IMG_Bills_tv },
-  { category: "bills", selected: true, name: "trash", image: IMG_Bills_trash },
-  { category: "office", selected: true, name: "office", image: IMG_Office },
-  {
-    category: "office",
-    selected: true,
-    name: "laptop",
-    image: IMG_Office_laptop,
-  },
-  {
-    category: "office",
-    selected: true,
-    name: "printing",
-    image: IMG_Office_printing,
-  },
-];
+// export const expenseDesc_living = [
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "house",
+//     image: IMG_house_house,
+//   },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "build",
+//     image: IMG_house_construction,
+//   },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "remont",
+//     image: IMG_house_remont,
+//   },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "cleaning",
+//     image: IMG_house_cleaning,
+//   },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "decoration",
+//     image: IMG_house_decoration,
+//   },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "garden",
+//     image: IMG_house_garden,
+//   },
+//   { category: "housing", selected: true, name: "tv", image: IMG_house_tv },
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "fridge",
+//     image: IMG_house_fridge,
+//   },
+//   { category: "car", selected: true, name: "car", image: IMG_Car_car },
+//   { category: "car", selected: true, name: "fuel", image: IMG_Car_fuel },
+//   {
+//     category: "bills",
+//     selected: true,
+//     name: "electricity",
+//     image: IMG_Bills_electricity,
+//   },
+//   { category: "bills", selected: true, name: "water", image: IMG_Bills_water },
+//   { category: "bills", selected: true, name: "phone", image: IMG_Bills_phone },
+//   {
+//     category: "bills",
+//     selected: true,
+//     name: "mobile",
+//     image: IMG_Bills_mobile,
+//   },
+//   { category: "bills", selected: true, name: "satelite", image: IMG_Bills_tv },
+//   { category: "bills", selected: true, name: "trash", image: IMG_Bills_trash },
+//   { category: "office", selected: true, name: "office", image: IMG_Office },
+//   {
+//     category: "office",
+//     selected: true,
+//     name: "laptop",
+//     image: IMG_Office_laptop,
+//   },
+//   {
+//     category: "office",
+//     selected: true,
+//     name: "printing",
+//     image: IMG_Office_printing,
+//   },
+// ];
 
 export const expenseDesc_food = [
   {
@@ -373,68 +354,68 @@ export const expenseDesc_transport = [
   },
 ];
 
-export const default_list = [
-  {
-    category: "housing",
-    selected: true,
-    name: "house",
-    image: IMG_house_house,
-  },
-  {
-    category: "market",
-    selected: true,
-    name: "market",
-    image: IMG_Market_market,
-  },
-  {
-    category: "market",
-    selected: true,
-    name: "supermarket",
-    image: IMG_Market_supermarket,
-  },
-  {
-    category: "food",
-    selected: true,
-    name: "food",
-    image: IMG_Food_food,
-  },
-  {
-    category: "food",
-    selected: true,
-    name: "coffee",
-    image: IMG_Food_coffee,
-  },
-  {
-    category: "cigarettes",
-    selected: true,
-    name: "electronic cigarette",
-    image: IMG_Cigarettes_electronics,
-  },
-  {
-    category: "shopping",
-    selected: true,
-    name: "clothes",
-    image: IMG_Shopping_clothes,
-  },
-  {
-    category: "medical",
-    selected: true,
-    name: "medicine",
-    image: IMG_Medical_medicine,
-  },
-  {
-    category: "medical",
-    selected: true,
-    name: "dentist",
-    image: IMG_Medical_dentist,
-  },
-  {
-    category: "transport",
-    selected: true,
-    name: "taxi",
-    image: IMG_Transport_taxi,
-  },
-];
+// export const default_list = [
+//   {
+//     category: "housing",
+//     selected: true,
+//     name: "house",
+//     image: IMG_house_house,
+//   },
+//   {
+//     category: "market",
+//     selected: true,
+//     name: "market",
+//     image: IMG_Market_market,
+//   },
+//   {
+//     category: "market",
+//     selected: true,
+//     name: "supermarket",
+//     image: IMG_Market_supermarket,
+//   },
+//   {
+//     category: "food",
+//     selected: true,
+//     name: "food",
+//     image: IMG_Food_food,
+//   },
+//   {
+//     category: "food",
+//     selected: true,
+//     name: "coffee",
+//     image: IMG_Food_coffee,
+//   },
+//   {
+//     category: "cigarettes",
+//     selected: true,
+//     name: "electronic cigarette",
+//     image: IMG_Cigarettes_electronics,
+//   },
+//   {
+//     category: "shopping",
+//     selected: true,
+//     name: "clothes",
+//     image: IMG_Shopping_clothes,
+//   },
+//   {
+//     category: "medical",
+//     selected: true,
+//     name: "medicine",
+//     image: IMG_Medical_medicine,
+//   },
+//   {
+//     category: "medical",
+//     selected: true,
+//     name: "dentist",
+//     image: IMG_Medical_dentist,
+//   },
+//   {
+//     category: "transport",
+//     selected: true,
+//     name: "taxi",
+//     image: IMG_Transport_taxi,
+//   },
+// ];
 
 // export const expense = [
 //   { category: "housing", name: "house", image: IMG_house },

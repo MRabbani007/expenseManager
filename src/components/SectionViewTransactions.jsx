@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 // Imported Components
-import { GlobalContext } from "../context/GlobalState";
 import CardTableHeader from "./CardTableHeader";
 import CardExpense from "./CardExpense";
 
 const SectionViewTransactions = () => {
-  const { transactions } = useContext(GlobalContext);
+  const transactions = [];
 
   return (
-    <table className="mx-auto">
+    <table className="flex-1">
       <thead>
         <CardTableHeader />
       </thead>

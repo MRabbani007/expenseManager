@@ -1,11 +1,16 @@
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
 import { getDate } from "../data/utils";
 import { UserContext } from "../context/UserState";
 
 const CardTimePeriod = () => {
-  const { startDate, endDate, handleStartDate, handleEndDate, getTransaction } =
-    useContext(GlobalContext);
+  const {
+    startDate,
+    endDate,
+    handleStartDate,
+    handleEndDate,
+    getTransaction,
+  } = () => {};
+
   const { theme } = useContext(UserContext);
 
   const [timePeriod, setTimePeriod] = useState("");
