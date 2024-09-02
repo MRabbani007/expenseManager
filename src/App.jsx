@@ -11,7 +11,7 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
 
-import SignInPage from "./views/auth/SigninPage";
+import SignInPage from "./views/auth/SignInPage";
 import SignOutPage from "./views/auth/SignOutPage";
 // Content
 import AddTransactionsPage from "./views/user/AddTransactionsPage";
@@ -21,6 +21,11 @@ import CalendarPage from "./views/user/CalendarPage";
 import CardsPage from "./views/user/CardsPage";
 import ProfilePage from "./views/user/ProfilePage";
 import SettingsPage from "./views/SettingsPage";
+// Admin
+import AdminDashboard from "./views/admin/AdminDashboard";
+import AdminCategories from "./views/admin/AdminCategories";
+import AdminDescriptions from "./views/admin/AdminDescriptions";
+import AdminUsers from "./views/admin/AdminUsers";
 
 // Imported Components
 import HomePage from "./views/HomePage";
@@ -67,8 +72,14 @@ function App() {
                 </Route>
 
                 {/* Admin page available to admin */}
-                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-                  <Route path="admin" element={<AdminPage />} />
+                <Route
+                  path="admin"
+                  element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                >
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="categories" element={<AdminCategories />} />
+                  <Route path="descriptions" element={<AdminDescriptions />} />
+                  <Route path="users" element={<AdminUsers />} />
                 </Route>
               </Route>
               {/* catch all */}

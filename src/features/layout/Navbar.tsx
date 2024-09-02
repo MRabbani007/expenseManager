@@ -4,6 +4,12 @@ import { selectAuth } from "../auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { Bell, UserRound } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const auth = useAppSelector(selectAuth);
@@ -30,10 +36,18 @@ export default function Navbar() {
             <Button variant="ghost" className="py-0 px-2">
               <Bell size={30} />
             </Button>
-            <Button variant="ghost" className="py-0 px-2">
-              {/* {auth?.username} */}
-              <UserRound size={30} />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <UserRound size={30} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem>
+                  <Link to={"/admin"}>Admin</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         ) : (
           <Link to="/login" className="hidden sm:flex items-center">

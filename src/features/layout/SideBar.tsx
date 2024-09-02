@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/app/hooks";
 import {
   CalendarDays,
   ClipboardMinus,
@@ -8,6 +9,7 @@ import {
   Settings,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { selectAuth } from "../auth/authSlice";
 
 const SIDEBAR = [
   {
@@ -39,14 +41,25 @@ const SIDEBAR = [
   },
 ];
 
+const SIDEBAR_ADMIN = [
+  { label: "Categories", url: "/admin/categories", icon: null },
+  { label: "Descriptions", url: "/admin/descriptions", icon: null },
+  { label: "Users", url: "/admin/users", icon: null },
+];
+
 export default function SideBar() {
   const location = useLocation();
 
+  const auth = useAppSelector(selectAuth);
+
   const isActive = (page: string) => location.pathname.includes(page);
+
+  const isAdmin = auth?.roles ? auth?.roles.includes(5150) : false;
+  const onAdminPage = location.pathname.includes("admin");
 
   return (
     <div className="flex flex-col p-4 border-r-2 border-r-zinc-400 lg:w-[12%]">
-      {SIDEBAR.map((item, idx) => (
+      {(isAdmin && onAdminPage ? SIDEBAR_ADMIN : SIDEBAR).map((item, idx) => (
         <Link
           to={item?.url}
           key={idx}
