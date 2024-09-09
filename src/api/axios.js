@@ -5,12 +5,18 @@ let BASE_URL = "https://expensemanagerserver.onrender.com";
 
 export default axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    // "Access-Control-Allow-Origin": "http://localhost:5173",
+  },
   withCredentials: true,
 });
 
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  // headers: {
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "http://localhost:5173",
+  // },
   withCredentials: true,
 });

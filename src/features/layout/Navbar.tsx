@@ -15,9 +15,9 @@ export default function Navbar() {
   const auth = useAppSelector(selectAuth);
 
   return (
-    <nav className="flex items-stretch justify-between gap-4 duration-500 z-50 border-b-2 border-zinc-400">
+    <nav className="flex items-stretch justify-between gap-4 duration-500 z-50 mx-2 mt-2 rounded-lg bg-stone-200">
       {/* Left Block */}
-      <div className="hidden sm:flex items-center justify-center gap-4 border-r-[1px] border-zinc-300 w-[12%]">
+      <div className="flex items-center justify-center gap-4 p-2">
         <Link to="/" className="flex items-center gap-2">
           <GiTakeMyMoney size={30} />
           <span className="font-mono font-bold">Wallet</span>
@@ -30,7 +30,7 @@ export default function Navbar() {
         </Link> */}
       </div>
       {/* Right Block */}
-      <div className="flex items-center gap-2 p-4">
+      <div className="flex items-center gap-2 p-2">
         {auth?.username ? (
           <>
             <Button variant="ghost" className="py-0 px-2">
@@ -43,8 +43,11 @@ export default function Navbar() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to={"/admin"}>Admin</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to={"/logout"}>SignOut</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

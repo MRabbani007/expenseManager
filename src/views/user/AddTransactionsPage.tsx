@@ -23,7 +23,7 @@ const AddTransactionsPage = () => {
   const [transaction, setTransaction] = useState(initialState);
 
   return (
-    <main className="flex flex-col gap-4 p-4 md:p-6 lg:p-8">
+    <main className="flex flex-col gap-4 p-4">
       <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
         <ClipboardPlus size={30} />
         <h1 className="font-bold text-2xl">Add Transactions</h1>

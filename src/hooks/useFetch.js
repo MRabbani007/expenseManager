@@ -1,6 +1,5 @@
 import { useReducer, useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
-import axios from "axios";
 
 const ACTIONS = {
   API_REQUEST: "api-request",

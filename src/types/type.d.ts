@@ -14,17 +14,29 @@ export type Transaction = {
   updatedAt?: string | null;
 };
 
+export type Category = {
+  id?: string;
+  label: string;
+  value: string;
+  detail?: string;
+  icon: string;
+  sortIndex?: Number;
+  group?: string;
+  groupNo?: Number;
+};
+
 export type Description = {
   id?: string;
   userId?: string;
 
   group?: string;
   category: string;
-  selected?: boolean;
+  categoryID?: string;
+  isSelected?: boolean;
 
   label: string;
   value: string;
-  image?: string;
+  icon?: string;
 };
 
 export type TimePeriod = {

@@ -4,6 +4,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { selectAuth, setCredentials } from "./authSlice";
 import { useRefreshMutation } from "./authApiSlice";
+import { FaSpinner } from "react-icons/fa";
 
 export default function PersistLogin() {
   const auth = useAppSelector(selectAuth);
@@ -50,6 +51,17 @@ export default function PersistLogin() {
   }, [isLoading]);
 
   return (
-    <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
+    <>
+      {!persist ? (
+        <Outlet />
+      ) : isLoading ? (
+        <main className="items-center justify-center">
+          <p>Connecting to server</p>
+          <FaSpinner size={30} className="animate-spin" />
+        </main>
+      ) : (
+        <Outlet />
+      )}
+    </>
   );
 }

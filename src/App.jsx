@@ -13,6 +13,7 @@ import Layout from "./features/layout/Layout";
 
 import SignInPage from "./views/auth/SignInPage";
 import SignOutPage from "./views/auth/SignOutPage";
+import SignupPage from "./views/auth/SignupPage";
 // Content
 import AddTransactionsPage from "./views/user/AddTransactionsPage";
 import ReportPage from "./views/user/ReportPage";
@@ -29,7 +30,6 @@ import AdminUsers from "./views/admin/AdminUsers";
 
 // Imported Components
 import HomePage from "./views/HomePage";
-import SignupPage from "./views/SignupPage";
 import ChangePassword from "./views/ChangePassword";
 import AdminPage from "./views/AdminPage";
 import MissingPage from "./views/MissingPage";

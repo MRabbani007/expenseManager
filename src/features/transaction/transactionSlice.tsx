@@ -26,7 +26,6 @@ const transactionSlice = createSlice({
 
 export const { setTransaction, clearTransaction } = transactionSlice.actions;
 
-export const selectTransaction = (state: RootState): Transaction =>
-  state?.transaction;
+export const selectTransaction = (state: RootState) => state?.transaction;
 
 export default transactionSlice.reducer;

@@ -6,6 +6,7 @@ import { selectAuth, setCredentials } from "@/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export default function SignInPage() {
   const dispatch = useAppDispatch();
@@ -61,7 +62,6 @@ export default function SignInPage() {
         setSuccess(true);
 
         navigate(from, { replace: true });
-        navigate("/");
       } else {
         if (response?.error) {
           setErrMsg("No Server Response");
@@ -87,9 +87,9 @@ export default function SignInPage() {
   };
 
   return (
-    <main className="flex items-center justify-center p-4 md:p-6 lg:p-8">
+    <main className="flex items-center justify-center p-4 md:p-6 lg:p-8 bg-stone-200">
       <form
-        className="flex flex-col gap-4 p-8 w-full max-w-[400px] border-2 border-red-500"
+        className="flex flex-col gap-4 p-8 w-full max-w-[400px] bg-white rounded-xl shadow-lg shadow-stone-800"
         onSubmit={handleSubmit}
       >
         <FaRegUserCircle size={60} className="mx-auto" />
@@ -102,9 +102,6 @@ export default function SignInPage() {
           {errMsg}
         </p>
         <div className="">
-          {/* <Label htmlFor="username" className="my-2">
-            Username
-          </Label> */}
           <Input
             type="text"
             id="username"
@@ -129,26 +126,24 @@ export default function SignInPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="persistCheck">
-          <input
+        <div className="flex items-center gap-2">
+          <Input
             type="checkbox"
             id="persist"
             onChange={() => setCheck((curr) => !curr)}
             checked={check}
+            className="size-4"
           />
-          <label htmlFor="persist" className="ml-2">
-            Trust This Device
-          </label>
+          <Label htmlFor="persist">Trust This Device</Label>
         </div>
         <Button type="submit" className="w-fit mx-auto">
-          Signin
+          Sign In
         </Button>
-
-        <p className="my-2 mx-3">
+        <p className="space-x-2">
           Don't have an account?
-          <Link to="/register" className="btn btn-blue ml-2">
-            Signup
-          </Link>
+          <Button asChild variant="link">
+            <Link to="/register">Signup</Link>
+          </Button>
         </p>
       </form>
     </main>

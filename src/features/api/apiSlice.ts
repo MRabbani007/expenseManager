@@ -2,19 +2,23 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AuthState, setCredentials, clearCredentials } from "../auth/authSlice";
 import { store } from "@/app/store";
 
-let API_URL = "https://linguistserver.onrender.com";
-API_URL = "http://localhost:3000";
+let BASE_URL = "https://expensemanagerserver.onrender.com";
+// BASE_URL = "http://localhost:3000";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: API_URL,
+  baseUrl: BASE_URL,
   credentials: "include",
-  // prepareHeaders: (headers) => {
-  //   const token = store.getState().auth.token;
-  //   if (token) {
-  //     headers.set("authorization", `Bearer ${token}`);
-  //   }
-  //   return headers;
-  // },
+  prepareHeaders: (headers) => {
+    const token = store.getState().auth.token;
+
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
+
+    // headers.set("Content-Type", "application/json");
+
+    return headers;
+  },
 });
 
 const baseQuerywithReauth = async (args: any, api: any, extraOptions: any) => {
@@ -49,5 +53,5 @@ export const apiSlice = createApi({
   baseQuery: baseQuerywithReauth,
   //fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
   tagTypes: [],
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });

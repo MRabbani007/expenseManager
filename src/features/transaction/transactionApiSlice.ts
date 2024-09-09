@@ -11,7 +11,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTransactions: builder.query({
       query: (params) => ({
-        url: "/transaction/user",
+        url: "/transaction/user/",
         method: "GET",
         headers: {
           Authorization: `Bearer ${store.getState()?.auth?.token}`,

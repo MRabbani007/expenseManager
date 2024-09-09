@@ -19,11 +19,11 @@ export default function SignOutPage() {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    if (!auth?.username) {
-      navigate("/login");
-    }
-  }, [auth]);
+  // useEffect(() => {
+  //   if (!auth?.username) {
+  //     navigate("/login");
+  //   }
+  // }, [auth]);
 
   return (
     <main>
