@@ -1,19 +1,19 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/features/auth/authApiSlice";
 import { selectAuth, setCredentials } from "@/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { GiTakeMyMoney } from "react-icons/gi";
 
 export default function SignInPage() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || "/";
 
   const [login] = useLoginMutation();
   const auth = useAppSelector(selectAuth);
@@ -45,7 +45,7 @@ export default function SignInPage() {
     if (auth?.username) {
       navigate("/logout");
     }
-  }, [auth]);
+  }, []);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -61,7 +61,7 @@ export default function SignInPage() {
         setPassword("");
         setSuccess(true);
 
-        navigate(from, { replace: true });
+        navigate("/dashboard", { replace: true });
       } else {
         if (response?.error) {
           setErrMsg("No Server Response");
@@ -87,13 +87,15 @@ export default function SignInPage() {
   };
 
   return (
-    <main className="flex items-center justify-center p-4 md:p-6 lg:p-8 bg-stone-200">
+    <main className="flex items-center justify-center p-4 md:p-6 lg:p-8 bg-stone-400">
       <form
         className="flex flex-col gap-4 p-8 w-full max-w-[400px] bg-white rounded-xl shadow-lg shadow-stone-800"
         onSubmit={handleSubmit}
       >
-        <FaRegUserCircle size={60} className="mx-auto" />
-        <h1 className="font-bold text-3xl mx-auto">Sign In</h1>
+        <div className="flex items-center gap-2 justify-center mt-2 mb-6">
+          <GiTakeMyMoney size={40} className="text-green-700" />
+          <h1 className="font-normal text-2xl">Welcome Back</h1>
+        </div>
         <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
@@ -136,13 +138,13 @@ export default function SignInPage() {
           />
           <Label htmlFor="persist">Trust This Device</Label>
         </div>
-        <Button type="submit" className="w-fit mx-auto">
+        <Button type="submit" className="">
           Sign In
         </Button>
-        <p className="space-x-2">
+        <p className="space-x-0">
           Don't have an account?
           <Button asChild variant="link">
-            <Link to="/register">Signup</Link>
+            <Link to="/register">Sign Up for free</Link>
           </Button>
         </p>
       </form>

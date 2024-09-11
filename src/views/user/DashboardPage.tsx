@@ -1,13 +1,18 @@
 import CardIncomeExpense from "@/features/dashboard/CardIncomeExpense";
 import { CATEGORIES } from "@/lib/data";
+import { format } from "date-fns";
 import { LayoutDashboard } from "lucide-react";
 
 export default function DashboardPage() {
   return (
     <main>
-      <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
-        <LayoutDashboard size={30} />
-        <h1 className="font-bold text-2xl">Dashboard</h1>
+      <header className="flex items-stretch gap-2">
+        <LayoutDashboard size={30} className="my-auto" />
+        <div className="flex-1">
+          <h1 className="font-bold text-xl">Dashboard</h1>
+          <p className="text-sm">Welcome Back</p>
+        </div>
+        <div className="my-auto">{format(new Date(), "EEE dd MMMM")}</div>
       </header>
       <CardIncomeExpense />
       <div className="flex flex-wrap items-stretch gap-2">

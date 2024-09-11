@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+
 import CardSelectPeriod from "@/features/report/CardSelectPeriod";
 import { useLazyGetTransactionsQuery } from "@/features/transaction/transactionApiSlice";
-import { DESCRIPTIONS } from "@/lib/data";
+import { Button } from "@/components/ui/button";
 import { getDate } from "@/lib/date";
 import { TimePeriod, Transaction } from "@/types/type";
+import { format } from "date-fns";
 import { ClipboardMinus } from "lucide-react";
-import { useEffect, useState } from "react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 
 const initialState: TimePeriod = {
@@ -17,14 +18,15 @@ const initialState: TimePeriod = {
 
 export default function ReportPage() {
   const [state, setState] = useState<TimePeriod | null>(initialState);
+  const [showSelect, setShowSelect] = useState(false);
 
   const [getTransactions, { data, isLoading, isSuccess, isError }] =
     useLazyGetTransactionsQuery();
 
-  useEffect(() => {}, []);
-
   const onSubmit = async () => {
     if (state?.startDate && state?.endDate) {
+      setShowSelect(false);
+
       await getTransactions({
         startDate: state?.startDate,
         endDate: state?.endDate,
@@ -55,9 +57,6 @@ export default function ReportPage() {
     } else {
       content = data.ids.map((id, index) => {
         const transaction = data.entities[id] as Transaction;
-        const image =
-          DESCRIPTIONS.find((item) => item.value === transaction.description)
-            ?.image ?? "images/expense.png";
         const type =
           transaction?.type === "expense"
             ? "bg-red-700"
@@ -66,9 +65,9 @@ export default function ReportPage() {
             : "bg-zinc-700";
         return (
           <div key={index} className={"flex items-stretch gap-2 bg-zinc-100"}>
-            <div className="py-2 px-2 my-auto">
-              <img src={image} alt="desc" className="w-10" />
-            </div>
+            {/* <div className="py-2 px-2 my-auto">
+              <img src={transaction?.description ?? "images/expense.png"} alt="desc" className="w-10" />
+            </div> */}
             <div className="py-2 flex-1 my-auto">
               <p className="font-bold text-xl">{transaction.description}</p>
               <p className="font-semibold text-zinc-700">
@@ -93,14 +92,41 @@ export default function ReportPage() {
 
   return (
     <main className="flex flex-col gap-4">
-      <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
-        <ClipboardMinus size={30} />
-        <h1 className="font-bold text-2xl">View Transactions</h1>
+      <header className="flex items-stretch gap-2 ">
+        <ClipboardMinus size={30} className="my-auto" />
+        <div className="flex-1">
+          <h1 className="text-2xl font-semibold">Report</h1>
+          <p className="text-sm">View Transactions</p>
+        </div>
+        <div
+          onMouseLeave={() => {
+            setShowSelect(false);
+          }}
+          onMouseEnter={() => setShowSelect(true)}
+          className="relative my-auto"
+        >
+          <div className="my-auto p-2 bg-stone-50 hover:bg-stone-100 duration-200 rounded-lg text-end">
+            <p className="text-xs text-stone-500">Show transactions for</p>
+            <p className="text-base text-stone-900">
+              <span>{format(state?.startDate ?? "", "EE dd MMM")}</span>
+              {state?.period === "day" ? null : (
+                <span> - {format(state?.endDate ?? "", "EE dd MMM")}</span>
+              )}
+            </p>
+          </div>
+          <div
+            className={
+              (showSelect ? "" : "-translate-y-4 opacity-0 invisible") +
+              " absolute top-full right-0 bg-stone-100 p-4 rounded-lg duration-200"
+            }
+          >
+            <CardSelectPeriod state={state} setState={setState} />
+            <Button onClick={onSubmit} className="w-fit mt-4">
+              Submit
+            </Button>
+          </div>
+        </div>
       </header>
-      <CardSelectPeriod state={state} setState={setState} />
-      <Button onClick={onSubmit} className="w-fit">
-        Submit
-      </Button>
       <div className="flex items-stretch gap-4 justify-center">
         <div className="p-4 bg-green-800/20 text-green-800 rounded-lg font-bold flex-1 flex items-center justify-between">
           <p className="">

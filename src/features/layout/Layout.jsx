@@ -68,7 +68,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar />
+      {!auth?.username && <Navbar />}
       <div className="flex items-stretch flex-1">
         <SideBar />
         <Suspense fallback={<SkeletonContentPage />}>

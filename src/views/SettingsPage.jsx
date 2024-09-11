@@ -22,21 +22,7 @@ const SettingsPage = () => {
       </header>
       <section className="border-2 border-slate-400 rounded-lg p-3">
         <h2 className="text-lg mb-1">Currency</h2>
-        <div>
-          {/* <img src={IMG_dollar} alt="" className="icon-lg" />
-          <img src={IMG_tenge} alt="" className="icon-lg" />
-          <img src={IMG_euro} alt="" className="icon-lg" />
-          <img src={IMG_ruble} alt="" className="icon-lg" /> */}
-        </div>
-      </section>
-      <section className="border-2 border-slate-400 rounded-lg p-3 my-3">
-        <h2 className="text-lg mb-1">Pay Methods</h2>
-        <div className="flex items-center gap-3">
-          <span className="btn btn-red">Halyk</span>
-          <span className="btn btn-red">Kaspi</span>
-          <span className="btn btn-red">Cash</span>
-          <IoAddCircle className="icon text-red-500" />
-        </div>
+        <div></div>
       </section>
       <section className="border-2 border-slate-400 rounded-lg p-3 my-3">
         <h2 className="text-lg mb-1">Display Settings</h2>
@@ -44,17 +30,6 @@ const SettingsPage = () => {
           <span>Expense description:</span>
           <span className="btn btn-red">Icon Only</span>
           <span className="btn btn-red">Show Text</span>
-        </div>
-      </section>
-      <section className="border-2 border-slate-400 rounded-lg p-3 my-3">
-        <h2 className="text-lg mb-1">Account</h2>
-        <div className="flex flex-col gap-1">
-          <CardEnterName />
-          <CardEnterEmail />
-          <CardUserRoles />
-          <Link to="/changePWD" className="btn btn-red">
-            Change Password
-          </Link>
         </div>
       </section>
     </main>

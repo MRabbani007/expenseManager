@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import CardPayMethod from "@/features/dashboard/CardPayMethod";
 import {
   Banknote,
@@ -22,16 +23,19 @@ const SAVINGS = [
   { label: "Others", value: "others", icon: <Ellipsis size={30} /> },
 ];
 
-const temp = { label: "test", icon: GraduationCap };
+const temp = { icon: GraduationCap };
 
 export default function CardsPage() {
   return (
     <main>
-      <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
-        <CreditCard size={30} />
-        <h1 className="font-bold text-2xl">Cards</h1>
+      <header className="flex items-stretch gap-2">
+        <CreditCard size={30} className="my-auto" />
+        <div className="flex-1">
+          <h1 className="font-bold text-2xl">Cards</h1>
+        </div>
+        <Button>Add</Button>
       </header>
-      {/* {<temp.icon size={30} />} */}
+      {false && <temp.icon size={30} />}
       <div className="flex flex-wrap items-center gap-4">
         <CardPayMethod
           title="Halyk Bank"

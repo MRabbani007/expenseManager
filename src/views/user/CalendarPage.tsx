@@ -21,26 +21,38 @@ const BILLS = [
 export default function CalendarPage() {
   return (
     <main>
-      <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
-        <CalendarDays size={30} />
-        <h1 className="font-bold text-2xl">Calendar</h1>
+      <header className="flex items-stretch gap-2">
+        <CalendarDays size={30} className="my-auto" />
+        <div className="flex-1">
+          <h1 className="font-bold text-2xl">Calendar</h1>
+          <p className="text-sm">Upcoming Payments</p>
+        </div>
       </header>
-      <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
-        <CalendarDays size={30} />
-        <h2 className="font-bold text-2xl">Bills & Payments</h2>
-      </header>
-      <div className="flex flex-wrap items-stretch gap-4">
-        {BILLS.map((item, idx) => (
-          <div
-            key={idx}
-            title={item.label}
-            className="flex flex-col items-center gap-2 p-2 bg-zinc-100 rounded-xl"
-          >
-            {item.icon}
-            {/* <span>{item.label}</span> */}
-          </div>
-        ))}
-      </div>
+      <section>
+        <h2 className="font-bold text-2xl">Bills</h2>
+        <div className="flex flex-wrap items-stretch gap-4">
+          {BILLS.map((item, idx) => (
+            <div
+              key={idx}
+              title={item.label}
+              className="flex flex-col items-center gap-2 p-2 bg-zinc-100 rounded-xl"
+            >
+              {item.icon}
+              {/* <span>{item.label}</span> */}
+            </div>
+          ))}
+        </div>
+      </section>
+      <section>
+        <h2 className="font-bold text-2xl">Subscriptions</h2>
+        <div className="flex flex-wrap items-stretch gap-4">
+          No Subscriptions
+        </div>
+      </section>
+      <section>
+        <h2 className="font-bold text-2xl">Payments</h2>
+        <div className="flex flex-wrap items-stretch gap-4">No Payments</div>
+      </section>
     </main>
   );
 }

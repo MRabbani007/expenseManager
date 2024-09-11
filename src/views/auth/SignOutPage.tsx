@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { Button } from "@/components/ui/button";
 import { useLogoutMutation } from "@/features/auth/authApiSlice";
 import { clearCredentials, selectAuth } from "@/features/auth/authSlice";
 import { useEffect } from "react";
@@ -27,11 +28,13 @@ export default function SignOutPage() {
 
   return (
     <main>
-      <div>
-        <button className="btn btn-blue" onClick={handleLogout}>
-          Sign Out
-        </button>
-      </div>
+      <Button
+        variant="destructive"
+        className="w-fit my-auto mx-auto"
+        onClick={handleLogout}
+      >
+        Sign Out
+      </Button>
     </main>
   );
 }

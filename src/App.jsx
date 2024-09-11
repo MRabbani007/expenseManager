@@ -47,6 +47,8 @@ function App() {
         <UserProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+
               <Route element={<PersistLogin />}>
                 {/* Pages visible to all */}
                 <Route path="login" element={<SignInPage />} />
@@ -60,7 +62,6 @@ function App() {
                     <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
                   }
                 >
-                  <Route index element={<HomePage />} />
                   <Route path="dashboard" element={<DashboardPage />} />
                   <Route path="addItems" element={<AddTransactionsPage />} />
                   <Route path="transactions" element={<ReportPage />} />
