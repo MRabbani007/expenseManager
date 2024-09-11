@@ -7,9 +7,9 @@ export default function DashboardPage() {
   return (
     <main>
       <header className="flex items-stretch gap-2">
-        <LayoutDashboard size={30} className="my-auto" />
+        <LayoutDashboard size={30} />
         <div className="flex-1">
-          <h1 className="font-bold text-xl">Dashboard</h1>
+          <h1 className="text-xl font-semibold">Dashboard</h1>
           <p className="text-sm">Welcome Back</p>
         </div>
         <div className="my-auto">{format(new Date(), "EEE dd MMMM")}</div>

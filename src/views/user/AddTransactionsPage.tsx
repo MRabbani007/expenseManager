@@ -3,7 +3,6 @@ import CardTransHeaders from "../../features/transaction/CardTransHeaders";
 import CardTransAmount from "../../features/transaction/CardTransAmount";
 import CardTransDesc from "../../features/transaction/CardTransDesc";
 import { useState } from "react";
-import { Transaction } from "@/types/type";
 import CardDayTransactions from "@/features/transaction/CardDayTransactions";
 import { getDate } from "@/lib/date";
 import { ClipboardPlus } from "lucide-react";
@@ -26,12 +25,12 @@ const AddTransactionsPage = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <main className="flex flex-col gap-4 p-4">
+    <main>
       <header className="flex items-stretch gap-2">
-        <ClipboardPlus size={30} className="my-auto" />
-        <div className="flex-1 my-auto">
-          <h1 className="font-semibold text-2xl">Add</h1>
-          <p className="hidden sm:inline-block text-sm">Add Transactions</p>
+        <ClipboardPlus size={30} />
+        <div className="flex-1">
+          <h1 className="text-xl font-semibold">Add</h1>
+          <p className="text-sm">Add Transactions</p>
         </div>
         <div
           className="flex items-stretch gap-2 rounded-lg relative"

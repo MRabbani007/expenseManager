@@ -4,7 +4,6 @@ import CardSelectPeriod from "@/features/report/CardSelectPeriod";
 import { useLazyGetTransactionsQuery } from "@/features/transaction/transactionApiSlice";
 import { Button } from "@/components/ui/button";
 import { getDate } from "@/lib/date";
-import { TimePeriod, Transaction } from "@/types/type";
 import { format } from "date-fns";
 import { ClipboardMinus } from "lucide-react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
@@ -91,11 +90,11 @@ export default function ReportPage() {
   }
 
   return (
-    <main className="flex flex-col gap-4">
-      <header className="flex items-stretch gap-2 ">
-        <ClipboardMinus size={30} className="my-auto" />
+    <main>
+      <header className="flex items-stretch gap-2">
+        <ClipboardMinus size={30} />
         <div className="flex-1">
-          <h1 className="text-2xl font-semibold">Report</h1>
+          <h1 className="text-xl font-semibold">Report</h1>
           <p className="text-sm">View Transactions</p>
         </div>
         <div

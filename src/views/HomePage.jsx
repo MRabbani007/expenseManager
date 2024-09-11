@@ -6,8 +6,8 @@ import CardPayment from "../components/CardPayment";
 const HomePage = () => {
   return (
     <main className="bg-stone-100">
-      <div className="grid grid-cols-2 items-center justify-center h-full px-8">
-        <div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-center justify-center h-full px-8">
+        <div className="flex flex-col">
           <p className="flex items-center">
             <Zap
               size={24}
@@ -21,13 +21,13 @@ const HomePage = () => {
           <p className="font-light text-6xl text-stone-800 my-6">
             Managing money made <span className="font-semibold">simple</span>
           </p>
-          <form className="flex items-stretch bg-stone-300 rounded-full max-w-[400px]">
+          <form className="flex flex-wrap items-stretch bg-stone-300 rounded-full max-w-[400px]">
             <input
               type="email"
               placeholder="yourEmail@example.com"
               className="flex-1 bg-transparent outline-none border-none rounded-full px-4"
             />
-            <button className="py-2 px-4 bg-sky-800 hover:bg-sky-700 duration-200 text-white rounded-full m-1 font-extralight">
+            <button className="py-2 px-4 bg-sky-800 hover:bg-sky-700 duration-200 text-white rounded-full m-1 font-extralight text-nowrap">
               Get Started
             </button>
           </form>

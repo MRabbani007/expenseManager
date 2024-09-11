@@ -1,3 +1,4 @@
+import BankCard from "@/components/BankCard";
 import { Button } from "@/components/ui/button";
 import CardPayMethod from "@/features/dashboard/CardPayMethod";
 import {
@@ -25,24 +26,31 @@ const SAVINGS = [
 
 const temp = { icon: GraduationCap };
 
+const CARD: BankCard = {
+  id: "asd",
+  bank: "Halyk Bank",
+  nameOnCard: "Mohamad Rabbani",
+  expDate: "01/09",
+  masked: "1234",
+};
+
 export default function CardsPage() {
   return (
     <main>
       <header className="flex items-stretch gap-2">
-        <CreditCard size={30} className="my-auto" />
+        <CreditCard size={30} />
         <div className="flex-1">
-          <h1 className="font-bold text-2xl">Cards</h1>
+          <h1 className="font-semibold text-xl">Accounts & Cards</h1>
+          <p className="text-sm">View & manage your accounts</p>
         </div>
         <Button>Add</Button>
       </header>
       {false && <temp.icon size={30} />}
       <div className="flex flex-wrap items-center gap-4">
-        <CardPayMethod
-          title="Halyk Bank"
-          name="Mohamad Rabbani"
-          className="from-green-700 to-green-950"
-        />
-        <CardPayMethod
+        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
+        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
+        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
+        {/* <CardPayMethod
           title="Kaspi Bank"
           name="Mohamad Rabbani"
           className="from-red-700 to-red-950"
@@ -51,7 +59,7 @@ export default function CardsPage() {
           title="Kaspi Bank"
           name="Mohamad Rabbani"
           className="from-red-700 to-red-950"
-        />
+        /> */}
       </div>
       <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
         <Banknote size={30} />

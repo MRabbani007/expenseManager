@@ -14,8 +14,8 @@ export default function Navbar() {
       {/* Left Block */}
       <div className="flex items-center justify-center gap-4 p-2">
         <Link to="/" className="flex items-center gap-2">
-          <GiTakeMyMoney size={30} />
-          <span className="font-mono font-bold">Wallet</span>
+          <GiTakeMyMoney size={30} className="text-sky-700" />
+          <span className="font-mono font-extrabold">Wallet</span>
         </Link>
         {/* <Link to="/transactions">
           <TbReportAnalytics size={30} />

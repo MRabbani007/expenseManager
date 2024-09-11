@@ -18,13 +18,14 @@ const BILLS = [
   { label: "Internet", value: "electricity", icon: <Wifi size={30} /> },
   { label: "Insurance", value: "electricity", icon: <ShieldCheck size={30} /> },
 ];
+
 export default function CalendarPage() {
   return (
     <main>
       <header className="flex items-stretch gap-2">
-        <CalendarDays size={30} className="my-auto" />
+        <CalendarDays size={30} />
         <div className="flex-1">
-          <h1 className="font-bold text-2xl">Calendar</h1>
+          <h1 className="font-semibold text-2xl">Calendar</h1>
           <p className="text-sm">Upcoming Payments</p>
         </div>
       </header>

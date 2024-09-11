@@ -1,4 +1,3 @@
-import { Description, Transaction } from "@/types/type";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import FormSelectDescriptions from "./FormSelectDescriptions";
 import { useAppSelector } from "@/app/hooks";
@@ -8,7 +7,6 @@ import {
 } from "../globals/globalsSlice";
 import { CircleEllipsis, Keyboard } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   transaction: Transaction;
@@ -65,7 +63,7 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
       </div> */}
       <div
         title="Description"
-        className="flex flex-wrap items-center gap-2 group border-2 hover:border-red-600 rounded-lg"
+        className="flex flex-wrap items-center gap-2 group"
       >
         {activeDesc.map((item, index) => (
           <div key={index} className="">

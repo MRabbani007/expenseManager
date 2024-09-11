@@ -1,4 +1,4 @@
-export type Transaction = {
+declare type Transaction = {
   id: string;
   userID?: string | null;
 
@@ -14,7 +14,7 @@ export type Transaction = {
   updatedAt?: string | null;
 };
 
-export type Category = {
+declare type Category = {
   id?: string;
   label: string;
   value: string;
@@ -25,7 +25,7 @@ export type Category = {
   groupNo?: Number;
 };
 
-export type Description = {
+declare type Description = {
   id?: string;
   userId?: string;
 
@@ -39,9 +39,29 @@ export type Description = {
   icon?: string;
 };
 
-export type TimePeriod = {
+declare type TimePeriod = {
   period: string;
   startDate?: string;
   endDate?: string;
   offset?: number;
 };
+
+declare type BankCard = {
+  id: string;
+  bank: string;
+  nameOnCard: string;
+  expDate: string;
+  masked: string;
+};
+
+declare type BankCardProps = {
+  cardDetails: BankCard;
+  className: string;
+};
+
+declare type AccountTypes =
+  | "deposite"
+  | "credit"
+  | "loan "
+  | "investment"
+  | "other";
