@@ -1,4 +1,3 @@
-import { Description } from "@/types/type";
 import {
   Apple,
   Bike,

@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/features/auth/authApiSlice";
 import { selectAuth, setCredentials } from "@/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
@@ -12,13 +12,14 @@ export default function SignInPage() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  // const location = useLocation();
+  const location = useLocation();
   // const from = location.state?.from?.pathname || "/";
 
   const [login] = useLoginMutation();
   const auth = useAppSelector(selectAuth);
   // Set focus to username input on load
   const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
   const [username, setUsername] = useState("");
@@ -32,7 +33,14 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (!success && usernameRef?.current) {
-      usernameRef.current.focus();
+      usernameRef.current?.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (location?.state?.email) {
+      setUsername(location.state.email);
+      passwordRef.current?.focus();
     }
   }, []);
 
@@ -116,11 +124,9 @@ export default function SignInPage() {
           />
         </div>
         <div>
-          {/* <Label htmlFor="password" className="my-2">
-            Password
-          </Label> */}
           <Input
             type="password"
+            ref={passwordRef}
             id="password"
             placeholder="Password"
             required
