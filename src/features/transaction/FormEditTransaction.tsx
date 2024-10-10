@@ -1,4 +1,3 @@
-import { Transaction } from "@/types/type";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import CardTransHeaders from "./CardTransHeaders";
 import { Button } from "@/components/ui/button";
@@ -14,7 +13,7 @@ export default function FormEditTransaction({
   setEdit,
 }: {
   transaction: Transaction;
-  setEdit: Dispatch<SetStateAction<Transaction | null>>;
+  setEdit: Dispatch<SetStateAction<boolean>>;
 }) {
   const [editTransaction] = useEditTransactionMutation();
   const [state, setState] = useState<Transaction>(transaction);
@@ -30,14 +29,14 @@ export default function FormEditTransaction({
       } else {
         toast.error("Error updating transaction");
       }
-      setEdit(null);
+      setEdit(false);
     } catch (error) {
       toast.error("Error updating transaction");
     }
   };
 
   const onReset = () => {
-    setEdit(null);
+    setEdit(false);
   };
 
   return (
@@ -45,7 +44,7 @@ export default function FormEditTransaction({
       <form
         onSubmit={onSubmit}
         onReset={onReset}
-        className="bg-zinc-100 flex flex-col gap-4"
+        className="bg-zinc-100 flex flex-col gap-4 max-w-[1024px]"
       >
         <p className="bg-zinc-300 py-2 px-4 font-semibold text-zinc-900 text-center">
           Edit Transaction

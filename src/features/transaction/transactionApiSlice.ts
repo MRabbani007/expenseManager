@@ -1,4 +1,3 @@
-import { Transaction } from "@/types/type";
 import { apiSlice } from "../api/apiSlice";
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { store } from "@/app/store";
@@ -21,10 +20,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
       transformResponse: (responseData: Transaction[]) => {
         return transactionAdapter.setAll(initialState, responseData);
       },
-      // providesTags: (result, error, arg) => [
-      //   { type: "Transaction", id: "Transaction" },
-      //   ...result.ids.map((id) => ({ type: "Block", id })),
-      // ],
+      providesTags: ["transaction"],
     }),
     addTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
@@ -37,6 +33,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
           transaction,
         },
       }),
+      invalidatesTags: ["transaction"],
     }),
     editTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
@@ -53,6 +50,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
             },
           },
         },
+        invalidatesTags: ["transaction"],
       }),
     }),
     deleteTransaction: builder.mutation({
@@ -71,6 +69,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
           },
         },
       }),
+      invalidatesTags: ["transaction"],
     }),
   }),
 });

@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datepicker";
-import { Transaction } from "@/types/type";
 import { getDate } from "@/lib/date";
 
 // const CURRENCIES = [

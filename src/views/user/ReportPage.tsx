@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CardSelectPeriod from "@/features/report/CardSelectPeriod";
 import { useLazyGetTransactionsQuery } from "@/features/transaction/transactionApiSlice";
@@ -7,6 +7,8 @@ import { getDate } from "@/lib/date";
 import { format } from "date-fns";
 import { ClipboardMinus } from "lucide-react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+import CardTransaction from "@/features/transaction/CardTransaction";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const initialState: TimePeriod = {
   period: "day",
@@ -16,16 +18,34 @@ const initialState: TimePeriod = {
 };
 
 export default function ReportPage() {
+  const [lastUsed, setLastUsed] = useLocalStorage({
+    key: "reportPage",
+    initValue: initialState,
+  });
+
   const [state, setState] = useState<TimePeriod | null>(initialState);
   const [showSelect, setShowSelect] = useState(false);
 
   const [getTransactions, { data, isLoading, isSuccess, isError }] =
     useLazyGetTransactionsQuery();
 
+  useEffect(() => {
+    if (lastUsed) {
+      setState(lastUsed);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!showSelect) {
+      onSubmit();
+    }
+  }, [state]);
+
   const onSubmit = async () => {
     if (state?.startDate && state?.endDate) {
       setShowSelect(false);
 
+      setLastUsed(state);
       await getTransactions({
         startDate: state?.startDate,
         endDate: state?.endDate,
@@ -56,35 +76,7 @@ export default function ReportPage() {
     } else {
       content = data.ids.map((id, index) => {
         const transaction = data.entities[id] as Transaction;
-        const type =
-          transaction?.type === "expense"
-            ? "bg-red-700"
-            : transaction?.type === "income"
-            ? "bg-green-700"
-            : "bg-zinc-700";
-        return (
-          <div key={index} className={"flex items-stretch gap-2 bg-zinc-100"}>
-            {/* <div className="py-2 px-2 my-auto">
-              <img src={transaction?.description ?? "images/expense.png"} alt="desc" className="w-10" />
-            </div> */}
-            <div className="py-2 flex-1 my-auto">
-              <p className="font-bold text-xl">{transaction.description}</p>
-              <p className="font-semibold text-zinc-700">
-                {transaction.category}
-              </p>
-            </div>
-            <div className="py-2 px-4 my-auto">
-              <p className="space-x-2 font-bold text-xl">
-                <span className="">{transaction.currency}</span>
-                <span>{transaction.amount?.toLocaleString("en-US")}</span>
-              </p>
-              <p className="font-semibold text-zinc-700 text-end">
-                {transaction.paymethod}
-              </p>
-            </div>
-            <div className={"w-2 " + type} />
-          </div>
-        );
+        return <CardTransaction key={index} transaction={transaction} />;
       });
     }
   }

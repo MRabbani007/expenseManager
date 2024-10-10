@@ -65,3 +65,8 @@ declare type AccountTypes =
   | "loan "
   | "investment"
   | "other";
+
+declare type Account = {
+  userID: string;
+  type: "card" | "cash" | "savings";
+};

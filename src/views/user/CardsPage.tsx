@@ -1,6 +1,6 @@
 import BankCard from "@/components/BankCard";
+import FormAddAccount from "@/components/forms/FormAddAccount";
 import { Button } from "@/components/ui/button";
-import CardPayMethod from "@/features/dashboard/CardPayMethod";
 import {
   Banknote,
   Coins,
@@ -11,6 +11,7 @@ import {
   PiggyBank,
   Wallet,
 } from "lucide-react";
+import { useState } from "react";
 
 const CASH_PAYMENT = [
   { label: "Cash", value: "cash", icon: <Banknote size={30} /> },
@@ -35,6 +36,8 @@ const CARD: BankCard = {
 };
 
 export default function CardsPage() {
+  const [add, setAdd] = useState(false);
+
   return (
     <main>
       <header className="flex items-stretch gap-2">
@@ -43,23 +46,14 @@ export default function CardsPage() {
           <h1 className="font-semibold text-xl">Accounts & Cards</h1>
           <p className="text-sm">View & manage your accounts</p>
         </div>
-        <Button>Add</Button>
+        <Button onClick={() => setAdd(true)}>Add</Button>
       </header>
+      {add ? <FormAddAccount setAdd={setAdd} /> : null}
       {false && <temp.icon size={30} />}
       <div className="flex flex-wrap items-center gap-4">
         <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
         <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
         <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
-        {/* <CardPayMethod
-          title="Kaspi Bank"
-          name="Mohamad Rabbani"
-          className="from-red-700 to-red-950"
-        />
-        <CardPayMethod
-          title="Kaspi Bank"
-          name="Mohamad Rabbani"
-          className="from-red-700 to-red-950"
-        /> */}
       </div>
       <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
         <Banknote size={30} />

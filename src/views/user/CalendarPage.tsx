@@ -1,3 +1,5 @@
+import FormAddPayment from "@/components/forms/FormAddPayment";
+import { Button } from "@/components/ui/button";
 import {
   CalendarDays,
   Droplet,
@@ -8,6 +10,8 @@ import {
   Wifi,
   Zap,
 } from "lucide-react";
+import { useState } from "react";
+import { BiPlus } from "react-icons/bi";
 
 const BILLS = [
   { label: "Electricity", value: "electricity", icon: <Zap size={30} /> },
@@ -20,6 +24,9 @@ const BILLS = [
 ];
 
 export default function CalendarPage() {
+  const [add, setAdd] = useState(false);
+  const [type, setType] = useState("");
+
   return (
     <main>
       <header className="flex items-stretch gap-2">
@@ -29,8 +36,20 @@ export default function CalendarPage() {
           <p className="text-sm">Upcoming Payments</p>
         </div>
       </header>
+      {add ? <FormAddPayment setAdd={setAdd} type={type} /> : null}
       <section>
-        <h2 className="font-bold text-2xl">Bills</h2>
+        <div className="flex items-center justify-between border-b-2 border-zinc-600 mb-4">
+          <h2 className="font-bold text-2xl">Bills</h2>
+          <Button
+            onClick={() => {
+              setAdd(true);
+              setType("bill");
+            }}
+            variant="ghost"
+          >
+            <BiPlus size={30} />
+          </Button>
+        </div>
         <div className="flex flex-wrap items-stretch gap-4">
           {BILLS.map((item, idx) => (
             <div
@@ -45,13 +64,35 @@ export default function CalendarPage() {
         </div>
       </section>
       <section>
-        <h2 className="font-bold text-2xl">Subscriptions</h2>
+        <div className="flex items-center justify-between border-b-2 border-zinc-600 mb-4">
+          <h2 className="font-bold text-2xl">Subscriptions</h2>
+          <Button
+            onClick={() => {
+              setAdd(true);
+              setType("subscription");
+            }}
+            variant="ghost"
+          >
+            <BiPlus size={30} />
+          </Button>
+        </div>
         <div className="flex flex-wrap items-stretch gap-4">
           No Subscriptions
         </div>
       </section>
       <section>
-        <h2 className="font-bold text-2xl">Payments</h2>
+        <div className="flex items-center justify-between border-b-2 border-zinc-600 mb-4">
+          <h2 className="font-bold text-2xl">Payments</h2>
+          <Button
+            onClick={() => {
+              setAdd(true);
+              setType("payment");
+            }}
+            variant="ghost"
+          >
+            <BiPlus size={30} />
+          </Button>
+        </div>
         <div className="flex flex-wrap items-stretch gap-4">No Payments</div>
       </section>
     </main>

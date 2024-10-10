@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLazyGetTransactionsQuery } from "./transactionApiSlice";
 import { getDate } from "@/lib/date";
-import { Transaction } from "@/types/type";
-import { FiEdit } from "react-icons/fi";
-import FormEditTransaction from "./FormEditTransaction";
-import { DESCRIPTIONS } from "@/lib/data";
+import CardTransaction from "./CardTransaction";
 
 export default function CardDayTransactions({
   transaction,
@@ -13,9 +10,6 @@ export default function CardDayTransactions({
 }) {
   const [getTransactions, { data, isLoading, isSuccess, isError }] =
     useLazyGetTransactionsQuery();
-
-  const [edit, setEdit] = useState(false);
-  const [editItem, setEditItem] = useState<Transaction | null>(null);
 
   useEffect(() => {
     const temp = transaction?.date ?? getDate(new Date());
@@ -45,48 +39,10 @@ export default function CardDayTransactions({
     } else {
       content = data.ids.map((id, index) => {
         const transaction = data.entities[id] as Transaction;
-        const image =
-          DESCRIPTIONS.find((item) => item.value === transaction.description)
-            ?.image ?? "images/expense.png";
-        const type =
-          transaction?.type === "expense"
-            ? "bg-red-700"
-            : transaction?.type === "income"
-            ? "bg-green-700"
-            : "bg-zinc-700";
-        return (
-          <div key={index} className={"flex items-stretch gap-2 bg-zinc-100"}>
-            <div className="py-2 px-2 my-auto">
-              <img src={image} alt="desc" className="w-10" />
-            </div>
-            <div className="py-2 flex-1 my-auto">
-              <p className="font-bold text-xl">{transaction.description}</p>
-              <p className="font-semibold text-zinc-700">
-                {transaction.category}
-              </p>
-            </div>
-            <div className="py-2 px-4 my-auto">
-              <p className="space-x-2 font-bold text-xl">
-                <span className="">{transaction.currency}</span>
-                <span>{transaction.amount?.toLocaleString("en-US")}</span>
-              </p>
-              <p className="font-semibold text-zinc-700 text-end">
-                {transaction.paymethod}
-              </p>
-            </div>
-            <div className={"w-2 " + type} />
-          </div>
-        );
+        return <CardTransaction key={index} transaction={transaction} />;
       });
     }
   }
 
-  return (
-    <div className="flex flex-col gap-2">
-      <>{content}</>
-      {editItem === null ? null : (
-        <FormEditTransaction transaction={editItem} setEdit={setEditItem} />
-      )}
-    </div>
-  );
+  return <div className="flex flex-col gap-2">{content}</div>;
 }
