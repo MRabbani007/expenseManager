@@ -306,6 +306,13 @@ export const ICONS = {
   stethoscope: <Stethoscope size={ICON_SIZE} />,
 };
 
+export const CURRENCIES = [
+  { label: "KZT", value: "KZT", image: "/images/currency/tenge.png" },
+  { label: "RUB", value: "RUB", image: "/images/currency/ruble.png" },
+  { label: "USD", value: "USD", image: "/images/currency/dollar.png" },
+  { label: "EUR", value: "EUR", image: "/images/currency/euro.png" },
+];
+
 export const CURRENCY_OBJ = {
   KZT: "images/currency/tenge.png",
   RUB: "images/currency/ruble.png",

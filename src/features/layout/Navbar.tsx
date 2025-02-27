@@ -10,26 +10,20 @@ export default function Navbar() {
   const auth = useAppSelector(selectAuth);
 
   return (
-    <nav className="flex items-stretch justify-between gap-4 duration-500 z-50 mx-2 mt-2 px-2 rounded-lg bg-stone-200">
+    <nav className="flex md:hidden items-stretch justify-between gap-4 duration-500 z-50 mx-2 mt-2 px-2 rounded-lg bg-stone-200">
       {/* Left Block */}
       <div className="flex items-center justify-center gap-4 p-2">
         <Link to="/" className="flex items-center gap-2">
-          <GiTakeMyMoney size={30} className="text-sky-700" />
+          <GiTakeMyMoney size={25} className="text-sky-700" />
           <span className="font-mono font-extrabold">Wallet</span>
         </Link>
-        {/* <Link to="/transactions">
-          <TbReportAnalytics size={30} />
-        </Link>
-        <Link to="/addItems">
-          <IoAddCircleOutline size={30} />
-        </Link> */}
       </div>
       {/* Right Block */}
-      <div className="flex items-center gap-2 p-2">
+      <div className="flex items-center gap-0 p-2">
         {auth?.username ? (
           <>
             <Button variant="ghost" className="py-0 px-2">
-              <Bell size={30} />
+              <Bell size={25} />
             </Button>
             <UserDropDown />
           </>

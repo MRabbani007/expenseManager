@@ -13,7 +13,7 @@ export default function CardDayTransactions({
 
   useEffect(() => {
     const temp = transaction?.date ?? getDate(new Date());
-    getTransactions({ startDate: temp, endDate: temp });
+    getTransactions({ type: "period", startDate: temp, endDate: temp });
   }, [transaction?.date]);
 
   let content = null;
@@ -25,8 +25,7 @@ export default function CardDayTransactions({
   } else if (isError) {
     content = <p>Error Loading Transactions</p>;
   } else if (isSuccess) {
-    data.ids.map((id) => {
-      const item = data.entities[id] as Transaction;
+    data.data.map((item) => {
       if (item?.type === "expense") {
         expense += item?.amount ?? 0;
       } else if (item?.type === "income") {
@@ -34,11 +33,10 @@ export default function CardDayTransactions({
       }
     });
 
-    if (data.ids.length === 0) {
+    if (data.data.length === 0) {
       content = <p>No Transactions</p>;
     } else {
-      content = data.ids.map((id, index) => {
-        const transaction = data.entities[id] as Transaction;
+      content = data.data.map((transaction, index) => {
         return <CardTransaction key={index} transaction={transaction} />;
       });
     }

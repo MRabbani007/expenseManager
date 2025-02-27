@@ -31,7 +31,6 @@ import AdminUsers from "./views/admin/AdminUsers";
 // Imported Components
 import HomePage from "./views/HomePage";
 import ChangePassword from "./views/ChangePassword";
-import AdminPage from "./views/AdminPage";
 import MissingPage from "./views/MissingPage";
 import Unauthorized from "./views/Unauthorized";
 

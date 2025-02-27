@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 
-import CardSelectPeriod from "@/features/report/CardSelectPeriod";
 import { useLazyGetTransactionsQuery } from "@/features/transaction/transactionApiSlice";
-import { Button } from "@/components/ui/button";
-import { getDate } from "@/lib/date";
 import { format } from "date-fns";
 import { ClipboardMinus } from "lucide-react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import CardTransaction from "@/features/transaction/CardTransaction";
+import Pagination from "@/features/layout/Pagination";
+import FormFilterTransactions from "@/features/transaction/FormFilterTransactions";
+import { getDate } from "@/lib/date";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useSearchParams } from "react-router-dom";
 
-const initialState: TimePeriod = {
+const initialState: TransactionFilter = {
+  filterType: "latest",
   period: "day",
   startDate: getDate(new Date()),
   endDate: getDate(new Date()),
@@ -18,16 +20,10 @@ const initialState: TimePeriod = {
 };
 
 export default function ReportPage() {
-  const [lastUsed, setLastUsed] = useLocalStorage({
-    key: "reportPage",
-    initValue: initialState,
-  });
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") ?? 1;
 
-  const [state, setState] = useState<TimePeriod | null>(initialState);
-  const [showSelect, setShowSelect] = useState(false);
-
-  const [getTransactions, { data, isLoading, isSuccess, isError }] =
-    useLazyGetTransactionsQuery();
+  const [state, setState] = useState<TransactionFilter>(initialState);
 
   useEffect(() => {
     if (lastUsed) {
@@ -35,23 +31,30 @@ export default function ReportPage() {
     }
   }, []);
 
+  const [lastUsed, setLastUsed] = useLocalStorage({
+    key: "reportPage",
+    initValue: initialState,
+  });
+
+  const [showSelect, setShowSelect] = useState(false);
+
+  let count = 0;
+
+  const [getTransactions, { data, isLoading, isSuccess, isError }] =
+    useLazyGetTransactionsQuery();
+
   useEffect(() => {
     if (!showSelect) {
-      onSubmit();
-    }
-  }, [state]);
-
-  const onSubmit = async () => {
-    if (state?.startDate && state?.endDate) {
-      setShowSelect(false);
-
-      setLastUsed(state);
-      await getTransactions({
+      getTransactions({
+        type: state?.filterType,
+        period: state?.period,
         startDate: state?.startDate,
         endDate: state?.endDate,
+        page,
       });
+      setLastUsed(state);
     }
-  };
+  }, [state, page]);
 
   let content = null;
   let income = 0;
@@ -62,20 +65,19 @@ export default function ReportPage() {
   } else if (isError) {
     content = <p>Error Loading Transactions</p>;
   } else if (isSuccess) {
-    data.ids.map((id) => {
-      const item = data.entities[id] as Transaction;
+    data.data.map((item) => {
       if (item?.type === "expense") {
         expense += item?.amount ?? 0;
       } else if (item?.type === "income") {
         income += item?.amount ?? 0;
       }
     });
+    count = data?.count;
 
-    if (data.ids.length === 0) {
+    if (data.data.length === 0) {
       content = <p>No Transactions</p>;
     } else {
-      content = data.ids.map((id, index) => {
-        const transaction = data.entities[id] as Transaction;
+      content = data.data.map((transaction, index) => {
         return <CardTransaction key={index} transaction={transaction} />;
       });
     }
@@ -83,20 +85,18 @@ export default function ReportPage() {
 
   return (
     <main>
+      {/* Header */}
       <header className="flex items-stretch gap-2">
         <ClipboardMinus size={30} />
         <div className="flex-1">
           <h1 className="text-xl font-semibold">Report</h1>
           <p className="text-sm">View Transactions</p>
         </div>
-        <div
-          onMouseLeave={() => {
-            setShowSelect(false);
-          }}
-          onMouseEnter={() => setShowSelect(true)}
-          className="relative my-auto"
-        >
-          <div className="my-auto p-2 bg-stone-50 hover:bg-stone-100 duration-200 rounded-lg text-end">
+        <div className="relative my-auto">
+          <div
+            onClick={() => setShowSelect(true)}
+            className="my-auto p-2 bg-stone-50 hover:bg-stone-100 duration-200 rounded-lg text-end"
+          >
             <p className="text-xs text-stone-500">Show transactions for</p>
             <p className="text-base text-stone-900">
               <span>{format(state?.startDate ?? "", "EE dd MMM")}</span>
@@ -105,19 +105,9 @@ export default function ReportPage() {
               )}
             </p>
           </div>
-          <div
-            className={
-              (showSelect ? "" : "-translate-y-4 opacity-0 invisible") +
-              " absolute top-full right-0 bg-stone-100 p-4 rounded-lg duration-200"
-            }
-          >
-            <CardSelectPeriod state={state} setState={setState} />
-            <Button onClick={onSubmit} className="w-fit mt-4">
-              Submit
-            </Button>
-          </div>
         </div>
       </header>
+      {/* Summary Income / Expense */}
       <div className="flex items-stretch gap-4 justify-center">
         <div className="p-4 bg-green-800/20 text-green-800 rounded-lg font-bold flex-1 flex items-center justify-between">
           <p className="">
@@ -138,7 +128,16 @@ export default function ReportPage() {
           </p>
         </div>
       </div>
-      <>{content}</>
+      {/* Content */}
+      <div className="flex flex-col gap-4">{content}</div>
+      <Pagination count={count} />
+      {showSelect && (
+        <FormFilterTransactions
+          setShowForm={setShowSelect}
+          setState={setState}
+          state={state}
+        />
+      )}
     </main>
   );
 }

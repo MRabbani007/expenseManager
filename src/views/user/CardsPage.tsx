@@ -1,5 +1,5 @@
 import BankCard from "@/components/BankCard";
-import FormAddAccount from "@/components/forms/FormAddAccount";
+import FormAddAccount from "@/features/cards/FormAddAccount";
 import { Button } from "@/components/ui/button";
 import {
   Banknote,

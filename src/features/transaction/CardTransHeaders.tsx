@@ -2,25 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datepicker";
 import { getDate } from "@/lib/date";
-
-// const CURRENCIES = [
-//   { label: "KZT", value: "KZT", image: "/images/currency/tenge.png" },
-//   { label: "RUB", value: "RUB", image: "/images/currency/ruble.png" },
-//   { label: "USD", value: "USD", image: "/images/currency/dollar.png" },
-//   { label: "EUR", value: "EUR", image: "/images/currency/euro.png" },
-// ];
-
-const CURRENCY_OBJ = {
-  KZT: "images/currency/tenge.png",
-  RUB: "images/currency/ruble.png",
-  USD: "images/currency/dollar.png",
-  EUR: "images/currency/euro.png",
-};
-
-const TYPE_OBJ = {
-  income: "images/income.png",
-  expense: "images/expense.png",
-};
+import { CURRENCY_OBJ, TYPE_OBJ } from "@/lib/data";
 
 interface Props {
   transaction: Transaction;
@@ -32,14 +14,6 @@ export default function CardTransHeaders({
   setTransaction,
 }: Props) {
   const [state, setState] = useState(transaction);
-
-  // const handleChange = (
-  //   event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ) => {
-  //   setState((curr) => {
-  //     return { ...curr, [event.target.name]: event.target.value };
-  //   });
-  // };
 
   const TogglePaymethod = () => {
     setState((curr) => {
@@ -75,11 +49,7 @@ export default function CardTransHeaders({
   };
 
   const handleDate = (date: Date | undefined) => {
-    if (date) {
-      setState((curr) => ({ ...curr, date: getDate(date) }));
-    } else {
-      setState((curr) => ({ ...curr, date: null }));
-    }
+    setState((curr) => ({ ...curr, date: getDate(date ?? new Date()) }));
   };
 
   useEffect(() => {
@@ -94,24 +64,6 @@ export default function CardTransHeaders({
         }
         setDate={handleDate}
       />
-      {/* <input
-        type="date"
-        id="date"
-        name="date"
-        value={state?.date ?? ""}
-        onChange={handleChange}
-      /> */}
-      {/* <select
-        id="paymethod"
-        name="paymethod"
-        value={state?.paymethod ?? ""}
-        onChange={handleChange}
-        className="btn btn-red mx-3 h-[40px]"
-      >
-        <option value="Halyk">Halyk</option>
-        <option value="Kaspi">Kaspi</option>
-        <option value="Cash">Cash</option>
-      </select> */}
       <Button variant="default" onClick={() => TogglePaymethod()}>
         {state.paymethod ?? "Payment"}
       </Button>

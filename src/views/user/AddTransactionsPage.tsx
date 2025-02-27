@@ -1,28 +1,44 @@
 // Imported Components
 import CardTransHeaders from "../../features/transaction/CardTransHeaders";
-import CardTransAmount from "../../features/transaction/CardTransAmount";
 import CardTransDesc from "../../features/transaction/CardTransDesc";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import CardDayTransactions from "@/features/transaction/CardDayTransactions";
-import { getDate } from "@/lib/date";
-import { ClipboardPlus } from "lucide-react";
+import { ClipboardPlus, Plus } from "lucide-react";
 import { CURRENCY_OBJ } from "@/lib/data";
 import { format } from "date-fns";
+import FormAddTransaction from "@/features/transaction/FormAddTransaction";
+import { useAddTransactionMutation } from "@/features/transaction/transactionApiSlice";
+import toast from "react-hot-toast";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { T_Transaction } from "@/lib/templates";
 
-const initialState: Transaction = {
-  id: "",
-  amount: 0,
-  category: "",
-  currency: "KZT",
-  description: "",
-  paymethod: "cash",
-  type: "expense",
-  date: getDate(new Date()),
-};
+export default function AddTransactionsPage() {
+  const [addTransaction] = useAddTransactionMutation();
 
-const AddTransactionsPage = () => {
-  const [transaction, setTransaction] = useState(initialState);
+  const [transaction, setTransaction] = useState(T_Transaction);
   const [show, setShow] = useState(false);
+
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const handleSubmit = async (event: FormEvent) => {
+    try {
+      event.preventDefault();
+
+      const response = await addTransaction({
+        ...transaction,
+        id: crypto.randomUUID(),
+      });
+
+      if (response?.data) {
+        toast.success("Transaction Saved");
+      } else if (response?.error) {
+        toast.error("Error saving transaction");
+      }
+    } catch (error) {
+      toast.error("Error saving transaction");
+    }
+  };
 
   return (
     <main>
@@ -32,6 +48,13 @@ const AddTransactionsPage = () => {
           <h1 className="text-xl font-semibold">Add</h1>
           <p className="text-sm">Add Transactions</p>
         </div>
+        <button
+          title="Custom description"
+          onClick={() => setShowAddForm(true)}
+          className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center my-auto bg-zinc-200 hover:bg-zinc-300 duration-200 rounded-full"
+        >
+          <Plus size={20} className="mx-auto" />
+        </button>
         <div
           className="flex items-stretch gap-2 rounded-lg relative"
           onMouseEnter={() => setShow(true)}
@@ -74,13 +97,21 @@ const AddTransactionsPage = () => {
         transaction={transaction}
         setTransaction={setTransaction}
       />
-      <CardTransAmount
-        transaction={transaction}
-        setTransaction={setTransaction}
-      />
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-center gap-2"
+      >
+        <Input
+          type="number"
+          value={transaction?.amount}
+          onChange={(e) =>
+            setTransaction((curr) => ({ ...curr, amount: +e.target.value }))
+          }
+        />
+        <Button type="submit">Add</Button>
+      </form>
       <CardDayTransactions transaction={transaction} />
+      {showAddForm && <FormAddTransaction setAdd={setShowAddForm} />}
     </main>
   );
-};
-
-export default AddTransactionsPage;
+}

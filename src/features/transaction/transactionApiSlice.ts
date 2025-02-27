@@ -1,10 +1,4 @@
 import { apiSlice } from "../api/apiSlice";
-import { createEntityAdapter } from "@reduxjs/toolkit";
-import { store } from "@/app/store";
-
-const transactionAdapter = createEntityAdapter({});
-
-const initialState = transactionAdapter.getInitialState();
 
 export const transactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,64 +6,56 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
       query: (params) => ({
         url: "/transaction/user/",
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${store.getState()?.auth?.token}`,
-        },
         params,
       }),
-      transformResponse: (responseData: Transaction[]) => {
-        return transactionAdapter.setAll(initialState, responseData);
+      transformResponse: (response: any) => {
+        const { data, count }: { data: Transaction[]; count: number } =
+          response;
+        return { data, count };
       },
-      providesTags: ["transaction"],
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result?.data.map(({ id }) => ({
+                type: "transaction" as const,
+                id,
+              })),
+              { type: "transaction", id: "AllTransactions" },
+            ]
+          : [{ type: "transaction", id: "AllTransactions" }];
+      },
     }),
     addTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
         url: "/transaction/user",
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${store.getState()?.auth?.token}`,
-        },
         body: {
           transaction,
         },
       }),
-      invalidatesTags: ["transaction"],
+      invalidatesTags: () => {
+        return [{ type: "transaction", id: "AllTransactions" }];
+      },
     }),
     editTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
         url: "/transaction/user",
         method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${store.getState()?.auth?.token}`,
-        },
-        body: {
-          action: {
-            type: "/transaction",
-            payload: {
-              ...transaction,
-            },
-          },
-        },
-        invalidatesTags: ["transaction"],
+        body: { transaction },
       }),
+      invalidatesTags: (result, error, { id }) => {
+        return [{ type: "transaction", id }];
+      },
     }),
     deleteTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
         url: "/transaction/user",
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${store.getState()?.auth?.token}`,
-        },
-        body: {
-          action: {
-            type: "/transaction",
-            payload: {
-              ...transaction,
-            },
-          },
-        },
+        body: { id: transaction?.id },
       }),
-      invalidatesTags: ["transaction"],
+      invalidatesTags: (result, error, { id }) => {
+        return [{ type: "transaction", id }];
+      },
     }),
   }),
 });

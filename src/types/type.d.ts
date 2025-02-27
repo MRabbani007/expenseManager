@@ -1,72 +1,116 @@
-declare type Transaction = {
-  id: string;
-  userID?: string | null;
+declare global {
+  type Currency = "KZT" | "RUB" | "USD" | "EUR";
+  type TransactionType = "income" | "expense";
 
-  type: "income" | "expense" | null;
-  category: string | null;
-  description: string | null;
-  amount: number | null;
-  paymethod: string | null;
-  currency: "KZT" | "RUB" | "USD" | "EUR" | null;
-  date?: string | null;
+  type Transaction = {
+    id: string;
+    userID?: string;
 
-  createdAt?: string | null;
-  updatedAt?: string | null;
-};
+    type: TransactionType;
 
-declare type Category = {
-  id?: string;
-  label: string;
-  value: string;
-  detail?: string;
-  icon: string;
-  sortIndex?: Number;
-  group?: string;
-  groupNo?: Number;
-};
+    category: string;
 
-declare type Description = {
-  id?: string;
-  userId?: string;
+    description: string;
+    details?: string;
+    notes?: string;
 
-  group?: string;
-  category: string;
-  categoryID?: string;
-  isSelected?: boolean;
+    amount: number;
+    paymethod: string;
 
-  label: string;
-  value: string;
-  icon?: string;
-};
+    currency: Currency;
+    date?: string;
 
-declare type TimePeriod = {
-  period: string;
-  startDate?: string;
-  endDate?: string;
-  offset?: number;
-};
+    createdAt?: string;
+    updatedAt?: string;
+  };
 
-declare type BankCard = {
-  id: string;
-  bank: string;
-  nameOnCard: string;
-  expDate: string;
-  masked: string;
-};
+  type Category = {
+    id?: string;
+    label: string;
+    value: string;
+    detail?: string;
+    icon: string;
+    sortIndex?: Number;
+    group?: string;
+    groupNo?: Number;
+  };
 
-declare type BankCardProps = {
-  cardDetails: BankCard;
-  className: string;
-};
+  type Description = {
+    id?: string;
+    userId?: string;
 
-declare type AccountTypes =
-  | "deposite"
-  | "credit"
-  | "loan "
-  | "investment"
-  | "other";
+    group?: string;
+    category: string;
+    categoryID?: string;
+    isSelected?: boolean;
 
-declare type Account = {
-  userID: string;
-  type: "card" | "cash" | "savings";
-};
+    label: string;
+    value: string;
+    icon?: string;
+  };
+
+  type TransactionFilter = {
+    filterType: string;
+    period?: string;
+    startDate?: string;
+    endDate?: string;
+    offset?: number;
+  };
+
+  type TimePeriod = {
+    period: string;
+    startDate?: string;
+    endDate?: string;
+    offset?: number;
+  };
+
+  type AccountInfo = {
+    id: string;
+    type: string; // "Bank Card" | "Cash" | "Savings Account"
+    name: string;
+    currency?: string;
+
+    color?: string;
+    icon?: string;
+    imageUrl?: string;
+
+    bank?: string;
+    nameOnCard?: string;
+    expDate?: Date;
+    accountType?: string;
+
+    createdAt?: Date;
+    updatedAt?: Date;
+  };
+
+  type BankCard = {
+    id: string;
+    bank?: string;
+    nameOnCard?: string;
+    expDate?: Date;
+    masked: string;
+  };
+
+  type BankCardProps = {
+    cardDetails: BankCard;
+    className: string;
+  };
+
+  // TODO: Remove
+  type AccountTypes = "deposite" | "credit" | "loan " | "investment" | "other";
+
+  // TODO: Remove
+  type Account = {
+    userID: string;
+    type: "card" | "cash" | "savings";
+  };
+
+  type UserSettings = {
+    id: string;
+    userID: string;
+    transactionDisplay: string;
+    transactionsPerPage: number;
+  };
+}
+
+export {};

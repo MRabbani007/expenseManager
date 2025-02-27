@@ -24,19 +24,17 @@ const Layout = () => {
   const [getDescriptions, { data: desc, isSuccess: isSuccessDesc }] =
     useLazyGetDescriptionsQuery();
 
-  const [
-    getCategories,
-    { data: cat, isLoading, isError, isSuccess: isSuccessCat },
-  ] = useLazyGetCategoriesQuery();
+  const [getCategories, { data: cat, isSuccess: isSuccessCat }] =
+    useLazyGetCategoriesQuery();
 
   const [getProfile, { data: userDescriptions, isSuccess: isSuccessProfile }] =
     useLazyGetProfileQuery();
 
   useEffect(() => {
     if (auth?.username) {
-      getCategories();
-      getDescriptions();
-      getProfile();
+      getCategories(null);
+      getDescriptions(null);
+      getProfile(null);
     }
   }, [auth]);
 
@@ -48,9 +46,9 @@ const Layout = () => {
 
   useEffect(() => {
     if (location.pathname.includes("addItems") && (!desc || !cat)) {
-      getCategories();
-      getDescriptions();
-      getProfile();
+      getCategories(null);
+      getDescriptions(null);
+      getProfile(null);
     }
   }, [location.pathname]);
 
@@ -68,7 +66,7 @@ const Layout = () => {
 
   return (
     <>
-      {!auth?.username && <Navbar />}
+      {auth?.username && <Navbar />}
       <div className="flex items-stretch flex-1">
         <SideBar />
         <Suspense fallback={<SkeletonContentPage />}>

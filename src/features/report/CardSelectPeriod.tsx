@@ -3,16 +3,13 @@ import { DatePickerWithRange } from "@/components/ui/datepickerwithrange";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { getDate } from "@/lib/date";
-import { TimePeriod } from "@/types/type";
 import { addDays } from "date-fns";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { DateRange } from "react-day-picker";
 
 type Key = "day" | "week" | "month" | "quarter" | "period";

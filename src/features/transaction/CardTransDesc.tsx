@@ -5,46 +5,38 @@ import {
   selectSelectedDescriptions,
   selectUserDescriptions,
 } from "../globals/globalsSlice";
-import { CircleEllipsis, Keyboard } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Ellipsis } from "lucide-react";
 
 interface Props {
   transaction: Transaction;
   setTransaction: Dispatch<SetStateAction<Transaction>>;
 }
 
-type Status = "change" | "saved" | "disabled";
-
 export default function CardTransDesc({ transaction, setTransaction }: Props) {
   const [edit, setEdit] = useState(false);
-
-  const [showInput, setShowInput] = useState(false);
-  const [customDesc, setCustomDesc] = useState<string | null>(null);
-
-  const [status, setStatus] = useState<Status>("disabled");
 
   const descriptions = useAppSelector(selectUserDescriptions);
   const selectedDescriptions = useAppSelector(selectSelectedDescriptions);
 
   const [activeDesc, setActiveDesc] = useState<Description[]>([]);
 
-  const handleActiveDesc = () => {
-    setActiveDesc(() => {
-      if (!descriptions) return [];
-
-      if (!selectedDescriptions || selectedDescriptions.length === 0) {
-        return descriptions?.filter((item) => item?.isSelected === true);
-      }
-
-      return descriptions.filter((item) =>
-        selectedDescriptions?.find((selDesc) => selDesc.id === item.id)
-          ? true
-          : false
-      );
-    });
-  };
-
   useEffect(() => {
+    const handleActiveDesc = () => {
+      setActiveDesc(() => {
+        if (!descriptions) return [];
+
+        if (!selectedDescriptions || selectedDescriptions.length === 0) {
+          return descriptions?.filter((item) => item?.isSelected === true);
+        }
+
+        return descriptions.filter((item) =>
+          selectedDescriptions?.find((selDesc) => selDesc.id === item.id)
+            ? true
+            : false
+        );
+      });
+    };
+
     handleActiveDesc();
   }, [descriptions, selectedDescriptions]);
 
@@ -58,12 +50,9 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
 
   return (
     <div className="">
-      {/* <div className="flex items-center gap-2">
-        <span className="text-2xl font-semibold">Description</span>
-      </div> */}
       <div
         title="Description"
-        className="flex flex-wrap items-center gap-2 group"
+        className="flex flex-wrap items-stretch gap-2 group/desc"
       >
         {activeDesc.map((item, index) => (
           <div key={index} className="">
@@ -74,43 +63,22 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
               className={
                 (transaction?.description === item.value
                   ? " bg-yellow-300"
-                  : " bg-white") + " p-1 rounded-lg w-16"
+                  : " bg-white") +
+                " p-1 rounded-lg w-16 hover:scale-110 duration-200"
               }
               onClick={() => handleDesc(item)}
             />
           </div>
         ))}
         <button
-          title="Custom description"
-          onClick={() => setShowInput((curr) => !curr)}
-          className={
-            (showInput ? "bg-yellow-300 " : "") + " p-2 rounded-lg w-16"
-          }
-        >
-          <Keyboard size={30} className="mx-auto" />
-        </button>
-        <button
           title="More options"
           onClick={() => setEdit(true)}
-          className="hover:scale-110 duration-200 invisible group-hover:visible"
+          type="button"
+          className="flex items-center justify-center w-16 hover:scale-110 duration-200 invisible opacity-0 group-hover/desc:visible group-hover/desc:opacity-100  bg-white rounded-lg "
         >
-          <CircleEllipsis size={30} />
+          <Ellipsis size={30} />
         </button>
       </div>
-      {showInput ? (
-        <div className="mt-4 space-y-4">
-          <Input type="text" placeholder="Category" />
-          <Input
-            type="text"
-            placeholder="Description"
-            value={customDesc ?? ""}
-            onChange={(e) => {
-              setStatus("change");
-              setCustomDesc(e.target.value);
-            }}
-          />
-        </div>
-      ) : null}
       {edit && <FormSelectDescriptions setShowForm={setEdit} />}
     </div>
   );

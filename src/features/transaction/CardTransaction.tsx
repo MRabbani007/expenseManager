@@ -1,4 +1,3 @@
-import { Edit, Paperclip } from "lucide-react";
 import { useState } from "react";
 import FormEditTransaction from "./FormEditTransaction";
 import { DESCRIPTIONS } from "@/lib/data";
@@ -23,6 +22,7 @@ export default function CardTransaction({
 
   return (
     <div
+      onClick={() => setEdit(true)}
       className={
         "flex justify-start items-stretch gap-2 bg-zinc-100 pl-4 group"
       }
@@ -31,7 +31,10 @@ export default function CardTransaction({
         <img src={image} alt="desc" className="w-8" />
       </div>
       <div className="py-2 flex-1 my-auto grid grid-cols-1 sm:grid-cols-2">
-        <p className="font-bold">{transaction.description}</p>
+        <p className="font-bold">
+          <span>{transaction.description}</span>
+          <span>{transaction?.details}</span>
+        </p>
         <p className="font-semibold text-zinc-700 text-xs sm:text-base">
           {transaction.category}
         </p>
@@ -44,14 +47,6 @@ export default function CardTransaction({
         <p className="font-semibold text-zinc-700 text-end text-sm">
           {transaction.paymethod}
         </p>
-      </div>
-      <div className="invisible group-hover:visible duration-200 my-auto">
-        <button>
-          <Paperclip />
-        </button>
-        <button onClick={() => setEdit(true)}>
-          <Edit />
-        </button>
       </div>
       <div className={"w-2 " + type} />
       {edit ? (

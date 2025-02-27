@@ -8,21 +8,29 @@ import {
 import { UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const menuItems = [
+  { url: "/dashboard", label: "Dashboard", icon: null },
+  { url: "/transactions", label: "Report", icon: null },
+  { url: "/addItems", label: "Add Items", icon: null },
+  { url: "/calendar", label: "Calendar", icon: null },
+  { url: "/cards", label: "Accounts", icon: null },
+  { url: "/logout", label: "Sign Out", icon: null },
+];
+
 export default function UserDropDown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <UserRound size={30} />
+        <Button variant="ghost">
+          <UserRound size={25} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuItem asChild>
-          <Link to={"/admin"}>Admin</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link to={"/logout"}>SignOut</Link>
-        </DropdownMenuItem>
+        {menuItems.map((item) => (
+          <DropdownMenuItem key={item.url} asChild>
+            <Link to={item.url}>{item.label}</Link>
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

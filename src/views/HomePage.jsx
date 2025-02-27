@@ -10,6 +10,7 @@ const HomePage = () => {
     event.preventDefault();
     navigate("/login", { state: { email } });
   };
+
   return (
     <main className="bg-stone-100">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center justify-center h-full px-0 md:px-8">
@@ -29,7 +30,7 @@ const HomePage = () => {
           </p>
           <form
             onSubmit={onSubmit}
-            className="flex flex-col sm:flex-row flex-nowrap items-stretch justify-center gap-2 sm:bg-stone-300 rounded-full max-w-[400px]"
+            className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center sm:justify-start justify-center gap-2 sm:bg-stone-300 rounded-full max-w-[500px]"
           >
             <input
               type="text"
