@@ -1,21 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AuthState, setCredentials, clearCredentials } from "../auth/authSlice";
-import { store } from "@/app/store";
 import { BASE_URL } from "@/lib/url";
+import { RootState } from "@/app/store";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "include",
-  prepareHeaders: (headers) => {
-    const token = store.getState().auth.token;
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.token;
 
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
+
+      return headers;
     }
-
-    // headers.set("Content-Type", "application/json");
-
-    return headers;
   },
 });
 

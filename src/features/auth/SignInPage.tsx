@@ -1,18 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// Imported Context
-// Imported Hooks
 import useAuth from "../../hooks/useAuth";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
-// Imported Data
-import { fetchUser } from "../../data/serverFunctions";
-import { ACTIONS, SERVER } from "../../data/utils";
-// Imported Icons
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from "../../api/axios";
 
-const SignIn = () => {
+export default function SignInPage() {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
@@ -20,8 +14,8 @@ const SignIn = () => {
   const from = location.state?.from?.pathname || "/";
 
   // Set focus to username input on load
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef = useRef<HTMLDivElement>(null);
+  const errRef = useRef<HTMLParagraphElement>(null);
 
   const [user, resetUser, userAttribs] = useInput("user", "");
   const [pwd, setPwd] = useState("");
@@ -32,30 +26,27 @@ const SignIn = () => {
 
   useEffect(() => {
     if (!success) {
-      userRef.current.focus();
+      userRef.current?.focus();
     }
   }, []);
 
   useEffect(() => {
-    // Remove error message on user input
     setErrMsg("");
   }, [user, pwd]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
     try {
-      let response = await axios.post(SERVER.USER_SIGNIN, {
-        type: ACTIONS.USER_SIGNIN,
-        payload: {
-          username: user,
-          password: pwd,
-        },
+      let response = await axios.post("/user/auth", {
+        username: user,
+        password: pwd,
       });
 
       if (response?.data?.status === "success") {
         const accessToken = response?.data?.accessToken;
         const roles = response?.data?.roles;
-        setAuth({ user, roles, accessToken });
+        setAuth && setAuth({ user, roles, accessToken });
         resetUser();
         setPwd("");
         setSuccess(true);
@@ -65,17 +56,17 @@ const SignIn = () => {
         alert(response);
       }
     } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
+      // if (!err?.response) {
+      //   setErrMsg("No Server Response");
+      // } else if (err.response?.status === 400) {
+      //   setErrMsg("Missing Username or Password");
+      // } else if (err.response?.status === 401) {
+      //   setErrMsg("Unauthorized");
+      // } else {
+      //   setErrMsg("Login Failed");
+      // }
       console.log(err);
-      errRef.current.focus();
+      errRef?.current?.focus();
     }
   };
 
@@ -146,6 +137,4 @@ const SignIn = () => {
       </p>
     </main>
   );
-};
-
-export default SignIn;
+}

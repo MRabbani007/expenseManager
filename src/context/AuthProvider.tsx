@@ -12,11 +12,12 @@ interface Props {
 
 interface Auth {
   user: string;
-  token: string;
+  roles: number[];
+  accessToken: string;
 }
 
 interface InitialState {
-  auth?: Auth | null;
+  auth: Auth | null;
   setAuth?: Dispatch<SetStateAction<Auth | null>>;
 }
 
