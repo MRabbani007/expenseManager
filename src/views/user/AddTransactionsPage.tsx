@@ -1,7 +1,7 @@
 // Imported Components
 import CardTransHeaders from "../../features/transaction/CardTransHeaders";
 import CardTransDesc from "../../features/transaction/CardTransDesc";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import CardDayTransactions from "@/features/transaction/CardDayTransactions";
 import { ClipboardPlus, Plus } from "lucide-react";
 import { CURRENCY_OBJ } from "@/lib/data";
@@ -12,8 +12,13 @@ import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { T_Transaction } from "@/lib/templates";
+import { useLazyGetAccountsQuery } from "@/features/cards/accountSlice";
 
 export default function AddTransactionsPage() {
+  const [getAccounts, { data, isSuccess }] = useLazyGetAccountsQuery();
+
+  const userAccounts = isSuccess ? data?.data : [];
+
   const [addTransaction] = useAddTransactionMutation();
 
   const [transaction, setTransaction] = useState(T_Transaction);
@@ -39,6 +44,10 @@ export default function AddTransactionsPage() {
       toast.error("Error saving transaction");
     }
   };
+
+  useEffect(() => {
+    getAccounts(null);
+  }, []);
 
   return (
     <main>
@@ -86,6 +95,27 @@ export default function AddTransactionsPage() {
               " absolute top-full right-0 bg-stone-100 p-4 rounded-lg duration-200"
             }
           >
+            {userAccounts?.map((item) => {
+              const color =
+                item.type === "card"
+                  ? item?.color === "green"
+                    ? "from-green-700 to-green-950"
+                    : item?.color === "red"
+                    ? "from-red-700 to-red-950"
+                    : item?.color === "blue"
+                    ? "from-blue-700 to-sky-950"
+                    : "from-stone-700 to-zinc-950"
+                  : "";
+
+              return (
+                <button
+                  key={item?.id}
+                  className={" bg-gradient-to-br " + color}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
             <CardTransHeaders
               transaction={transaction}
               setTransaction={setTransaction}

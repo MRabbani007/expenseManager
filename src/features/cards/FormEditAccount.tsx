@@ -9,7 +9,7 @@ import FormContainer from "../../components/forms/FormContainer";
 import { T_AccountInfo } from "@/lib/templates";
 import RadioGroup from "@/components/RadioGroup";
 import InputField from "@/components/InputField";
-import { useAddAccountMutation } from "./accountSlice";
+import { useEditAccountMutation } from "./accountSlice";
 import toast from "react-hot-toast";
 import {
   ACCOUNT_TYPES,
@@ -18,13 +18,15 @@ import {
   SAVINGS_OPTIONS,
 } from "@/lib/data";
 
-export default function FormAddAccount({
-  setAdd,
+export default function FormEditAccount({
+  accountInfo,
+  setEdit,
 }: {
-  setAdd: Dispatch<SetStateAction<boolean>>;
+  accountInfo: AccountInfo;
+  setEdit: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [addAccount] = useAddAccountMutation();
-  const [state, setState] = useState(T_AccountInfo);
+  const [editAccount] = useEditAccountMutation();
+  const [state, setState] = useState({ ...T_AccountInfo, ...accountInfo });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,16 +39,20 @@ export default function FormAddAccount({
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await addAccount(state);
-      toast.success("Account Created");
-      setAdd(false);
+      await editAccount(state);
+      toast.success("Account Saved");
+      setEdit(false);
     } catch (error) {
-      toast.error("Error creating account");
+      toast.error("Error saving account");
     }
   };
 
   return (
-    <FormContainer onSubmit={onSubmit} closeForm={setAdd} title="Add Account">
+    <FormContainer
+      onSubmit={onSubmit}
+      closeForm={setEdit}
+      title="Update Account"
+    >
       <RadioGroup
         label="Account Type"
         name="type"
@@ -87,7 +93,6 @@ export default function FormAddAccount({
           />
         </>
       )}
-
       {state?.type === "cash" && (
         <RadioGroup
           label="Icon"

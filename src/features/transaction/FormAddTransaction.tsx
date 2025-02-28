@@ -18,6 +18,7 @@ import {
   selectUserDescriptions,
 } from "../globals/globalsSlice";
 import SelectField from "@/components/SelectField";
+import { ChevronRight } from "lucide-react";
 
 const currencyOptions = [
   { label: "KZT", value: "KZT", image: "images/currency/tenge.png" },
@@ -32,6 +33,7 @@ export default function FormAddTransaction({
   setAdd: Dispatch<SetStateAction<boolean>>;
 }) {
   const [addTransaction] = useAddTransactionMutation();
+  const [expandDesc, setExpandDesc] = useState(false);
 
   const [state, setState] = useState<Transaction>(T_Transaction);
 
@@ -109,10 +111,25 @@ export default function FormAddTransaction({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">Description</p>
+        <button
+          type="button"
+          onClick={() => setExpandDesc((curr) => !curr)}
+          className="flex items-center gap-2"
+        >
+          <span className="text-sm font-medium">Description</span>
+          <ChevronRight
+            size={20}
+            className={(expandDesc ? "rotate-90" : "") + " duration-200"}
+          />
+        </button>
         <div
           title="Description"
-          className="flex flex-wrap items-stretch gap-2 group/desc"
+          className={
+            (expandDesc
+              ? ""
+              : " h-0 invisible opacity-0 -translate-y-4 overflow-hidden ") +
+            " flex flex-wrap items-stretch gap-2 group/desc duration-200"
+          }
         >
           {activeDesc.map((item, index) => (
             <div key={index} className="">

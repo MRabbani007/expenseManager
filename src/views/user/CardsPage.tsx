@@ -1,42 +1,88 @@
 import BankCard from "@/components/BankCard";
 import FormAddAccount from "@/features/cards/FormAddAccount";
 import { Button } from "@/components/ui/button";
-import {
-  Banknote,
-  Coins,
-  CreditCard,
-  Ellipsis,
-  GraduationCap,
-  PaintRoller,
-  PiggyBank,
-  Wallet,
-} from "lucide-react";
-import { useState } from "react";
-
-const CASH_PAYMENT = [
-  { label: "Cash", value: "cash", icon: <Banknote size={30} /> },
-  { label: "Wallet", value: "wallet", icon: <Wallet size={30} /> },
-  { label: "Coins", value: "coins", icon: <Coins size={30} /> },
-];
-
-const SAVINGS = [
-  { label: "College", value: "college", icon: <GraduationCap size={30} /> },
-  { label: "Remont", value: "remont", icon: <PaintRoller size={30} /> },
-  { label: "Others", value: "others", icon: <Ellipsis size={30} /> },
-];
+import { Banknote, CreditCard, GraduationCap, PiggyBank } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useLazyGetAccountsQuery } from "@/features/cards/accountSlice";
+import { getIcon } from "@/lib/icons";
+import FormEditAccount from "@/features/cards/FormEditAccount";
 
 const temp = { icon: GraduationCap };
 
-const CARD: BankCard = {
-  id: "asd",
-  bank: "Halyk Bank",
-  nameOnCard: "Mohamad Rabbani",
-  expDate: "01/09",
-  masked: "1234",
-};
+// const CARD: BankCard = {
+//   id: "asd",
+//   bank: "Halyk Bank",
+//   nameOnCard: "Mohamad Rabbani",
+//   expDate: new Date("01-01-09"),
+//   masked: "1234",
+// };
 
 export default function CardsPage() {
+  const [getAccounts, { data, isLoading, isSuccess, isError }] =
+    useLazyGetAccountsQuery();
   const [add, setAdd] = useState(false);
+
+  const [edit, setEdit] = useState(false);
+  const [editItem, setEditItem] = useState<AccountInfo | null>(null);
+
+  useEffect(() => {
+    getAccounts(null);
+  }, []);
+
+  let cardsContent = null;
+  let cashContent = null;
+  let savingsContent = null;
+
+  if (isLoading) {
+    cardsContent = <p>Loading...</p>;
+    cashContent = <p>Loading...</p>;
+    savingsContent = <p>Loading...</p>;
+  } else if (isError) {
+    cardsContent = <p>Error Loading Data</p>;
+    cashContent = <p>Error Loading Data</p>;
+    savingsContent = <p>Error Loading Data</p>;
+  } else if (isSuccess) {
+    cardsContent = data.data
+      .filter((item) => item.type === "card")
+      .map((item) => (
+        <BankCard
+          key={item.id}
+          cardDetails={item}
+          setEdit={setEdit}
+          setEditItem={setEditItem}
+        />
+      ));
+    cashContent = data.data
+      .filter((item) => item.type === "cash")
+      .map((item) => (
+        <div
+          key={item.id}
+          onClick={() => {
+            setEdit(true);
+            setEditItem(item);
+          }}
+          className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
+        >
+          {item?.icon && getIcon(item.icon)}
+          <p className="font-semibold text-mono">{item?.name}</p>
+        </div>
+      ));
+    savingsContent = data.data
+      .filter((item) => item.type === "savings")
+      .map((item) => (
+        <div
+          key={item.id}
+          onClick={() => {
+            setEdit(true);
+            setEditItem(item);
+          }}
+          className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
+        >
+          {item?.icon && getIcon(item.icon)}
+          <p className="font-semibold text-mono">{item?.name}</p>
+        </div>
+      ));
+  }
 
   return (
     <main>
@@ -51,41 +97,22 @@ export default function CardsPage() {
       {add ? <FormAddAccount setAdd={setAdd} /> : null}
       {false && <temp.icon size={30} />}
       <div className="flex flex-wrap items-center gap-4">
-        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
-        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
-        <BankCard cardDetails={CARD} className="from-green-700 to-green-950" />
+        {cardsContent}
+        {/* <BankCard cardDetails={CARD} className="from-green-700 to-green-950" /> */}
       </div>
       <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
         <Banknote size={30} />
         <h2 className="font-bold text-2xl">Cash</h2>
       </header>
-      <div className="flex flex-wrap items-stretch gap-2">
-        {CASH_PAYMENT.map((item, idx) => (
-          <div
-            key={idx}
-            title={item.label}
-            className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
-          >
-            {item.icon}
-            <p className="font-semibold text-mono">{item.label}</p>
-          </div>
-        ))}
-      </div>
+      <div className="flex flex-wrap items-stretch gap-2">{cashContent}</div>
       <header className="flex items-center gap-2 border-b-2 border-zinc-200 pb-2">
         <PiggyBank size={30} />
         <h2 className="font-bold text-2xl">Savings</h2>
       </header>
-      <div className="flex flex-wrap items-stretch gap-2">
-        {SAVINGS.map((item, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
-          >
-            {item.icon}
-            <p className="font-semibold text-mono">{item.label}</p>
-          </div>
-        ))}
-      </div>
+      <div className="flex flex-wrap items-stretch gap-2">{savingsContent}</div>
+      {edit && editItem && (
+        <FormEditAccount accountInfo={editItem} setEdit={setEdit} />
+      )}
     </main>
   );
 }

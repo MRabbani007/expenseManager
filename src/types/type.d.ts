@@ -76,6 +76,7 @@ declare global {
 
     bank?: string;
     nameOnCard?: string;
+    masked?: string;
     expDate?: Date;
     accountType?: string;
 
@@ -88,12 +89,6 @@ declare global {
     bank?: string;
     nameOnCard?: string;
     expDate?: Date;
-    masked: string;
-  };
-
-  type BankCardProps = {
-    cardDetails: BankCard;
-    className: string;
   };
 
   // TODO: Remove
@@ -103,6 +98,11 @@ declare global {
   type Account = {
     userID: string;
     type: "card" | "cash" | "savings";
+  };
+
+  type UserProfile = {
+    defaultCard: string;
+    lastUsedCard: string;
   };
 
   type UserSettings = {

@@ -16,6 +16,7 @@ import {
   Stethoscope,
   Store,
 } from "lucide-react";
+import { getIcon } from "./icons";
 
 const ICON_SIZE = 30;
 
@@ -324,3 +325,45 @@ export const TYPE_OBJ = {
   income: "images/income.png",
   expense: "images/expense.png",
 };
+
+export const ACCOUNT_TYPES = [
+  { label: "Bank Account", value: "card" },
+  { label: "Cash", value: "cash" },
+  { label: "Savings", value: "savings" },
+];
+
+export const CASH_OPTIONS = [
+  { label: "Wallet", value: "wallet", icon: getIcon("wallet") },
+  { label: "Cash", value: "cash", icon: getIcon("cash") },
+  { label: "Coins", value: "coins", icon: getIcon("coins") },
+];
+
+export const SAVINGS_OPTIONS = [
+  { label: "College", value: "college", icon: getIcon("college") },
+  { label: "Remont", value: "remont", icon: getIcon("remont") },
+  { label: "Others", value: "others", icon: getIcon("others") },
+];
+
+export const CARD_COLOR_OPTIONS = [
+  {
+    label: "",
+    value: "green",
+    icon: (
+      <div className="w-16 h-10 rounded-md bg-gradient-to-br from-green-700 to-green-950" />
+    ),
+  },
+  {
+    label: "",
+    value: "red",
+    icon: (
+      <div className="w-16 h-10 rounded-md bg-gradient-to-br from-red-700 to-red-950" />
+    ),
+  },
+  {
+    label: "",
+    value: "blue",
+    icon: (
+      <div className="w-16 h-10 rounded-md bg-gradient-to-br from-sky-700 to-sky-950" />
+    ),
+  },
+];
