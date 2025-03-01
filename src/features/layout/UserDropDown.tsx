@@ -5,16 +5,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { UserRound } from "lucide-react";
+import {
+  CalendarDays,
+  CreditCard,
+  FilePlus,
+  LayoutGrid,
+  LogOut,
+  Menu,
+  ScrollText,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const menuItems = [
-  { url: "/dashboard", label: "Dashboard", icon: null },
-  { url: "/transactions", label: "Report", icon: null },
-  { url: "/addItems", label: "Add Items", icon: null },
-  { url: "/calendar", label: "Calendar", icon: null },
-  { url: "/cards", label: "Accounts", icon: null },
-  { url: "/logout", label: "Sign Out", icon: null },
+  { url: "/dashboard", label: "Dashboard", icon: <LayoutGrid size={20} /> },
+  { url: "/transactions", label: "Report", icon: <ScrollText size={20} /> },
+  { url: "/addItems", label: "Add Items", icon: <FilePlus size={20} /> },
+  { url: "/calendar", label: "Calendar", icon: <CalendarDays size={20} /> },
+  { url: "/cards", label: "Accounts", icon: <CreditCard size={20} /> },
+  { url: "/logout", label: "Sign Out", icon: <LogOut size={20} /> },
 ];
 
 export default function UserDropDown() {
@@ -22,13 +30,16 @@ export default function UserDropDown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
-          <UserRound size={25} />
+          <Menu size={25} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent align="end" className="w-56">
         {menuItems.map((item) => (
           <DropdownMenuItem key={item.url} asChild>
-            <Link to={item.url}>{item.label}</Link>
+            <Link to={item.url} className="flex items-center gap-2">
+              {item?.icon}
+              <span>{item.label}</span>
+            </Link>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

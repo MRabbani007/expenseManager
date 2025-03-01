@@ -19,6 +19,7 @@ import {
   selectUserDescriptions,
 } from "../globals/globalsSlice";
 import InputField from "@/components/InputField";
+import { ChevronRight } from "lucide-react";
 
 const payMethods = [
   { label: "Halyk", value: "halyk" },
@@ -41,6 +42,8 @@ export default function FormEditTransaction({
   setEdit: Dispatch<SetStateAction<boolean>>;
 }) {
   const [editTransaction] = useEditTransactionMutation();
+  const [expandDesc, setExpandDesc] = useState(false);
+
   const [state, setState] = useState<Transaction>(transaction);
 
   const onSubmit = async (event: FormEvent) => {
@@ -135,7 +138,17 @@ export default function FormEditTransaction({
           setState((curr) => ({ ...curr, paymethod }))
         }
       />
-      <p className="text-sm">Description</p>
+      <button
+        type="button"
+        onClick={() => setExpandDesc((curr) => !curr)}
+        className="flex items-center gap-2"
+      >
+        <span className="text-sm font-medium">Description</span>
+        <ChevronRight
+          size={20}
+          className={(expandDesc ? "rotate-90" : "") + " duration-200"}
+        />
+      </button>
       <div
         title="Description"
         className="flex flex-wrap items-stretch gap-2 group/desc"
@@ -171,7 +184,7 @@ export default function FormEditTransaction({
         value={state?.details ?? ""}
         handleChange={handleChange}
       />
-      <div className="flex items-start gap-4">
+      <div className="flex flex-wrap items-start gap-4">
         <SelectField
           label="Currency"
           value={state?.currency}

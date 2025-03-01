@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { Slider, Slide } from "@/components/Slider";
 import { Button } from "@/components/ui/button";
-import { Description } from "@/types/type";
 import {
   Dispatch,
   FormEvent,
@@ -109,17 +108,19 @@ export default function FormSelectDescriptions({
   // {id: 'ccc535ca-ed3a-42dd-a16e-f8ae4a5c71e5', value: 'rent'}]
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-zinc-400/70">
-      <div className="bg-zinc-50">
-        <div className="flex items-center gap-2 py-2 px-4 bg-zinc-200">
-          <p className="text-xl font-semibold mr-auto">Select Descriptions</p>
+    <div className="fixed inset-0 flex items-center justify-center bg-zinc-900/70 z-50">
+      <div className="bg-zinc-50 rounded-lg">
+        <div className="flex items-center gap-2 py-2 px-4 bg-zinc-800">
+          <p className="text-xl font-semibold mr-auto text-white">
+            Select Descriptions
+          </p>
           <form onSubmit={onSubmit} onReset={onReset}>
-            <Button variant="ghost" className="p-0">
-              <BiCheck size={30} />
-            </Button>
-            <Button variant="ghost" className="p-0">
-              <BiX size={30} />
-            </Button>
+            <button>
+              <BiCheck size={25} />
+            </button>
+            <button>
+              <BiX size={25} />
+            </button>
           </form>
         </div>
         <Slider>

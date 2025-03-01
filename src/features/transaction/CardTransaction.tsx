@@ -31,18 +31,20 @@ export default function CardTransaction({
         <img src={image} alt="desc" className="w-8" />
       </div>
       <div className="py-2 flex-1 my-auto grid grid-cols-1 sm:grid-cols-2">
-        <p className="font-bold">
-          <span>{transaction.description}</span>
-          <span>{transaction?.details}</span>
+        <p className="flex items-center gap-1">
+          <span className="font-medium">{transaction?.details}</span>
+          <span className="font-bold">{transaction.description}</span>
         </p>
         <p className="font-semibold text-zinc-700 text-xs sm:text-base">
           {transaction.category}
         </p>
       </div>
       <div className="py-2 px-4 flex-1 my-auto grid grid-cols-1 sm:grid-cols-2">
-        <p className="space-x-2 font-bold text-end sm:text-start">
+        <p className="flex gap-1 items-center justify-end text-end sm:text-start">
           <span className="">{transaction.currency}</span>
-          <span>{transaction.amount?.toLocaleString("en-US")}</span>
+          <span className="font-bold">
+            {transaction.amount?.toLocaleString("en-US")}
+          </span>
         </p>
         <p className="font-semibold text-zinc-700 text-end text-sm">
           {transaction.paymethod}

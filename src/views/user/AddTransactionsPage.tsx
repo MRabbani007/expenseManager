@@ -49,6 +49,11 @@ export default function AddTransactionsPage() {
     getAccounts(null);
   }, []);
 
+  const displayCards = [
+    ...userAccounts.filter((item) => item?.type === "card"),
+    ...userAccounts?.filter((item) => item?.type === "cash"),
+  ];
+
   return (
     <main>
       <header className="flex items-stretch gap-2">
@@ -92,25 +97,25 @@ export default function AddTransactionsPage() {
           <div
             className={
               (show ? "" : "-translate-y-4 opacity-0 invisible") +
-              " absolute top-full right-0 bg-stone-100 p-4 rounded-lg duration-200"
+              " absolute top-full right-0 bg-stone-100 p-4 rounded-lg duration-200 flex flex-wrap items-stretch gap-2"
             }
           >
-            {userAccounts?.map((item) => {
+            {displayCards?.map((item) => {
               const color =
                 item.type === "card"
                   ? item?.color === "green"
-                    ? "from-green-700 to-green-950"
+                    ? "from-green-700 to-green-950 text-white"
                     : item?.color === "red"
-                    ? "from-red-700 to-red-950"
+                    ? "from-red-700 to-red-950 text-white"
                     : item?.color === "blue"
-                    ? "from-blue-700 to-sky-950"
-                    : "from-stone-700 to-zinc-950"
+                    ? "from-blue-700 to-sky-950 text-white"
+                    : "from-stone-700 to-zinc-950 text-white"
                   : "";
 
               return (
                 <button
                   key={item?.id}
-                  className={" bg-gradient-to-br " + color}
+                  className={" bg-gradient-to-br py-2 px-4 rounded-md " + color}
                 >
                   {item.name}
                 </button>

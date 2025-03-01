@@ -163,7 +163,7 @@ export default function FormAddTransaction({
         value={state?.details ?? ""}
         handleChange={handleChange}
       />
-      <div className="flex items-start gap-4">
+      <div className="flex flex-wrap items-start gap-4">
         <SelectField
           label="Currency"
           value={state?.currency}

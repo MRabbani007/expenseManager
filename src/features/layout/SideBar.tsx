@@ -2,11 +2,11 @@ import { useAppSelector } from "@/app/hooks";
 import {
   CalendarDays,
   CircleEqual,
-  ClipboardMinus,
   CreditCard,
   LayoutDashboard,
   LucideUser2,
   Plus,
+  ScrollText,
   Settings,
   SquareStack,
   UserRound,
@@ -24,7 +24,7 @@ const SIDEBAR = [
   {
     label: "Reports",
     url: "/transactions",
-    icon: <ClipboardMinus size={25} />,
+    icon: <ScrollText size={25} />,
   },
   { label: "Add", url: "/addItems", icon: <Plus size={25} /> },
   {
