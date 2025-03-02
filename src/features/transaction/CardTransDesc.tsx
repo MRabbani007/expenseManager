@@ -6,12 +6,14 @@ import {
   selectUserDescriptions,
 } from "../globals/globalsSlice";
 import { Ellipsis } from "lucide-react";
+import ToolTip from "@/components/ToolTip";
 
 interface Props {
   transaction: Transaction;
   setTransaction: Dispatch<SetStateAction<Transaction>>;
 }
 
+// TODO: Delete Component
 export default function CardTransDesc({ transaction, setTransaction }: Props) {
   const [edit, setEdit] = useState(false);
 
@@ -56,11 +58,10 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
         className="flex flex-wrap items-stretch gap-2 group/desc"
       >
         {activeDesc.map((item, index) => (
-          <div key={index} className="">
+          <ToolTip key={index} title={item.label}>
             <img
               key={index}
               src={item?.icon}
-              title={item.label}
               className={
                 (transaction?.description === item.value
                   ? " bg-yellow-300"
@@ -69,7 +70,7 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
               }
               onClick={() => handleDesc(item)}
             />
-          </div>
+          </ToolTip>
         ))}
         <button
           title="More options"

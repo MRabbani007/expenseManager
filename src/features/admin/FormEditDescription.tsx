@@ -1,4 +1,4 @@
-import React, {
+import {
   ChangeEvent,
   Dispatch,
   FormEvent,
@@ -11,7 +11,6 @@ import {
   useEditDescriptionMutation,
   useGetCategoriesQuery,
 } from "./AdminApiSlice";
-import { Category, Description } from "@/types/type";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -43,11 +42,16 @@ export default function FormEditDescription({
 
   const { data: categories, isSuccess } = useGetCategoriesQuery();
 
-  const [state, setState] = useState({ ...initialState, ...description });
+  const [state, setState] = useState<Description>({
+    ...initialState,
+    ...description,
+  });
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setState((curr) => ({ ...curr, [event.target.name]: event.target.value }));
   };
+
+  console.log(state);
 
   const handleCategory = (cat: Category) => {
     setState((curr) => ({

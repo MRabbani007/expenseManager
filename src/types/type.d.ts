@@ -134,6 +134,10 @@ declare global {
       income: number;
       spending: number;
       count: number;
+      descLabel: string;
+      descIcon: string;
+      categoryId: string;
+      categoryLabel: string;
     }[];
   };
 }

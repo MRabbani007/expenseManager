@@ -21,6 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import FormEditTransaction from "@/features/transaction/FormEditTransaction";
+import ToolTip from "@/components/ToolTip";
 
 const initialState: TransactionFilter = {
   filterType: "latest",
@@ -31,8 +32,10 @@ const initialState: TransactionFilter = {
 };
 
 export default function ReportPage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
+  const descId = searchParams.get("descId");
+
   const [display, setDisplay] = useState("table");
 
   const [state, setState] = useState<TransactionFilter>(initialState);
@@ -68,14 +71,22 @@ export default function ReportPage() {
         startDate: state?.startDate,
         endDate: state?.endDate,
         page,
+        descId,
       });
       getSummary({
         startDate: state?.startDate,
         endDate: state?.endDate,
+        descId,
       });
       setLastUsed(state);
     }
-  }, [state, page]);
+  }, [state, page, descId]);
+
+  const handleDescription = (desc: string) => {
+    searchParams.set("descId", desc);
+
+    setSearchParams(searchParams);
+  };
 
   let content = null;
   let noContent = null;
@@ -156,6 +167,14 @@ export default function ReportPage() {
     }
   }
 
+  const summaryCategories = Array.from(
+    new Map(
+      summary?.breakDown.map((item) => [item?.categoryId, item.categoryLabel])
+    )
+  );
+
+  console.log(summaryCategories);
+
   const summaryTotal = summary?.breakDown.reduce(
     (prev, curr) => prev + curr.spending,
     0
@@ -209,22 +228,32 @@ export default function ReportPage() {
       <div className="flex flex-wrap items-stretch gap-2">
         {Array.isArray(summary?.breakDown) &&
           [...summary?.breakDown]
-            .sort((a, b) => (a.income > b.income ? 1 : -1))
+            .sort((a, b) => (a.spending > b.spending ? -1 : 1))
             .map((item, idx) => {
               // const catSummary = getCategorySummary(item.label);
               return (
                 <div
                   key={idx}
-                  title={item._id}
+                  onClick={() => handleDescription(item?._id)}
                   className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
                 >
-                  <p className="font-semibold text-mono">{item._id}</p>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-mono">{item.spending}</p>
-                    {item?.income !== 0 && (
-                      <p className="font-semibold text-mono">{item.income}</p>
-                    )}
-                  </div>
+                  <ToolTip title={item?.descLabel ?? ""}>
+                    <img
+                      src={item?.descIcon}
+                      className="w-10 max-h-12 mx-auto"
+                    />
+                    {/* <p className="font-semibold text-mono"></p> */}
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-mono">
+                        {item.spending.toLocaleString("en-us")}
+                      </p>
+                      {item?.income !== 0 && (
+                        <p className="font-semibold text-mono">
+                          {item.income.toLocaleString("en-us")}
+                        </p>
+                      )}
+                    </div>
+                  </ToolTip>
                 </div>
               );
             })}
@@ -234,7 +263,9 @@ export default function ReportPage() {
         >
           <p className="font-semibold text-mono">Total</p>
           <div className="flex items-center gap-2">
-            <p className="font-semibold text-mono">{summaryTotal}</p>
+            <p className="font-semibold text-mono">
+              {summaryTotal?.toLocaleString("en-us")}
+            </p>
           </div>
         </div>
       </div>

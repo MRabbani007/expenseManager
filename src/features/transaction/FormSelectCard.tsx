@@ -11,6 +11,7 @@ import { DatePicker } from "@/components/ui/datepicker";
 import { getDate } from "@/lib/date";
 import RadioGroup from "@/components/RadioGroup";
 import { CURRENCY_OPTIONS } from "@/lib/data";
+import { format } from "date-fns";
 
 export default function FormSelectCard({
   transaction,
@@ -83,15 +84,31 @@ export default function FormSelectCard({
 
   return (
     <div>
-      <button
+      <div
         onClick={() => setShow(true)}
-        className={
-          " bg-gradient-to-br py-2 px-4 text-sm rounded-md duration-200 " +
-          selectedColor
-        }
+        className="flex items-stretch gap-2 rounded-lg relative cursor-pointer"
       >
-        {selected?.name}
-      </button>
+        <div>
+          <p>{format(transaction.date ?? "", "EE dd MMM")}</p>
+          <button
+            className={
+              " bg-gradient-to-br py-1 px-2 text-xs rounded-md duration-200 " +
+              selectedColor
+            }
+          >
+            {selected?.name}
+          </button>
+        </div>
+        <div
+          className={`w-2 shrink-0 bg-${
+            transaction.type === "expense"
+              ? "red-600"
+              : transaction.type === "income"
+              ? "green-600"
+              : "stone-100"
+          }`}
+        />
+      </div>
       {show && (
         <FormContainer
           closeForm={setShow}
