@@ -367,3 +367,26 @@ export const CARD_COLOR_OPTIONS = [
     ),
   },
 ];
+
+export const CURRENCY_OPTIONS = [
+  {
+    label: "KZT",
+    value: "KZT",
+    icon: <img src="images/currency/tenge.png" className="size-8" />,
+  },
+  {
+    label: "RUB",
+    value: "RUB",
+    icon: <img src="images/currency/ruble.png" className="size-8" />,
+  },
+  {
+    label: "USD",
+    value: "USD",
+    icon: <img src="images/currency/dollar.png" className="size-8" />,
+  },
+  {
+    label: "EUR",
+    value: "EUR",
+    icon: <img src="images/currency/euro.png" className="size-8" />,
+  },
+];

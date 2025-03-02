@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { Slider, Slide } from "@/components/Slider";
-import { Button } from "@/components/ui/button";
 import {
   Dispatch,
   FormEvent,
@@ -83,7 +82,7 @@ export default function FormSelectDescriptions({
     event.preventDefault();
 
     dispatch(setSelectedDescriptions(selected));
-    const response = await updateUserDescriptions(selected);
+    await updateUserDescriptions(selected);
 
     setShowForm(false);
   };
@@ -109,11 +108,9 @@ export default function FormSelectDescriptions({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-zinc-900/70 z-50">
-      <div className="bg-zinc-50 rounded-lg">
-        <div className="flex items-center gap-2 py-2 px-4 bg-zinc-800">
-          <p className="text-xl font-semibold mr-auto text-white">
-            Select Descriptions
-          </p>
+      <div className="">
+        <div className="flex items-center gap-2 py-2 px-4 bg-zinc-800 text-white rounded-t-lg">
+          <p className="text-xl font-semibold mr-auto ">Select Descriptions</p>
           <form onSubmit={onSubmit} onReset={onReset}>
             <button>
               <BiCheck size={25} />
@@ -123,29 +120,31 @@ export default function FormSelectDescriptions({
             </button>
           </form>
         </div>
-        <Slider>
-          {groups?.map((group, idx) => (
-            <Slide title={group?.group ?? ""} key={idx}>
-              {descriptions &&
-                descriptions
-                  .filter((item) => group.categories?.includes(item.category))
-                  .map((item, index) => {
-                    const isSelected = !!selected.find(
-                      (desc) => desc.value === item.value
-                    );
-                    return (
-                      <CardDescription
-                        key={index}
-                        item={item}
-                        selected={isSelected}
-                        handleAdd={handleAdd}
-                        handleRemove={handleRemove}
-                      />
-                    );
-                  })}
-            </Slide>
-          ))}
-        </Slider>
+        <div className="bg-zinc-50">
+          <Slider>
+            {groups?.map((group, idx) => (
+              <Slide title={group?.group ?? ""} key={idx}>
+                {descriptions &&
+                  descriptions
+                    .filter((item) => group.categories?.includes(item.category))
+                    .map((item, index) => {
+                      const isSelected = !!selected.find(
+                        (desc) => desc.value === item.value
+                      );
+                      return (
+                        <CardDescription
+                          key={index}
+                          item={item}
+                          selected={isSelected}
+                          handleAdd={handleAdd}
+                          handleRemove={handleRemove}
+                        />
+                      );
+                    })}
+              </Slide>
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );
@@ -169,8 +168,8 @@ function CardDescription({
         alt=""
         title={item.label}
         className={
-          (selected === true ? "bg-yellow-200" : "bg-slate-100") +
-          " w-16 max-h-16 hover:bg-yellow-400 duration-300 rounded-lg cursor-pointer"
+          (selected === true ? "bg-yellow-100" : "bg-slate-200") +
+          " w-16 max-h-16 p-2 hover:bg-yellow-200 duration-300 rounded-lg cursor-pointer"
         }
       />
       <p className="invisible group-hover:visible">

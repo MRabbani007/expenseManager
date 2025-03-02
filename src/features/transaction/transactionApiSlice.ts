@@ -25,6 +25,13 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
           : [{ type: "transaction", id: "AllTransactions" }];
       },
     }),
+    getSummary: builder.query<SummaryResponse, any>({
+      query: (params) => ({
+        url: "/transaction/summary/",
+        method: "GET",
+        params,
+      }),
+    }),
     addTransaction: builder.mutation({
       query: (transaction: Transaction) => ({
         url: "/transaction/user",
@@ -63,6 +70,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetTransactionsQuery,
   useLazyGetTransactionsQuery,
+  useLazyGetSummaryQuery,
   useAddTransactionMutation,
   useEditTransactionMutation,
   useDeleteTransactionMutation,

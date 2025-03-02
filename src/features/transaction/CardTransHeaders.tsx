@@ -58,12 +58,6 @@ export default function CardTransHeaders({
 
   return (
     <div className="flex flex-wrap items-stretch gap-2">
-      <DatePicker
-        date={
-          typeof state?.date === "string" ? new Date(state?.date) : new Date()
-        }
-        setDate={handleDate}
-      />
       <Button variant="default" onClick={() => TogglePaymethod()}>
         {state.paymethod ?? "Payment"}
       </Button>

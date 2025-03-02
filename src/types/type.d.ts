@@ -2,6 +2,14 @@ declare global {
   type Currency = "KZT" | "RUB" | "USD" | "EUR";
   type TransactionType = "income" | "expense";
 
+  type TransactionDescription =
+    | string
+    | {
+        icon: string;
+        label: string;
+        category: string;
+      };
+
   type Transaction = {
     id: string;
     userID?: string;
@@ -11,11 +19,13 @@ declare global {
     category: string;
 
     description: string;
+    descId?: TransactionDescription;
     details?: string;
     notes?: string;
 
     amount: number;
     paymethod: string;
+    accountId?: string;
 
     currency: Currency;
     date?: string;
@@ -36,6 +46,7 @@ declare global {
   };
 
   type Description = {
+    _id?: string;
     id?: string;
     userId?: string;
 
@@ -65,6 +76,7 @@ declare global {
   };
 
   type AccountInfo = {
+    _id?: string;
     id: string;
     type: string; // "Bank Card" | "Cash" | "Savings Account"
     name: string;
@@ -110,6 +122,19 @@ declare global {
     userID: string;
     transactionDisplay: string;
     transactionsPerPage: number;
+  };
+
+  type SummaryResponse = {
+    totals: {
+      totalSpending: number;
+      totalIncome: number;
+    };
+    breakDown: {
+      _id: string;
+      income: number;
+      spending: number;
+      count: number;
+    }[];
   };
 }
 

@@ -83,7 +83,7 @@ export default function SideBar() {
   }
 
   return (
-    <div className="hidden sticky top-[0.5rem] md:flex flex-col py-2 px-2 bg-stone-200 rounded-2xl m-2 h-[calc(100vh-1rem)]">
+    <div className="hidden sticky top-[0.5rem] md:flex flex-col gap-2 py-2 px-2 bg-stone-200 rounded-md m-2 mr-0 h-[calc(100vh-1rem)]">
       {(isAdmin ? SIDEBAR.concat(SIDEBAR_ADMIN, SIDEBAR_USER) : SIDEBAR).map(
         (item, idx) => (
           <Link
@@ -94,7 +94,7 @@ export default function SideBar() {
               (item.label === "Profile" || item.label === "Categories"
                 ? " mt-auto "
                 : "") +
-              " flex items-center gap-2 py-2 px-2 duration-200 rounded-2xl"
+              " flex items-center gap-2 p-2 duration-200 rounded-md"
             }
           >
             {item?.icon}

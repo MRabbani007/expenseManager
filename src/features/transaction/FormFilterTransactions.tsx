@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { Dispatch, SetStateAction, useState } from "react";
 import { getDate } from "@/lib/date";
 import FormContainer from "@/components/forms/FormContainer";
 import { DatePicker } from "@/components/ui/datepicker";
@@ -25,13 +24,13 @@ const OFFSET = {
   period: 0,
 };
 
-const initialState: TransactionFilter = {
-  filterType: "latest",
-  period: "day",
-  startDate: getDate(new Date()),
-  endDate: getDate(new Date()),
-  offset: 0,
-};
+// const initialState: TransactionFilter = {
+//   filterType: "latest",
+//   period: "day",
+//   startDate: getDate(new Date()),
+//   endDate: getDate(new Date()),
+//   offset: 0,
+// };
 
 export default function FormFilterTransactions({
   state: initialVal,

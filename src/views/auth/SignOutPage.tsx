@@ -16,15 +16,17 @@ export default function SignOutPage() {
       await logout(null);
       dispatch(clearCredentials());
 
+      localStorage.removeItem("token"); // Clear token
+      window.location.reload(); // Reload to reset state
       navigate("/");
     } catch (error) {}
   };
 
-  // useEffect(() => {
-  //   if (!auth?.username) {
-  //     navigate("/login");
-  //   }
-  // }, [auth]);
+  useEffect(() => {
+    if (!auth?.username) {
+      navigate("/login");
+    }
+  }, [auth]);
 
   return (
     <main>

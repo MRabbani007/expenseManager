@@ -5,9 +5,11 @@ export const T_Transaction: Transaction = {
   amount: 0,
   category: "",
   description: "",
+  descId: "",
   type: "expense",
   currency: "KZT",
   paymethod: "cash",
+  accountId: "",
   date: getDate(new Date()),
 };
 

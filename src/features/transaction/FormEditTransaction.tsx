@@ -6,7 +6,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useEditTransactionMutation } from "./transactionApiSlice";
+import {
+  useDeleteTransactionMutation,
+  useEditTransactionMutation,
+} from "./transactionApiSlice";
 import toast from "react-hot-toast";
 import FormContainer from "@/components/forms/FormContainer";
 import { DatePicker } from "@/components/ui/datepicker";
@@ -21,11 +24,11 @@ import {
 import InputField from "@/components/InputField";
 import { ChevronRight } from "lucide-react";
 
-const payMethods = [
-  { label: "Halyk", value: "halyk" },
-  { label: "Kaspi", value: "kaspi" },
-  { label: "Cash", value: "cash" },
-];
+// const payMethods = [
+//   { label: "Halyk", value: "halyk" },
+//   { label: "Kaspi", value: "kaspi" },
+//   { label: "Cash", value: "cash" },
+// ];
 
 const currencyOptions = [
   { label: "KZT", value: "KZT", image: "images/currency/tenge.png" },
@@ -42,6 +45,7 @@ export default function FormEditTransaction({
   setEdit: Dispatch<SetStateAction<boolean>>;
 }) {
   const [editTransaction] = useEditTransactionMutation();
+  const [deleteTransaction] = useDeleteTransactionMutation();
   const [expandDesc, setExpandDesc] = useState(false);
 
   const [state, setState] = useState<Transaction>(transaction);
@@ -58,6 +62,18 @@ export default function FormEditTransaction({
     }
   };
 
+  const onDelete = async () => {
+    if (confirm("Delete this transaction?")) {
+      try {
+        await deleteTransaction(state);
+        toast.success("Transaction deleted");
+        setEdit(false);
+      } catch (error) {
+        toast.error("Error deleting transaction");
+      }
+    }
+  };
+
   const handleDate = (date: Date | undefined) => {
     setState((curr) => ({ ...curr, date: getDate(date ?? new Date()) }));
   };
@@ -67,6 +83,7 @@ export default function FormEditTransaction({
       ...curr,
       category: desc.category,
       description: desc.value,
+      descId: desc?._id,
     }));
   };
 
@@ -103,11 +120,14 @@ export default function FormEditTransaction({
     handleActiveDesc();
   }, [descriptions, selectedDescriptions]);
 
+  console.log(state);
   return (
     <FormContainer
       closeForm={setEdit}
       onSubmit={onSubmit}
       title="Update Transaction"
+      deleteButton={true}
+      onDelete={onDelete}
     >
       <div className="flex flex-col">
         <p className="text-sm">Date</p>
@@ -130,45 +150,52 @@ export default function FormEditTransaction({
           setState((curr) => ({ ...curr, type: val as TransactionType }))
         }
       />
-      <SelectField
+      {/* <SelectField
         label="Card"
         options={payMethods}
         value={state?.paymethod}
         onValueChange={(paymethod) =>
           setState((curr) => ({ ...curr, paymethod }))
         }
-      />
-      <button
-        type="button"
-        onClick={() => setExpandDesc((curr) => !curr)}
-        className="flex items-center gap-2"
-      >
-        <span className="text-sm font-medium">Description</span>
-        <ChevronRight
-          size={20}
-          className={(expandDesc ? "rotate-90" : "") + " duration-200"}
-        />
-      </button>
-      <div
-        title="Description"
-        className="flex flex-wrap items-stretch gap-2 group/desc"
-      >
-        {activeDesc.map((item, index) => (
-          <div key={index} className="">
-            <img
-              key={index}
-              src={item?.icon}
-              title={item.label}
-              className={
-                (state?.description === item.value
-                  ? " bg-yellow-300"
-                  : " bg-white") +
-                " p-1 rounded-lg w-16 hover:scale-110 duration-200"
-              }
-              onClick={() => handleDesc(item)}
-            />
-          </div>
-        ))}
+      /> */}
+      <div className="flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={() => setExpandDesc((curr) => !curr)}
+          className="flex items-center gap-2"
+        >
+          <span className="text-sm font-medium">Description</span>
+          <ChevronRight
+            size={20}
+            className={(expandDesc ? "rotate-90" : "") + " duration-200"}
+          />
+        </button>
+        <div
+          title="Description"
+          className={
+            (expandDesc
+              ? ""
+              : " h-0 invisible opacity-0 -translate-y-4 overflow-hidden ") +
+            " flex flex-wrap items-stretch gap-2 group/desc duration-200"
+          }
+        >
+          {activeDesc.map((item, index) => (
+            <div key={index} className="">
+              <img
+                key={index}
+                src={item?.icon}
+                title={item.label}
+                className={
+                  (state?.description === item.value
+                    ? " bg-yellow-300"
+                    : " bg-white") +
+                  " p-1 rounded-lg w-16 hover:scale-110 duration-200"
+                }
+                onClick={() => handleDesc(item)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <InputField
         type="text"

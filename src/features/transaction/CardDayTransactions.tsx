@@ -36,8 +36,8 @@ export default function CardDayTransactions({
     if (data.data.length === 0) {
       content = <p>No Transactions</p>;
     } else {
-      content = data.data.map((transaction, index) => {
-        return <CardTransaction key={index} transaction={transaction} />;
+      content = data.data.map((item) => {
+        return <CardTransaction key={item?.id} transaction={item} />;
       });
     }
   }

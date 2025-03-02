@@ -1,16 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AuthState, setCredentials, clearCredentials } from "../auth/authSlice";
 import { BASE_URL } from "@/lib/url";
-import { RootState } from "@/app/store";
+// import { RootState } from "@/app/store";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
+    const token = localStorage.getItem("token");
+    // const token = (getState() as RootState).auth.token;
 
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
 
       return headers;
     }
@@ -21,6 +22,7 @@ const baseQuerywithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 403) {
+    localStorage.removeItem("token");
     // console.log("sending refresh token");
 
     // send refresh token to get new access token

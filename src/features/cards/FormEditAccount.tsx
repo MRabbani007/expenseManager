@@ -47,6 +47,8 @@ export default function FormEditAccount({
     }
   };
 
+  console.log(state);
+
   return (
     <FormContainer
       onSubmit={onSubmit}

@@ -45,6 +45,7 @@ export default function CardTransDesc({ transaction, setTransaction }: Props) {
       ...curr,
       category: desc.category,
       description: desc.value,
+      descId: desc?._id,
     }));
   };
 

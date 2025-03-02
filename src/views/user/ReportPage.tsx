@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLazyGetTransactionsQuery } from "@/features/transaction/transactionApiSlice";
+import {
+  useLazyGetSummaryQuery,
+  useLazyGetTransactionsQuery,
+} from "@/features/transaction/transactionApiSlice";
 import { format } from "date-fns";
 import { ClipboardMinus, List, Rows3 } from "lucide-react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
@@ -17,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import FormEditTransaction from "@/features/transaction/FormEditTransaction";
 
 const initialState: TransactionFilter = {
   filterType: "latest",
@@ -32,6 +36,9 @@ export default function ReportPage() {
   const [display, setDisplay] = useState("table");
 
   const [state, setState] = useState<TransactionFilter>(initialState);
+
+  const [edit, setEdit] = useState(false);
+  const [editItem, setEditItem] = useState<Transaction | null>(null);
 
   useEffect(() => {
     if (lastUsed) {
@@ -51,6 +58,8 @@ export default function ReportPage() {
   const [getTransactions, { data, isLoading, isSuccess, isError }] =
     useLazyGetTransactionsQuery();
 
+  const [getSummary, { data: summary }] = useLazyGetSummaryQuery();
+
   useEffect(() => {
     if (!showSelect) {
       getTransactions({
@@ -60,35 +69,58 @@ export default function ReportPage() {
         endDate: state?.endDate,
         page,
       });
+      getSummary({
+        startDate: state?.startDate,
+        endDate: state?.endDate,
+      });
       setLastUsed(state);
     }
   }, [state, page]);
 
   let content = null;
+  let noContent = null;
   let income = 0;
   let expense = 0;
 
+  // const getCategorySummary = (category: string) => {
+  //   const catSummary = summary?.breakDown.find(
+  //     (item) => item?._id === category
+  //   );
+  //   return catSummary;
+  // };
+
   if (isLoading) {
-    content = <p>Loading...</p>;
+    noContent = <p>Loading...</p>;
   } else if (isError) {
-    content = <p>Error Loading Transactions</p>;
+    noContent = <p>Error Loading Transactions</p>;
   } else if (isSuccess) {
-    data.data.map((item) => {
-      if (item?.type === "expense") {
-        expense += item?.amount ?? 0;
-      } else if (item?.type === "income") {
-        income += item?.amount ?? 0;
-      }
-    });
+    if (state?.filterType === "latest") {
+      data.data.map((item) => {
+        if (item?.type === "expense") {
+          expense += item?.amount ?? 0;
+        } else if (item?.type === "income") {
+          income += item?.amount ?? 0;
+        }
+      });
+    } else {
+      income = summary?.totals?.totalIncome ?? 0;
+      expense = summary?.totals?.totalSpending ?? 0;
+    }
     count = data?.count;
 
     if (data.data.length === 0) {
-      content = <p>No Transactions</p>;
+      noContent = <p>No Transactions</p>;
     } else {
       content = data.data.map((transaction, index) => {
         if (display === "table") {
           return (
-            <TableRow key={transaction?.id}>
+            <TableRow
+              key={transaction?.id}
+              onClick={() => {
+                setEdit(true);
+                setEditItem(transaction);
+              }}
+            >
               <TableCell>{index + (+page - 1) * 20 + 1}</TableCell>
               <TableCell>
                 {format(transaction?.date ?? "", "EE dd MMM")}
@@ -113,11 +145,21 @@ export default function ReportPage() {
           );
         } else
           return (
-            <CardTransaction key={transaction?.id} transaction={transaction} />
+            <CardTransaction
+              key={transaction?.id}
+              transaction={transaction}
+              setEdit={setEdit}
+              setEditItem={setEditItem}
+            />
           );
       });
     }
   }
+
+  const summaryTotal = summary?.breakDown.reduce(
+    (prev, curr) => prev + curr.spending,
+    0
+  );
 
   return (
     <main>
@@ -164,6 +206,38 @@ export default function ReportPage() {
           </p>
         </div>
       </div>
+      <div className="flex flex-wrap items-stretch gap-2">
+        {Array.isArray(summary?.breakDown) &&
+          [...summary?.breakDown]
+            .sort((a, b) => (a.income > b.income ? 1 : -1))
+            .map((item, idx) => {
+              // const catSummary = getCategorySummary(item.label);
+              return (
+                <div
+                  key={idx}
+                  title={item._id}
+                  className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
+                >
+                  <p className="font-semibold text-mono">{item._id}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-mono">{item.spending}</p>
+                    {item?.income !== 0 && (
+                      <p className="font-semibold text-mono">{item.income}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        <div
+          title={"Total Spent"}
+          className="flex flex-col items-center gap-2 bg-zinc-100 rounded-lg py-2 px-6"
+        >
+          <p className="font-semibold text-mono">Total</p>
+          <div className="flex items-center gap-2">
+            <p className="font-semibold text-mono">{summaryTotal}</p>
+          </div>
+        </div>
+      </div>
       {/* Content */}
       {display === "card" ? (
         <div className="flex flex-col gap-4">{content}</div>
@@ -184,6 +258,7 @@ export default function ReportPage() {
           <TableBody>{content}</TableBody>
         </Table>
       )}
+      {noContent && <div>{noContent}</div>}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
@@ -214,6 +289,9 @@ export default function ReportPage() {
           setState={setState}
           state={state}
         />
+      )}
+      {edit && editItem && (
+        <FormEditTransaction transaction={editItem} setEdit={setEdit} />
       )}
     </main>
   );

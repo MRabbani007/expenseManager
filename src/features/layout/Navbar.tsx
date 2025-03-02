@@ -10,7 +10,7 @@ export default function Navbar() {
   const auth = useAppSelector(selectAuth);
 
   return (
-    <nav className="flex items-stretch justify-between gap-4 duration-500 z-50 mx-2 mt-2 px-2 rounded-lg bg-stone-200">
+    <nav className="flex items-stretch justify-between gap-4 duration-500 z-50 mx-2 mt-2 px-2 rounded-md bg-stone-200">
       {/* Left Block */}
       <div className="flex items-center justify-center gap-4 p-2">
         <Link to="/" className="flex items-center gap-2">

@@ -13,6 +13,8 @@ type Props = {
   title: string;
   onSubmit: (event: FormEvent) => void | Promise<void>;
   closeForm: Dispatch<SetStateAction<boolean>>;
+  deleteButton?: boolean;
+  onDelete?: () => void;
 };
 
 export default function FormContainer({
@@ -20,6 +22,8 @@ export default function FormContainer({
   title,
   onSubmit,
   closeForm,
+  deleteButton,
+  onDelete,
 }: Props) {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -72,6 +76,11 @@ export default function FormContainer({
           <Button type="reset" variant="secondary">
             Cancel
           </Button>
+          {deleteButton === true && (
+            <Button type="button" variant="destructive" onClick={onDelete}>
+              Delete
+            </Button>
+          )}
         </div>
       </form>
     </div>

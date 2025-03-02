@@ -63,6 +63,7 @@ export default function SignInPage() {
       if (response?.data) {
         const token = response?.data?.accessToken;
         const roles = response?.data?.roles;
+        localStorage.setItem("token", token);
         dispatch(setCredentials({ username, roles, token }));
 
         setUsername("");

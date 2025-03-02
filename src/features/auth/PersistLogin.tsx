@@ -22,10 +22,12 @@ export default function PersistLogin() {
         const response = await refresh(null);
 
         if (response?.data) {
+          const token = response.data?.accessToken;
+          localStorage.setItem("token", token);
           dispatch(
             setCredentials({
               ...response.data,
-              token: response.data?.accessToken,
+              token,
             })
           );
         }

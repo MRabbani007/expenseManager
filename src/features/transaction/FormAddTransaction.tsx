@@ -28,20 +28,34 @@ const currencyOptions = [
 ];
 
 export default function FormAddTransaction({
+  transaction,
   setAdd,
 }: {
+  transaction: Transaction;
   setAdd: Dispatch<SetStateAction<boolean>>;
 }) {
   const [addTransaction] = useAddTransactionMutation();
+
+  const descriptions = useAppSelector(selectUserDescriptions);
+  const selectedDescriptions = useAppSelector(selectSelectedDescriptions);
+
+  const [activeDesc, setActiveDesc] = useState<Description[]>([]);
+
   const [expandDesc, setExpandDesc] = useState(false);
 
-  const [state, setState] = useState<Transaction>(T_Transaction);
+  const [customId, setCustomId] = useState("");
+
+  const [state, setState] = useState<Transaction>({
+    ...T_Transaction,
+    ...transaction,
+  });
 
   const onSubmit = async (event: FormEvent) => {
     try {
       event.preventDefault();
 
       const response = await addTransaction(state);
+      localStorage.setItem("transaction", JSON.stringify(state));
 
       if (response?.data) {
         toast.success("Transaction saved");
@@ -66,13 +80,9 @@ export default function FormAddTransaction({
       ...curr,
       category: desc.category,
       description: desc.value,
+      descId: desc?._id,
     }));
   };
-
-  const descriptions = useAppSelector(selectUserDescriptions);
-  const selectedDescriptions = useAppSelector(selectSelectedDescriptions);
-
-  const [activeDesc, setActiveDesc] = useState<Description[]>([]);
 
   useEffect(() => {
     const handleActiveDesc = () => {
@@ -91,8 +101,15 @@ export default function FormAddTransaction({
       });
     };
 
+    const temp = descriptions?.find((item) => item.value === "custom");
+    if (temp) {
+      setCustomId(temp?._id);
+    }
+
     handleActiveDesc();
   }, [descriptions, selectedDescriptions]);
+
+  const isCustomDesc = state?.descId === customId;
 
   return (
     <FormContainer
@@ -108,6 +125,7 @@ export default function FormAddTransaction({
           name="category"
           value={state?.category ?? ""}
           onChange={handleChange}
+          disabled={!isCustomDesc}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -138,7 +156,7 @@ export default function FormAddTransaction({
                 src={item?.icon}
                 title={item.label}
                 className={
-                  (state?.description === item.value
+                  (state?.descId === item._id
                     ? " bg-yellow-300"
                     : " bg-white") +
                   " p-1 rounded-lg w-16 hover:scale-110 duration-200"
@@ -154,6 +172,7 @@ export default function FormAddTransaction({
           name="description"
           value={state?.description ?? ""}
           onChange={handleChange}
+          disabled={!isCustomDesc}
         />
       </div>
       <InputField
