@@ -40,9 +40,9 @@ declare global {
     value: string;
     detail?: string;
     icon: string;
-    sortIndex?: Number;
+    sortIndex?: number;
     group?: string;
-    groupNo?: Number;
+    groupNo?: number;
   };
 
   type Description = {

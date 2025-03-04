@@ -6,7 +6,7 @@ import { BASE_URL } from "@/lib/url";
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "include",
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers) => {
     const token = localStorage.getItem("token");
     // const token = (getState() as RootState).auth.token;
 
@@ -50,6 +50,6 @@ export const apiSlice = createApi({
   reducerPath: "api", // optional
   baseQuery: baseQuerywithReauth,
   //fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
-  tagTypes: ["transaction", "account"],
+  tagTypes: ["category", "description", "transaction", "account"],
   endpoints: () => ({}),
 });

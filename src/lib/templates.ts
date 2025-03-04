@@ -1,5 +1,16 @@
 import { getDate } from "./date";
 
+export const T_Category: Category = {
+  id: "",
+  label: "",
+  value: "",
+  icon: "",
+  detail: "",
+  sortIndex: 0,
+  group: "",
+  groupNo: 0,
+};
+
 export const T_Transaction: Transaction = {
   id: "",
   amount: 0,

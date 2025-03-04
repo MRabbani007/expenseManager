@@ -50,7 +50,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { transaction },
       }),
-      invalidatesTags: (result, error, { id }) => {
+      invalidatesTags: (_, __, { id }) => {
         return [{ type: "transaction", id }];
       },
     }),
@@ -60,7 +60,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
         body: { id: transaction?.id },
       }),
-      invalidatesTags: (result, error, { id }) => {
+      invalidatesTags: (_, __, { id }) => {
         return [{ type: "transaction", id }];
       },
     }),

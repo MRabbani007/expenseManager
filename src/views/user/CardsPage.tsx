@@ -1,4 +1,4 @@
-import BankCard from "@/components/BankCard";
+import BankCard from "@/features/cards/BankCard";
 import FormAddAccount from "@/features/cards/FormAddAccount";
 import { Button } from "@/components/ui/button";
 import { Banknote, CreditCard, GraduationCap, PiggyBank } from "lucide-react";
