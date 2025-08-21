@@ -21,11 +21,15 @@ export const getDate = (baseDate: Date, offset: number | undefined = 0) => {
   return result;
 };
 
-export const getMonth = () => {
+export const getMonth = (offset: number = 0) => {
   // const today = new Date(new Date().getTime() + offset * 24 * 60 * 60 * 1000);
   const today = new Date();
-  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const firstDay = new Date(today.getFullYear(), today.getMonth() - offset, 1);
+  const lastDay = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1 - offset,
+    0
+  );
   // Format <"YYYY-MM-DD"> for mongoDb
   return {
     firstDay: getDate(firstDay),

@@ -6,10 +6,12 @@ import ChartBudget from "@/features/dashboard/ChartBudget";
 import ChartIncomeExpense from "@/features/dashboard/ChartIncomeExpense";
 import ChartMonthSpending from "@/features/dashboard/ChartMonthSpending";
 import { CATEGORIES } from "@/lib/data";
+import { getMonth } from "@/lib/date";
 import { format } from "date-fns";
 
 export default function DashboardPage() {
   const auth = useAppSelector(selectAuth);
+  const date = getMonth(2);
 
   return (
     <main className="">
@@ -25,6 +27,7 @@ export default function DashboardPage() {
           {format(new Date(), "EEE dd MMMM")}
         </div>
       </header>
+      {JSON.stringify(date)}
       <div className="flex flex-wrap items-stretch gap-4">
         <ChartBudget />
         <CardSalary />

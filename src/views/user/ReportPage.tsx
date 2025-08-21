@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   useLazyGetSummaryQuery,
   useLazyGetTransactionsQuery,
@@ -6,7 +6,6 @@ import {
 import { format } from "date-fns";
 import { ClipboardMinus, List, Rows3 } from "lucide-react";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
-import CardTransaction from "@/features/transaction/CardTransaction";
 import Pagination from "@/features/layout/Pagination";
 import FormFilterTransactions from "@/features/transaction/FormFilterTransactions";
 import { getDate } from "@/lib/date";
@@ -88,6 +87,8 @@ export default function ReportPage() {
     setSearchParams(searchParams);
   };
 
+  const days: string[] = [];
+
   let content = null;
   let noContent = null;
   let income = 0;
@@ -118,62 +119,55 @@ export default function ReportPage() {
       expense = summary?.totals?.totalSpending ?? 0;
     }
     count = data?.count;
-
     if (data.data.length === 0) {
       noContent = <p>No Transactions</p>;
     } else {
-      content = data.data.map((transaction, index) => {
-        if (display === "table") {
-          return (
-            <TableRow
-              key={transaction?.id}
-              onClick={() => {
-                setEdit(true);
-                setEditItem(transaction);
-              }}
-            >
-              <TableCell>{index + (+page - 1) * 20 + 1}</TableCell>
-              <TableCell>
-                {format(transaction?.date ?? "", "EE dd MMM")}
-              </TableCell>
-              <TableCell>{transaction?.category}</TableCell>
-              <TableCell>{transaction?.description}</TableCell>
-              <TableCell>{transaction?.details}</TableCell>
-              <TableCell>{transaction?.currency}</TableCell>
-              <TableCell
-                className={
-                  transaction?.type === "expense"
-                    ? "text-red-600"
-                    : transaction?.type === "income"
-                    ? "text-green-700"
-                    : "text-zinc-800"
-                }
-              >
-                {transaction?.amount.toLocaleString("en-us")}
-              </TableCell>
-              <TableCell>{transaction?.paymethod}</TableCell>
-            </TableRow>
-          );
-        } else
-          return (
-            <CardTransaction
-              key={transaction?.id}
-              transaction={transaction}
-              setEdit={setEdit}
-              setEditItem={setEditItem}
-            />
-          );
+      data.data.map((item) => {
+        const foundDay = days.find((day) => day === item?.date);
+        if (!foundDay && item?.date) {
+          days.push(item?.date);
+        }
       });
+      if (display === "table") {
+        content = data.data.map((transaction, index) => (
+          <RenderTransactionRow
+            page={+page}
+            index={index}
+            key={transaction?.id}
+            transaction={transaction}
+            setEdit={setEdit}
+            setEditItem={setEditItem}
+          />
+        ));
+      } else {
+        content = days.map((day) => (
+          <div key={day.toString()} className="flex flex-col">
+            <p className="font-medium text-zinc-900 text-sm py-2 px-4 bg-zinc-200 rounded-md mb-2 w-fit">
+              {format(day ?? "", "EE dd MMM")}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
+              {data.data
+                .filter((item) => item.date === day)
+                .map((transaction) => (
+                  <RenderTransactionCard
+                    key={transaction?.id}
+                    transaction={transaction}
+                    setEdit={setEdit}
+                    setEditItem={setEditItem}
+                  />
+                ))}
+            </div>
+          </div>
+        ));
+      }
     }
   }
 
-  const summaryCategories = Array.from(
-    new Map(
-      summary?.breakDown.map((item) => [item?.categoryId, item.categoryLabel])
-    )
-  );
-
-  console.log(summaryCategories);
+  // const summaryCategories = Array.from(
+  //   new Map(
+  //     summary?.breakDown.map((item) => [item?.categoryId, item.categoryLabel])
+  //   )
+  // );
 
   const summaryTotal = summary?.breakDown.reduce(
     (prev, curr) => prev + curr.spending,
@@ -278,7 +272,7 @@ export default function ReportPage() {
             <TableRow>
               <TableHead className="">#</TableHead>
               <TableHead className="">Date</TableHead>
-              <TableHead className="">Category</TableHead>
+              {/* <TableHead className="">Category</TableHead> */}
               <TableHead>Description</TableHead>
               <TableHead>Detail</TableHead>
               <TableHead>Currency</TableHead>
@@ -325,5 +319,109 @@ export default function ReportPage() {
         <FormEditTransaction transaction={editItem} setEdit={setEdit} />
       )}
     </main>
+  );
+}
+
+function RenderTransactionRow({
+  page,
+  index,
+  transaction,
+  setEdit,
+  setEditItem,
+}: {
+  page: number;
+  index: number;
+  transaction: Transaction;
+  setEdit: Dispatch<SetStateAction<boolean>>;
+  setEditItem: Dispatch<SetStateAction<Transaction | null>>;
+}) {
+  return (
+    <TableRow
+      key={transaction?.id}
+      onClick={() => {
+        setEdit(true);
+        setEditItem(transaction);
+      }}
+    >
+      <TableCell>{index + (+page - 1) * 20 + 1}</TableCell>
+      <TableCell>{format(transaction?.date ?? "", "EE dd MMM")}</TableCell>
+      {/* <TableCell>{transaction?.category}</TableCell> */}
+      <TableCell>{transaction?.description}</TableCell>
+      <TableCell>{transaction?.details}</TableCell>
+      <TableCell>{transaction?.currency}</TableCell>
+      <TableCell
+        className={
+          transaction?.type === "expense"
+            ? "text-red-600"
+            : transaction?.type === "income"
+            ? "text-green-700"
+            : "text-zinc-800"
+        }
+      >
+        {transaction?.amount.toLocaleString("en-us")}
+      </TableCell>
+      <TableCell>{transaction?.paymethod}</TableCell>
+    </TableRow>
+  );
+}
+
+function RenderTransactionCard({
+  transaction,
+  setEdit,
+  setEditItem,
+}: {
+  transaction: Transaction;
+  setEdit: Dispatch<SetStateAction<boolean>>;
+  setEditItem: Dispatch<SetStateAction<Transaction | null>>;
+}) {
+  const image =
+    typeof transaction?.descId === "string"
+      ? transaction?.descId
+      : transaction?.descId?.icon;
+
+  return (
+    <div
+      onClick={() => {
+        setEdit(true);
+        setEditItem(transaction);
+      }}
+      className={
+        "flex justify-start items-stretch gap-4 bg-zinc-100 pl-4 group rounded-lg"
+      }
+    >
+      <div className="my-auto">
+        <img src={image} alt="desc" className="w-10" />
+        {/* {transaction?.descId?.toString()} */}
+      </div>
+      <div className="flex-1 py-2 my-auto grid grid-cols-1">
+        <p className="font-medium">{transaction?.details}</p>
+        <p className="font-bold">{transaction.description}</p>
+        <p className="md:hidden font-semibold text-zinc-700">
+          {transaction.category}
+        </p>
+      </div>
+      <div className="flex-1 py-2 px-4 my-auto grid grid-cols-1 text-end">
+        <p
+          className={
+            transaction?.type === "expense"
+              ? "text-red-700"
+              : transaction?.type === "income"
+              ? "text-green-700"
+              : "text-zinc-800"
+          }
+        >
+          <span className="font-bold text-lg">
+            {transaction.amount?.toLocaleString("en-US")}
+          </span>
+          <span className="text-sm ml-1">{transaction.currency}</span>
+        </p>
+        <p className="font-semibold text-zinc-700 text-sm">
+          {transaction.paymethod}
+        </p>
+        <p className="md:hidden">
+          {format(transaction?.date ?? "", "EE dd MMM")}
+        </p>
+      </div>
+    </div>
   );
 }

@@ -1,10 +1,10 @@
+import ToolTip from "@/components/ToolTip";
 import { Button } from "@/components/ui/button";
 import { useGetCategoriesQuery } from "@/features/admin/AdminApiSlice";
 import FormAddCategory from "@/features/admin/FormAddCategory";
 import FormEditCategory from "@/features/admin/FormEditCategory";
 import { getIcon } from "@/lib/icons";
 import { useEffect, useState } from "react";
-import { CiEdit } from "react-icons/ci";
 
 type CategoryGroup = { group: string; groupNo: number };
 
@@ -47,21 +47,24 @@ export default function AdminCategories() {
             .filter((category) => category?.group === group?.group)
             .map((item) => (
               <div
-                className="bg-zinc-200 p-4 rounded-lg flex flex-col gap-2 items-center relative group"
+                className="flex flex-col gap-2 items-center relative group"
                 key={item?.id}
                 title={item.label}
+                onClick={() => {
+                  setEdit(true);
+                  setEditItem(item);
+                }}
               >
-                {getIcon(item?.icon)}
-                <p className="font-mono">{item?.label}</p>
-                <button
-                  className="absolute top-1 right-1 invisible group-hover:visible"
-                  onClick={() => {
-                    setEdit(true);
-                    setEditItem(item);
-                  }}
-                >
-                  <CiEdit size={24} />
-                </button>
+                <ToolTip title={item?.label}>
+                  {getIcon(item?.icon, 30)}
+                  {/* <p className="font-mono"></p> */}
+                  {/* <button
+                    className="absolute top-1 right-1 invisible group-hover:visible"
+                    
+                  >
+                    <CiEdit size={24} />
+                  </button> */}
+                </ToolTip>
               </div>
             ))}
         </div>

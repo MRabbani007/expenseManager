@@ -4,12 +4,22 @@ import CountUp from "react-countup";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 
-export default function ChartBudget() {
-  const [onHand, setOnHand] = useState(150000);
+export default function ChartBudget({
+  income,
+  budget,
+  spending,
+  plannedPayments,
+}: {
+  income: number;
+  budget: number;
+  spending: number;
+  plannedPayments: number;
+}) {
   const [width, setWidth] = useState("50%");
   const [backgroundColor, setBackgroundColor] = useState("#55AA00");
 
   const [month, setMonth] = useState(new Date().getMonth());
+  const onHand = budget - spending;
 
   const handlePrev = () => {
     setMonth((curr) => curr - 1);
